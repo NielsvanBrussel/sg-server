@@ -6,6 +6,7 @@ const registerUser = async (req, res) => {                           // route fo
 
     try {
 
+        console.log(req.body)
         const name = req.body.name
         const password = req.body.password
         const refresh_id = uuidv4()
@@ -33,11 +34,14 @@ const registerUser = async (req, res) => {                           // route fo
     } catch (error) {
         
         const err = error.errors
-        if (err.name?.kind === 'required' || err.password?.kind === 'required') {
-            return res.status(400).send('missing required field')
-        }
-        if (err.name?.kind === 'minlength' || err.name?.kind === 'maxlength') {
-            return res.status(400).send('incorrect input format')
+       
+        if (err?.name?.kind) {
+            if (err.name?.kind === 'required' || err.password?.kind === 'required') {
+                return res.status(400).send('missing required field')
+            }
+            if (err.name?.kind === 'minlength' || err.name?.kind === 'maxlength') {
+                return res.status(400).send('name or password is not accepted')
+            }            
         }
         return res.status(400).send('Error')
 
