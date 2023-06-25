@@ -2,7 +2,7 @@ const User = require("../models/User")
 const bcrypt = require('bcrypt')
 
 const { createAccessToken, createRefreshToken } = require("../utility/jwtGenerator")
-const { resetUserExpiredRefreshToken } = require("../utility/jwtVerifier")
+const { resetUserExpiredRefreshToken, verifyRefreshToken, verifyExpiredAccessToken } = require("../utility/jwtVerifier")
 
 const login = async (req, res) => {   
 
@@ -12,8 +12,7 @@ const login = async (req, res) => {
     
         try{
 
-            const nameLowercase = name.toLowerCase()  
-            console.log(nameLowercase)    
+            const nameLowercase = name.toLowerCase()     
             const user = await User.findOne({ name: nameLowercase }).exec()
            
             if(user) {
@@ -29,9 +28,9 @@ const login = async (req, res) => {
                 else {
 
                     const user_id = user._id
-                    const userName = user.name
                     const accessToken = await createAccessToken(user_id);              // generate a token and send it in the header
                     const refreshToken =  await createRefreshToken(user_id)
+
 
                     // send refreshtoken (long duration) in cookies and accesstoken (short duration) in header
                     
@@ -41,7 +40,7 @@ const login = async (req, res) => {
                         overwrite: true,
                     })
 
-                    return res.header('auth-token', accessToken).status(201).send(userName);
+                    return res.status(201).send(accessToken);
                 }
                     
             } else {
@@ -83,9 +82,61 @@ const logout = async (req, res) => {                    // log the user out by r
 }
 
 
+const refreshToken = async (req, res) => {              // endpoint called when the user has an expired accesstoken but valid refreshtoken, return 2 new tokens
+
+    const refreshToken = req.cookies.acp64       // get both the refreshtoken and the accesstoken
+    const accessToken = req.header("token");
+
+    if (!refreshToken || !accessToken) {
+        return res.status(401).send('missing tokens')
+    }
+
+    try {
+
+        // verify accesstoken but still get the user_id
+        const { payloadAccess, expiredAccess } = await verifyExpiredAccessToken(accessToken);
+        
+        // verify the refreshtoken, get the id and make sure it isnt expired
+        const { payloadRefresh, expiredRefresh } = await verifyRefreshToken(refreshToken);   
+        
+         // check if accesstoken expired and refreshtoken is valid
+
+        if (payloadRefresh && (payloadAccess === payloadRefresh)) {
+                                                                                                   
+            const user_id = payloadRefresh
+            const user = await User.findOne({ _id: user_id }).exec()
+           
+
+        // check if user exists    
+            if (!user) {                                                                           
+                return res.status(404).send({ ok: false, accessToken: ''})
+            }
+ 
+        // create new accesstoken & refreshtoken
+            const newAccessToken = await createAccessToken(user_id)                                       // create new accesstoken & refreshtoken
+            const newRefreshToken = await createRefreshToken(user_id)
+
+            res.cookie("acp64", newRefreshToken, {
+                maxAge: 1000 * 60 *60 * 24 * 30,                            // 1month                                  
+                httpOnly: true,
+                overwrite: true,
+            })
+
+            return res.status(201).send({ ok: true, user: user, accessToken: newAccessToken })
+        } else {       
+            return res.status(400).send({ ok: false, accessToken: ''})
+        }   
+    } catch (error) {
+         return res.status(400).send({ ok: false, accessToken: ''})
+    }   
+}
+
+
+
 
 
 module.exports = {
     login,
     logout,
+    refreshToken,
 }

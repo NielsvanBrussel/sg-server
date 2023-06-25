@@ -17,7 +17,7 @@ const createAccessToken = async (user_id) => {
         user: user_id
     }
 
-    return jwt.sign(payloadAccess, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "30m"})
+    return jwt.sign(payloadAccess, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "10s"})
 }
 
 // refreshtoken
