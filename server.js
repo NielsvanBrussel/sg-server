@@ -8,7 +8,7 @@ const connectDB = require('./config/db')
 const app = express();
 
 app.use(cors({
-    origin: `https://nielsvanbrussel.github.io/`,
+    origin: `https://nielsvanbrussel.github.io`,
     credentials: true
 }))
 
