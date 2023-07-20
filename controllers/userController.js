@@ -32,6 +32,8 @@ const registerUser = async (req, res) => {                           // route fo
 
 
     } catch (error) {
+
+        console.log(error)
         
         const err = error.errors
        
