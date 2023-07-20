@@ -29,10 +29,12 @@ connectDB()
 const userRoute = require('./routes/userRoute')
 const authRoute = require('./routes/authRoute')
 const savegameRoute = require('./routes/savegameRoute')
+const testRoute = require('./routes/testRoute')
 
 app.use('/api/user', userRoute)
 app.use('/api/auth', authRoute)
 app.use('/api/savegame', savegameRoute)
+app.use('/api/test', testRoute)
 
 
 
