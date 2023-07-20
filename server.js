@@ -7,7 +7,11 @@ const connectDB = require('./config/db')
 
 const app = express();
 
-app.use(cors({origin: `*`}))
+app.use(cors({
+    origin: `https://nielsvanbrussel.github.io/`,
+    credentials: true
+}))
+
 app.use(express.json());
 app.options('*', cors())
 app.use(cookieParser())

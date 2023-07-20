@@ -38,6 +38,8 @@ const login = async (req, res) => {
                         maxAge: 1000 * 60 *60 * 24 * 30,   // 1 month
                         httpOnly: true,
                         overwrite: true,
+                        sameSite: 'none',
+                        Secure
                     })
 
                     return res.status(201).send(accessToken);
@@ -73,6 +75,8 @@ const logout = async (req, res) => {                    // log the user out by r
                 maxAge: 1000 * 60 *60 * 24 * 30,   // 1 month
                 httpOnly: true,
                 overwrite: true,
+                sameSite: 'none',
+                Secure
         })
     
         return res.header('auth-token', "").status(200).send("logged out")
@@ -121,6 +125,8 @@ const refreshToken = async (req, res) => {              // endpoint called when 
                 maxAge: 1000 * 60 *60 * 24 * 30,                            // 1month                                  
                 httpOnly: true,
                 overwrite: true,
+                sameSite: 'none',
+                Secure
             })
 
             return res.status(201).send({ ok: true, user: user, accessToken: newAccessToken })
