@@ -39,7 +39,7 @@ const login = async (req, res) => {
                         httpOnly: true,
                         overwrite: true,
                         sameSite: 'none',
-                        Secure
+                        Secure: true
                     })
 
                     return res.status(201).send(accessToken);
@@ -76,7 +76,7 @@ const logout = async (req, res) => {                    // log the user out by r
                 httpOnly: true,
                 overwrite: true,
                 sameSite: 'none',
-                Secure
+                Secure: true
         })
     
         return res.header('auth-token', "").status(200).send("logged out")
@@ -126,7 +126,7 @@ const refreshToken = async (req, res) => {              // endpoint called when 
                 httpOnly: true,
                 overwrite: true,
                 sameSite: 'none',
-                Secure
+                Secure: true
             })
 
             return res.status(201).send({ ok: true, user: user, accessToken: newAccessToken })
