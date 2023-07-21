@@ -33,6 +33,10 @@ const login = async (req, res) => {
 
 
                     // send refreshtoken (long duration) in cookies and accesstoken (short duration) in header
+
+                    res.header("Access-Control-Allow-Origin", "https://nielsvanbrussel.github.io");
+                    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+                    res.header("Access-Control-Allow-Credentials", true);
                     
                     res.cookie("acp64", refreshToken, {
                         maxAge: 1000 * 60 *60 * 24 * 30,   // 1 month
@@ -70,6 +74,10 @@ const logout = async (req, res) => {                    // log the user out by r
         if (response) {
             return res.header('auth-token', "").status(202)
         }
+
+        res.header("Access-Control-Allow-Origin", "https://nielsvanbrussel.github.io");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+        res.header("Access-Control-Allow-Credentials", true);
 
         res.cookie("acp64", "", {
                 maxAge: 1000 * 60 *60 * 24 * 30,   // 1 month
@@ -120,6 +128,10 @@ const refreshToken = async (req, res) => {              // endpoint called when 
         // create new accesstoken & refreshtoken
             const newAccessToken = await createAccessToken(user_id)                                       // create new accesstoken & refreshtoken
             const newRefreshToken = await createRefreshToken(user_id)
+
+            res.header("Access-Control-Allow-Origin", "https://nielsvanbrussel.github.io");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+            res.header("Access-Control-Allow-Credentials", true);
 
             res.cookie("acp64", newRefreshToken, {
                 maxAge: 1000 * 60 *60 * 24 * 30,                            // 1month                                  
