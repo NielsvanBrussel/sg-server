@@ -21,13 +21,6 @@ const router = express.Router();
 dotenv.config({path: './config/.env'})
 
 
-app.use(express.static('client/dist'));
-app.get('*', (req, res) => {
-    console.log('wtf')
-    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
-});
-
-
 // auth0 config for dashboard login
 
 
@@ -47,6 +40,13 @@ app.use('/api/user', userRoute)
 app.use('/api/auth', authRoute)
 app.use('/api/savegame', savegameRoute)
 app.use('/api/test', testRoute)
+
+
+app.use(express.static('client/dist'));
+app.get('*', (req, res) => {
+    console.log('wtf')
+    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+});
 
 
 
