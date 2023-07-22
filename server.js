@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 
 app.use(cors({
-    origin: `*`,
+    origin: `https://svelte-game-server-4erv.onrender.com`,
 }))
 
 app.use(express.json());
@@ -23,6 +23,7 @@ dotenv.config({path: './config/.env'})
 
 app.use(express.static('client/dist'));
 app.get('*', (req, res) => {
+    console.log('wtf')
     res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
 });
 

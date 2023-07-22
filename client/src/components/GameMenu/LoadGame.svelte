@@ -38,6 +38,7 @@
                     'token': JWT,
                     'Accept' : 'application/json',
                 },
+                withCredentials: true
             }
 
             const res = await axios.get('https://svelte-game-server-4erv.onrender.com/api/savegame/', config)

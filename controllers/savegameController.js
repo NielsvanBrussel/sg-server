@@ -50,7 +50,8 @@ const updateSavegame = async (req, res) => {
 
 }
 
-const getSavegames = async (req, res) => {                    
+const getSavegames = async (req, res) => {
+    console.log('getting savegames')                    
 
     try {
 
@@ -62,6 +63,8 @@ const getSavegames = async (req, res) => {
             savegames: savegames,
             empty: savegames? false : true
         }
+
+        console.log(data)
 
         return res.status(200).send(data) 
 

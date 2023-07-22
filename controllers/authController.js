@@ -6,6 +6,8 @@ const { resetUserExpiredRefreshToken, verifyRefreshToken, verifyExpiredAccessTok
 
 const login = async (req, res) => {   
 
+    console.log('logging in')
+
                        
         const name = req.body.name
         const password = req.body.password 
@@ -61,6 +63,8 @@ const login = async (req, res) => {
 const logout = async (req, res) => {                    // log the user out by resetting the refreshtoken and removing the accesstoken
 
 
+
+    console.log('logging out')
     const refreshToken = req.cookies.acp64
     try {
 
