@@ -33,7 +33,6 @@
                     'token': JWT,
                     'Accept' : 'application/json',
                 },
-                withCredentials: true
             }
 
             const res = await axios.post('https://svelte-game-server-4erv.onrender.com/api/savegame/', { savegame: avatarValue },  config)
@@ -63,7 +62,6 @@
                     'token': JWT,
                     'Accept' : 'application/json',
                 },
-                withCredentials: true
             }
 
             const res = await axios.put('https://svelte-game-server-4erv.onrender.com/api/savegame/', { savegame: savegame },  config)
@@ -94,7 +92,6 @@
                     'token': JWT,
                     'Accept' : 'application/json',
                 },
-                withCredentials: true
             }
 
             const res = await axios.get('https://svelte-game-server-4erv.onrender.com/api/savegame/', config)

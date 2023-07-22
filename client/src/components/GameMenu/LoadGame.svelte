@@ -38,10 +38,11 @@
                     'token': JWT,
                     'Accept' : 'application/json',
                 },
-                withCredentials: true
             }
 
             const res = await axios.get('https://svelte-game-server-4erv.onrender.com/api/savegame/', config)
+
+            console.log(res)
         
             if (res) {
                 // populate the array with data (empty object if no data available)
@@ -57,13 +58,13 @@
             }
 
         } catch (error) {
+            console.log(error.response)
             if (error.response.data === 'accesstoken expired') {
                 const res = await refreshToken()
                 if (res && refreshCheck) {
                     getSavegames()
                 }
             }
-            console.log(error)
         }
     }
     

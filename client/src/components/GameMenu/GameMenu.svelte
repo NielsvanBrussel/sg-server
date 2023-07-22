@@ -31,7 +31,6 @@
                     'Content-Type': 'application/json',
                     'Accept' : 'application/json',
                 },
-                withCredentials: true
             }
 
             const res = await axios.post('https://svelte-game-server-4erv.onrender.com/api/auth/logout', config)
