@@ -8,7 +8,8 @@
     "server": "nodemon server.js",
     "start": "node server.js",
     "client": "cd client && npm run dev",
-    "dev": "concurrently \"npm run server\" \"npm run serve:client\""
+    "dev": "concurrently \"npm run server\" \"npm run serve:client\"",
+    "deploy": "npm install && cd client && npm install && npm build"
   },
   "keywords": [],
   "author": "",
