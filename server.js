@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const connectDB = require('./config/db')
+const path = require('path');
 
 
 const app = express();
@@ -19,6 +20,13 @@ app.use(cookieParser())
 
 const router = express.Router();
 dotenv.config({path: './config/.env'})
+
+
+app.use(express.static('client/dist'));
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+});
+
 
 // auth0 config for dashboard login
 
