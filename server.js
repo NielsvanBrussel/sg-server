@@ -22,9 +22,9 @@ const router = express.Router();
 dotenv.config({path: './config/.env'})
 
 
-app.use(express.static('client/dist'));
+app.use(express.static('client/public'));
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client', 'public', 'index.html'));
 });
 
 
