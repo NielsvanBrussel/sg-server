@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 
 app.use(cors({
-    origin: `https://nielsvanbrussel.github.io`,
+    origin: `*`,
     credentials: true
 }))
 
