@@ -37,8 +37,8 @@
 
             const config = {
                 headers: {
-                'Content-Type': 'application/json',
-                'Accept' : 'application/json',
+                    'Content-Type': 'application/json',
+                    'Accept' : 'application/json',
                 }
             }
             
@@ -127,7 +127,7 @@
                     </div>
                 {/if}
                      <div class="input-container">
-                        <input placeholder="Username" bind:value={username} on:keypress={(e) => changeFocus({e: e, name: "A"})} type="text">
+                        <input autofocus placeholder="Username" bind:value={username} on:keypress={(e) => changeFocus({e: e, name: "A"})} type="text">
                         <input placeholder="Password" id="A" type="password" bind:value={password} on:keypress={(e) => onEnter({e: e, action: "login"})}>            
                     </div>
                     <div>
@@ -156,7 +156,7 @@
                     </div>
                 {/if}
                     <div class="input-container">
-                        <input placeholder="Username" bind:value={username} on:keypress={(e) => changeFocus({e: e, name: "B"})} type="text">
+                        <input autofocus placeholder="Username" bind:value={username} on:keypress={(e) => changeFocus({e: e, name: "B"})} type="text">
                         <input placeholder="Password" id="B" type="password" bind:value={password}  on:keypress={(e) => onEnter({e: e, action: "signup"})}>            
                     </div>
                     <div>

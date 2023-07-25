@@ -1,6 +1,6 @@
 <script>
     import axios from "axios";
-    import { avatar, menuActive } from '../../stores.js';
+    import { avatar } from '../../stores.js';
     import refreshToken from "../../utility/refreshToken.js";
     import { onMount } from 'svelte';
     import { v4 as uuidv4 } from 'uuid';
@@ -8,66 +8,41 @@
 
     let refreshCheck = true
     let avatarValue
-    let savegames = new Array(5)
-    let loading = true
+    let loading = false
 
     avatar.subscribe((value) => {
         avatarValue = value;
     });
 
-    const loadGame = (savegame) => {
-        avatar.set(savegame)
-        menuActive.set(false)
-	}
 
+    const test = async () => {
 
-    onMount( async () => {
-       getSavegames()
-	});
-
-
-    const getSavegames = async () => {
         try {
-
-            const JWT = localStorage.getItem('token')
 
 
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
-                    'token': JWT,
                     'Accept' : 'application/json',
                 },
-                withCredentials: true
             }
-    
-            const res = await axios.get('https://svelte-game-server-4erv.onrender.com/api/savegame', config)
-
-            console.log(res)
-        
+            const res = await axios.post('https://svelte-game-server-4erv.onrender.com/api/auth/login', { name: 'username', password: 'password' }, config)
             if (res) {
-                // populate the array with data (empty object if no data available)
-                for (var i = 0; i < savegames.length; i++) {
-                    if (res.data.savegames.length > i) {
-                        savegames[i] = res.data.savegames[i];
-                    } else {
-                        savegames[i] = {_id: uuidv4()}
-                    }
-                }
-                console.log(savegames)
-                loading = false
+                console.log(res)
             }
 
         } catch (error) {
-            console.log(error.response)
             if (error.response.data === 'accesstoken expired') {
                 const res = await refreshToken()
                 if (res && refreshCheck) {
-                    getSavegames()
+                    test()
                 }
             }
         }
     }
+
+
+
     
 </script>
 
@@ -76,19 +51,11 @@
         <Circle size="40" color="#FF3E00" unit="px" duration="1s" />                       
     </div>
 {:else}
-<div class="flex-column">
-    {#each savegames as savegame, i}
-        {#if savegame.user}
-            <div>
-                <button on:click={() => loadGame(savegame)}>{i + 1}. &nbsp; {savegame.date_active.substring(0,10)} - {savegame.date_active.substring(11,16)} </button>
-            </div>
-        {:else}
-            <div>
-                <button> Empty </button>
-            </div>
-        {/if}
-    {/each}
-</div>
+    <div class="flex-column">      
+        <div>
+            <button on:click={() => test()}> Empty </button>
+        </div>
+    </div>
 {/if}
 
 
@@ -98,6 +65,7 @@
         from { opacity: 0; }
         to { opacity: 1; }
     }
+
   .spinner-container {
     display: flex;
     width: 100%;

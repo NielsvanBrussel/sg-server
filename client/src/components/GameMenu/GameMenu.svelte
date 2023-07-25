@@ -7,6 +7,7 @@
     import LoadGame from './LoadGame.svelte';
     import MenuBackground from '../MenuBackground.svelte';
     import Main from '../Main.svelte';
+  import Achievements from './Achievements.svelte';
 
     let activeTab = 0
    
@@ -14,7 +15,12 @@
 
         // make a new game by creating a blank avatar and close the menu
         avatar.set({ 
-            hitpoints: 30,
+            name: null,
+            strength: null,
+            stamina: null,
+            intellect: null,
+            charm: null,
+            hitpoints: null,
             items: [],
             date_created: new Date()
         })
@@ -31,6 +37,7 @@
                     'Content-Type': 'application/json',
                     'Accept' : 'application/json',
                 },
+                withCredentials: true
             }
 
             const res = await axios.post('https://svelte-game-server-4erv.onrender.com/api/auth/logout', config)
@@ -131,6 +138,7 @@
     
                 {:else}
                     <div class="flex-column">
+                        <Achievements />
                         <button class="menu-button"  on:click={() => activeTab = 0}> Back </button>
                     </div>
                 {/if}    

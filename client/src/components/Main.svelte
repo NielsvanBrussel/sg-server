@@ -1,30 +1,21 @@
 <script>
-	import { newGame, avatar } from '../stores.js';
+	import { avatar } from '../stores.js';
+  	import CharacterCreation from './CharacterCreation.svelte';
+
+
+
+		console.log($avatar.name)
 </script>
 
 
 <div class="container">
-	<p class="test">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	{#if !$avatar.name}
+		<CharacterCreation />
+	{:else}
+			<p class="test">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
+	{/if}
 </div>
 
-
-
-
-
-<!-- <Router>
-	<nav>
-		<Link to="/*">Menu</Link>
-		<Link to="about">Test2</Link>
-		<Link to="blog">Test3</Link>
-	</nav>
-	<div>
-		<Route path="/*" component={Menu} />
-		<Route path="about" component={Test2} />
-        <Route path="blog/*">
-            <Test3 />
-        </Route>
-	</div>
-</Router> -->
 
 
 <style>
@@ -38,6 +29,7 @@
 		height: 90vh;
 		width: 90vw;
 		position: relative;
+		background-color: #03071E;
 	}
 	.test {
 		font-family: "PS2P";

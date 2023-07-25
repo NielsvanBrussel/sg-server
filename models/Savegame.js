@@ -6,6 +6,10 @@ const SavegameSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "User"
     },
+    name: {
+        type: String,
+        default: null,
+    },
     items: { 
         type: [String]
     },

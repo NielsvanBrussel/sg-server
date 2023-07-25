@@ -13,6 +13,7 @@ const refreshToken = async () => {
             'token': JWT,
             'Accept' : 'application/json',
         },
+        withCredentials: true
     }
 
     try {

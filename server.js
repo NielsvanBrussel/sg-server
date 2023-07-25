@@ -8,9 +8,20 @@ const path = require('path');
 
 const app = express();
 
-app.use(cors({
-    origin: `https://svelte-game-server-4erv.onrender.com`,
-}))
+
+var whitelist = ['https://svelte-game-server-4erv.onrender.com', 'http://localhost:4001']
+var corsOptions = {
+  origin: function (origin, callback) {
+    console.log(origin)
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true)
+    } else {
+      callback(new Error(`Not allowed by CORS ${origin}`))
+    }
+  }
+}
+
+app.use(cors(corsOptions))
 
 app.use(express.json());
 app.options('*', cors())
