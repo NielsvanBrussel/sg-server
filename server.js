@@ -12,7 +12,6 @@ const app = express();
 var whitelist = ['https://svelte-game-server-4erv.onrender.com', 'http://localhost:4001']
 var corsOptions = {
   origin: function (origin, callback) {
-    console.log(origin)
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true)
     } else {
@@ -55,7 +54,6 @@ app.use('/api/test', testRoute)
 
 app.use(express.static('client/dist'));
 app.get('*', (req, res) => {
-    console.log('wtf')
     res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
 });
 
