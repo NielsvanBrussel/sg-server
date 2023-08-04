@@ -18,7 +18,7 @@ const refreshToken = async () => {
 
     try {
         console.log("refreshing")
-        const res = await axios.get("https://svelte-game-server-4erv.onrender.com/api/auth/refresh", config)
+        const res = await axios.get("/api/auth/refresh", config)
         console.log("123")
         const token = res.data.accessToken
         localStorage.setItem('token', token);

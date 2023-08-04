@@ -6,8 +6,8 @@
     import SaveGame from './SaveGame.svelte';
     import LoadGame from './LoadGame.svelte';
     import MenuBackground from '../MenuBackground.svelte';
-    import Main from '../Main.svelte';
-  import Achievements from './Achievements.svelte';
+    import Achievements from './Achievements.svelte';
+    import Game from '../Game.svelte';
 
     let activeTab = 0
    
@@ -40,7 +40,7 @@
                 withCredentials: true
             }
 
-            const res = await axios.post('https://svelte-game-server-4erv.onrender.com/api/auth/logout', config)
+            const res = await axios.post('/api/auth/logout', config)
             if (res) {
                 console.log('logout')
                 localStorage.setItem('token', '')
@@ -56,7 +56,7 @@
 
 <div class="main-container">
     {#if !$menuActive}
-        <Main />
+        <Game />
         <div class="button__menu__container">
             <button on:click={() => menuActive.set(true)}> 
                 <IconMenu2 size={30} color={"grey"}/>
@@ -186,6 +186,7 @@
         right: 0;
         top: 0;
         margin: 2rem;
+        z-index: 10;
     }
     .flex-column {
         display: flex;

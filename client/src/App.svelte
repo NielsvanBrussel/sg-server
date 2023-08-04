@@ -45,9 +45,18 @@
 <style>
   .main {
     width: 90vw;
+    height: 90vh;
     margin: 0 auto;
     border-radius: 3rem;
     border: #F51743 solid 5px;
     overflow: hidden;
+  }
+  .spinner-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 </style>

@@ -26,7 +26,7 @@
                     'Accept' : 'application/json',
                 },
             }
-            const res = await axios.post('https://svelte-game-server-4erv.onrender.com/api/auth/login', { name: 'username', password: 'password' }, config)
+            const res = await axios.post('/api/auth/login', { name: 'username', password: 'password' }, config)
             if (res) {
                 console.log(res)
             }

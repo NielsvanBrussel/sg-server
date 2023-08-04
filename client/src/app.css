@@ -60,9 +60,8 @@ button {
 button:hover {
   border-color: #F48C06;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.button-nav:active{
+  opacity: 0.9;
 }
 
 @media (prefers-color-scheme: light) {

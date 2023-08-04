@@ -42,7 +42,7 @@
                 }
             }
             
-            const res = await axios.post('https://svelte-game-server-4erv.onrender.com/api/auth/login', { name: username, password: password }, config)
+            const res = await axios.post('/api/auth/login', { name: username, password: password }, config)
             if (res.status === 201) {
                 loading = false
                 localStorage.setItem('token', res.data)
@@ -59,7 +59,7 @@
         
         loading = true
         try {
-            const res = await axios.post('https://svelte-game-server-4erv.onrender.com/api/user', { name: username, password: password })
+            const res = await axios.post('/api/user', { name: username, password: password })
             if (res.status === 201) {
                 loading = false
                 createError(res.data)

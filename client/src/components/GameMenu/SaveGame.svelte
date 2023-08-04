@@ -36,7 +36,7 @@
                 withCredentials: true
             }
 
-            const res = await axios.post('https://svelte-game-server-4erv.onrender.com/api/savegame/', { savegame: avatarValue },  config)
+            const res = await axios.post('/api/savegame/', { savegame: avatarValue },  config)
             if (res) {
                 getSavegames()
             }
@@ -66,7 +66,7 @@
                 withCredentials: true
             }
 
-            const res = await axios.put('https://svelte-game-server-4erv.onrender.com/api/savegame/', { data: avatarValue, savegame: savegame },  config)
+            const res = await axios.put('/api/savegame/', { data: avatarValue, savegame: savegame },  config)
             if (res) {
                 getSavegames()
             }
@@ -97,7 +97,7 @@
                 withCredentials: true
             }
 
-            const res = await axios.get('https://svelte-game-server-4erv.onrender.com/api/savegame/', config)
+            const res = await axios.get('/api/savegame/', config)
             if (res) {
                 // populate the array with data (empty object if no data available)
                 for (var i = 0; i < savegames.length; i++) {
