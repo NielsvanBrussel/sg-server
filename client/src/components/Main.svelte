@@ -8,6 +8,43 @@
 
 	let position = 0
     let background
+	let showEntry = false
+	let scenarioName
+
+
+
+	const limitArray = [
+		{
+			min: 570,
+			max: 610,
+			name: 'hospital'
+		},
+		{
+			min: 860,
+			max: 880,
+			name: 'boutique'
+		},
+		{
+			min: 735,
+			max: 760,
+			name: 'supermarket'
+		},
+		{
+			min: 680,
+			max: 700,
+			name: 'bridge'
+		},
+		{
+			min: 860,
+			max: 880,
+			name: 'boutique'
+		},
+		{
+			min: 860,
+			max: 880,
+			name: 'boutique'
+		}		
+	]
 
     onMount(async () => {
 		background = document.querySelector(".sliding-background1")
@@ -43,7 +80,24 @@
             }
 		}
 
-        background.style.transform = `translate3d(${position / 4}vh, 0, 0)`
+		const truePosition = position - (Math.floor(position / 900) * 900)
+
+		for (let i = 0; i < limitArray.length; i++) {
+			if (truePosition > limitArray[i].min && truePosition < limitArray[i].max) {
+				if (!showEntry) {
+					showEntry = true 
+					scenarioName = limitArray[i].name
+				}
+				break;
+			}	else if (showEntry){
+					showEntry = false
+			}
+		} 
+
+		console.log(truePosition)
+		
+
+        background.style.transform = `translate3d(${position}vh, 0, 0)`
 		
 	}
 
@@ -54,6 +108,12 @@
 	<div class="sliding-background1"></div>
 	<div class="sliding-background2"></div>
 	<div class="sliding-background3"></div>
+	{#if showEntry} 
+		<div class="entry-container">
+			<p>{scenarioName}</p>
+			<p>Enter</p>
+		</div>
+	{/if}
 </div>
 
 
@@ -94,6 +154,16 @@
 		background-image: url("../assets/img/layer3.png");
 		animation: slide-right 20s linear infinite;
 		z-index: 1;
+	}
+
+	.entry-container {
+		position: absolute;
+		z-index: 3;
+		top: 50%;
+		left: 50%;
+		-webkit-transform: translate(-50%);
+		transform: translate(-50%);
+		background-color: black;
 	}
 
 
