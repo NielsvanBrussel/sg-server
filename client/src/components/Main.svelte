@@ -6,10 +6,11 @@
 		left: false
 	} 
 
-	let position = 0
+	let position = -450
     let background
 	let showEntry = false
 	let scenarioName
+	let previousTimestamp = 0
 
 
 
@@ -69,9 +70,13 @@
 	})
 
 
-	const animate = () => {
-		requestAnimationFrame(animate)
+	const animate = (timestamp) => {
+		
 
+		const fps = timestamp - previousTimestamp
+		previousTimestamp = timestamp
+		console.log(fps)
+		
 		if(keyPress.right) {
 			position -= 1
 		} else if (keyPress.left) {
@@ -92,13 +97,10 @@
 			}	else if (showEntry){
 					showEntry = false
 			}
-		} 
-
-		console.log(truePosition)
-		
+		} 	
 
         background.style.transform = `translate3d(${position}vh, 0, 0)`
-		
+		requestAnimationFrame(animate)
 	}
 
 </script>
