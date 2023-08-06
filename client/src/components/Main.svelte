@@ -73,15 +73,16 @@
 	const animate = (timestamp) => {
 		
 
+		// fps (not true fps but time between frames)
 		const fps = timestamp - previousTimestamp
 		previousTimestamp = timestamp
 		console.log(fps)
 		
 		if(keyPress.right) {
-			position -= 1
+			position -= (1 * fps / 10)
 		} else if (keyPress.left) {
             if (position !== 0 || position > 0) {
-			    position += 1               
+			    position += (1 * fps / 10)              
             }
 		}
 
