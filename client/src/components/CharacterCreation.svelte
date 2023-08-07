@@ -10,7 +10,7 @@
 
 	const characters = [
 		{
-			name: 'Rodney',
+			name: 'Greasy Gareth',
 			img: rodney,
 			stats: {
 				strength: 10,
@@ -32,7 +32,7 @@
 			}
 		},
 		{
-			name: 'Dwayne',
+			name: 'King Dwayne',
 			img: dwayne,
 			stats: {
 				strength: 5,
@@ -91,9 +91,11 @@
 		<div class="selection-container">
 			<div class="flex-row ">
 				<div class="flex-column column-1">
-					<h2>{activeCharacter.name}</h2>
+					<div class="name-container">
+						<h2>{activeCharacter.name}</h2>
+					</div>
 					<div class="image-container">
-						<img src={activeCharacter.img} alt={activeCharacter.name} class="idkyet">
+						<img src={activeCharacter.img} alt={activeCharacter.name} class="character-img">
 					</div>
 				</div>
 				<div class="flex-column column-2">
@@ -127,7 +129,7 @@
 					<button on:click={() => changeCharacter(-1)} class="button-prev button-nav"></button>
 					<button on:click={() => changeCharacter(1)} class="button-next button-nav"></button>			
 				</div>
-				<div>
+				<div class="button-container">
 					<button class="button-nav" on:click={() => setCharacter()}>continue</button>
 				</div>
 			</div>
@@ -143,6 +145,8 @@
 	.flex-column {
 		display: flex;
 		flex-direction: column;
+		width: 35%;
+		border-radius: 0.5rem;
 	}
 	.column-1 {
 		border: #F48C06 1rem solid;
@@ -152,21 +156,39 @@
 		border: #F51743 1rem solid;
 		background-color: #41173D
 	}
+	.name-container {
+		min-height: 7rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 0rem 1rem;
+	}
 	.flex-row {
 		display: flex;
 		flex-direction: row;
 		width: 100%;
-		justify-content: space-around;
+		justify-content: center;
+		gap: 3rem;
 		margin: 2rem 0rem;
 	}
-	img {
+	.image-container {
+		height: 100%;
+		width: 100%;
+	}
+	.character-img {
 		display: block;
+		width: 100%;
+		height: auto;
 	}
 	.header-container {
-		height: 10rem;
+		height: 8rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+	h1 {
+		font-size: 3rem;
+		margin-top: 3rem;
 	}
 	.stats-container {
 		margin: 0rem 1rem;
@@ -178,7 +200,7 @@
 		align-items: center;
 	}
 	.stats-title {
-		font-size: 1.25rem;
+		font-size: 1rem;
 		width: 20rem;
 		text-align: left;
 	}
@@ -189,6 +211,22 @@
 		height: calc(100% - 10rem);
 		overflow-y: auto;
 	}
+	.selection-container::-webkit-scrollbar {
+		width: 0.6rem;
+		background: transparent;
+		border-radius: 2rem;
+		margin-bottom: 0.5rem;  
+  	}
+	.selection-container::-webkit-scrollbar-track {
+		background-color: #F48C06 ;
+		color: transparent;
+		margin: 2rem 0rem 6rem 0rem;
+		border-radius: 2rem;
+	}
+  	.selection-container::-webkit-scrollbar-thumb {
+		background: #F51743;
+		border-radius: 2rem;
+  	}
 	.stats-green {
 		color: green;
 	}
@@ -204,13 +242,15 @@
 	.button-container {
 		display: flex;
 		flex-direction: row;
-		gap: 4rem;
+		justify-content: center;
+		gap: 3rem;
+		width: 35%;
+		margin: 0rem 1rem;
 	}
 	.button-nav {
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: 2rem auto;
-		margin: auto;
 		min-height: 3rem;
 		min-width: 3rem;
 		border: none;
@@ -220,7 +260,7 @@
     	-webkit-box-shadow: 2px 2px 0px 2px #91173F;
 	}
 	.button-nav:hover {
-		border: none;
+		scale: 1.05;
 	}
 	button:focus-visible {
   		outline: none !important;
@@ -228,6 +268,7 @@
 	.button-nav:active{
 		-webkit-box-shadow: 2px 2px 0px 2px #91173F inset;
 		box-shadow: 2px 2px 0px 2px #91173F inset;
+		scale: 1.15;
 		border: none;
 	}
 	.button-next {
