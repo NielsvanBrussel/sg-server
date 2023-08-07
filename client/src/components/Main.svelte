@@ -1,58 +1,45 @@
 <script>
     import { onMount } from 'svelte';
+	import avatar from '../assets/img/avatar.png'
 
 	const keyPress = {
 		right: false,
 		left: false
 	} 
 
-	let position = -450
+	//center avatar in the middle of the map
+	let position = -135000   
+	// position = 0
+	let messagePosition = 0
     let background
+	let entryMessage
 	let showEntry = false
 	let scenarioName
 	let previousTimestamp = 0
 
 
-
+	// positions of all the buildings
 	const limitArray = [
 		{
-			min: 570,
-			max: 610,
+			min: 500,
+			max: 560,
 			name: 'hospital'
 		},
 		{
-			min: 860,
-			max: 880,
-			name: 'boutique'
-		},
-		{
-			min: 735,
-			max: 760,
+			min: 650,
+			max: 710,
 			name: 'supermarket'
 		},
-		{
-			min: 680,
-			max: 700,
-			name: 'bridge'
-		},
-		{
-			min: 860,
-			max: 880,
-			name: 'boutique'
-		},
-		{
-			min: 860,
-			max: 880,
-			name: 'boutique'
-		}		
 	]
 
     onMount(async () => {
 		background = document.querySelector(".sliding-background1")
+		entryMessage = document.querySelector(".entry-container")
         animate()
 	});
 
 
+	// when user presses left or right keys
 	addEventListener('keydown', ({ key }) => {
 		if (key === 'ArrowRight' || key === 'd') {
 			keyPress.right = true
@@ -61,6 +48,7 @@
 		}
 	})
 
+	// when user releases left or right keys
 	addEventListener('keyup', ({ key }) => {
 		if (key === 'ArrowRight' || key === 'd') {
 			keyPress.right = false
@@ -70,37 +58,62 @@
 	})
 
 
-	const animate = (timestamp) => {
-		
 
-		// fps (not true fps but time between frames)
-		const fps = timestamp - previousTimestamp
-		previousTimestamp = timestamp
-		console.log(fps)
-		
-		if(keyPress.right) {
-			position -= (1 * fps / 10)
-		} else if (keyPress.left) {
-            if (position !== 0 || position > 0) {
-			    position += (1 * fps / 10)              
-            }
-		}
+	// check if the avatar is close to any buildings
+	const checkPositions = () => {
 
-		const truePosition = position - (Math.floor(position / 900) * 900)
-
+		const truePosition = position - (Math.floor(position / 900) * 900)		
 		for (let i = 0; i < limitArray.length; i++) {
 			if (truePosition > limitArray[i].min && truePosition < limitArray[i].max) {
-				if (!showEntry) {
-					showEntry = true 
-					scenarioName = limitArray[i].name
-				}
-				break;
-			}	else if (showEntry){
-					showEntry = false
-			}
-		} 	
+						
+					const value =  (limitArray[i].min + limitArray[i].max) / 2
+					if (!showEntry) {
 
-        background.style.transform = `translate3d(${position}vh, 0, 0)`
+						// position the message in the middle of the building (depending on which way he enters from)
+						if (truePosition > value) {
+							messagePosition = 30
+						} else {
+							messagePosition = -30
+						}
+						scenarioName = limitArray[i].name
+					}
+					
+					return true
+			}
+		}
+		return false
+	}
+
+
+	const animate = (timestamp) => {
+
+
+		// fps (not true fps but time between frames) used to mainteam same speed between different Hz monitors
+		const fps = timestamp - previousTimestamp
+		previousTimestamp = timestamp
+		
+		if(keyPress.right) {
+			// edge of map check
+			if (position > -265000) { 
+				position -= (1 * fps / 20)
+				messagePosition -= (1 * fps / 20)
+			}
+		} else if (keyPress.left) {
+			//edge of map check
+            if (position !== 0 && position < 0) {
+			    position += (1 * fps / 20)
+				messagePosition += (1 * fps / 20)
+				if (position > 0) {
+					position = 0
+				}              
+            }
+		}	
+	
+		showEntry = checkPositions()
+
+		// move background & entry messages
+        background.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
+		entryMessage.style.transform = `translate3d(calc(${messagePosition}vh), 0, 0)`
 		requestAnimationFrame(animate)
 	}
 
@@ -111,12 +124,15 @@
 	<div class="sliding-background1"></div>
 	<div class="sliding-background2"></div>
 	<div class="sliding-background3"></div>
-	{#if showEntry} 
-		<div class="entry-container">
+	<div >
+		<img class="avatar" src={avatar} alt="Italian Trulli">
+	</div>
+	<div class="entry-container">
+		{#if showEntry} 
 			<p>{scenarioName}</p>
 			<p>Enter</p>
-		</div>
-	{/if}
+		{/if}
+	</div>
 </div>
 
 
@@ -130,6 +146,7 @@
 		height: 90vh;
 		width: 90vw;
 		position: relative;
+		background-color: black;
 	}
 
 	.sliding-background1, .sliding-background2, .sliding-background3 {
@@ -137,7 +154,7 @@
 		background-repeat: repeat-x;
 		background-size: 900vh 90vh;
 		height: 90vh;
-		width: 2700vh;
+		width: 270000vh;
 		margin: auto;
 	}
 
@@ -159,10 +176,21 @@
 		z-index: 1;
 	}
 
+	.avatar {
+		position: absolute;
+		top: 75%;
+		left: 50%;
+		-webkit-transform: translate(-50%);
+		transform: translate(-50%);
+		z-index: 4;
+		height: 10vh;
+		width: auto;
+	}
+
 	.entry-container {
 		position: absolute;
 		z-index: 3;
-		top: 50%;
+		top: 20%;
 		left: 50%;
 		-webkit-transform: translate(-50%);
 		transform: translate(-50%);
