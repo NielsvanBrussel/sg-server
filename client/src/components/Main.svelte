@@ -21,14 +21,54 @@
 	// positions of all the buildings
 	const limitArray = [
 		{
-			min: 500,
-			max: 560,
-			name: 'hospital'
+			min: 502,
+			max: 552,
+			name: 'Hospital'
 		},
 		{
-			min: 650,
-			max: 710,
-			name: 'supermarket'
+			min: 655,
+			max: 705,
+			name: 'Supermarket'
+		},
+		{
+			min: 780,
+			max: 830,
+			name: 'Hardware store'
+		},
+		{
+			min: 835,
+			max: 885,
+			name: 'Children of the Golden Flower'
+		},
+		{
+			min: 590,
+			max: 640,
+			name: 'Bridge'
+		},
+		{
+			min: 370,
+			max: 420,
+			name: 'Gas station'
+		},
+		{
+			min: 290,
+			max: 340,
+			name: 'Police station'
+		},
+		{
+			min: 100,
+			max: 150,
+			name: 'Storage'
+		},
+		{
+			min: 185,
+			max: 235,
+			name: 'School'
+		},
+		{
+			min: 5,
+			max: 55,
+			name: 'Park'
 		},
 	]
 
@@ -62,7 +102,9 @@
 	// check if the avatar is close to any buildings
 	const checkPositions = () => {
 
-		const truePosition = position - (Math.floor(position / 900) * 900)		
+		const truePosition = position - (Math.floor(position / 900) * 900)	
+		console.log(truePosition)	
+
 		for (let i = 0; i < limitArray.length; i++) {
 			if (truePosition > limitArray[i].min && truePosition < limitArray[i].max) {
 						
@@ -71,9 +113,9 @@
 
 						// position the message in the middle of the building (depending on which way he enters from)
 						if (truePosition > value) {
-							messagePosition = 30
+							messagePosition = 25
 						} else {
-							messagePosition = -30
+							messagePosition = -25
 						}
 						scenarioName = limitArray[i].name
 					}
@@ -113,7 +155,7 @@
 
 		// move background & entry messages
         background.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
-		entryMessage.style.transform = `translate3d(calc(${messagePosition}vh), 0, 0)`
+		entryMessage.style.transform = `translate3d(calc(${messagePosition}vh - 50%), 0, 0)`
 		requestAnimationFrame(animate)
 	}
 
