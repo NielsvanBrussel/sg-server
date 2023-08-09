@@ -107,14 +107,12 @@
                         savegames[i] = {_id: uuidv4()}
                     }
                 }
-                console.log(savegames)
                 loading = false
             }
 
         } catch (error) {
             console.log(error)
             if (error.response.data === 'accesstoken expired') {
-                console.log("allo")
                 const res = await refreshToken()
                 if (res && refreshCheck) {
                     getSavegames()
