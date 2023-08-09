@@ -1,9 +1,10 @@
 <script>
-	import { newGame, avatar } from '../stores.js';
+	import { avatar } from '../stores.js';
 	import { Circle } from 'svelte-loading-spinners';
 	import dwayne from '../assets/img/dwayne.gif'
 	import rupert from '../assets/img/rupert.gif'
 	import rodney from '../assets/img/rodney.gif'
+  	import TextButton from './core/TextButton.svelte';
 
 	let loading = false
 	let charIndex = 0
@@ -130,7 +131,7 @@
 					<button on:click={() => changeCharacter(1)} class="button-next button-nav"></button>			
 				</div>
 				<div class="button-container">
-					<button class="button-nav" on:click={() => setCharacter()}>continue</button>
+					<TextButton eventHandler={setCharacter} text='continue'/>
 				</div>
 			</div>
 		</div>
@@ -260,7 +261,7 @@
     	-webkit-box-shadow: 2px 2px 0px 2px #91173F;
 	}
 	.button-nav:hover {
-		scale: 1.05;
+		scale: 1.02;
 	}
 	button:focus-visible {
   		outline: none !important;
@@ -268,7 +269,7 @@
 	.button-nav:active{
 		-webkit-box-shadow: 2px 2px 0px 2px #91173F inset;
 		box-shadow: 2px 2px 0px 2px #91173F inset;
-		scale: 1.15;
+		scale: 1.02;
 		border: none;
 	}
 	.button-next {

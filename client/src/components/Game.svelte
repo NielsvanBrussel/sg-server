@@ -1,7 +1,15 @@
 <script>
-	import { avatar } from '../stores.js';
+	import { avatar, activeScenario } from '../stores.js';
   	import CharacterCreation from './CharacterCreation.svelte';
-  import Main from './Main.svelte';
+  	import Main from './Main.svelte'
+  	import TextButton from './core/TextButton.svelte';
+
+	const leaveScenario = () => {
+		activeScenario.set({
+			name: "",
+			component: null,
+        })
+	}
 
 </script>
 
@@ -10,7 +18,12 @@
 	{#if !$avatar.name}
 		<CharacterCreation />
 	{:else}
-		<Main />
+		{#if $activeScenario.component}
+			<svelte:component this={$activeScenario.component} />
+			<TextButton text='back' eventHandler={leaveScenario}/>
+		{:else}
+			<Main />
+		{/if}
 	{/if}
 </div>
 
