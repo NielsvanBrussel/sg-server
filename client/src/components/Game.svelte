@@ -3,6 +3,7 @@
   	import CharacterCreation from './CharacterCreation.svelte';
   	import Main from './Main.svelte'
   	import TextButton from './core/TextButton.svelte';
+	import hitpoints from '../assets/img/hitpoints.gif'
 
 	const leaveScenario = () => {
 		activeScenario.set({
@@ -18,6 +19,16 @@
 	{#if !$avatar.name}
 		<CharacterCreation />
 	{:else}
+		<div class="stats-overlay-container">
+			<div class="flexbox hitpoints-container">
+				<img class="hitpoints-img" src={hitpoints} alt="hitpoints">
+				<p>{$avatar.currentHitpoints} / {$avatar.maxHitpoints}</p>
+			</div>
+			<div class="flexbox money-container">
+				<p class="dollar-sign">$</p>
+				<p>{$avatar.money}</p>
+			</div>
+		</div>
 		{#if $activeScenario.component}
 			<svelte:component this={$activeScenario.component} />
 			<TextButton text='back' eventHandler={leaveScenario}/>
@@ -39,6 +50,43 @@
 		width: 90vw;
 		position: relative;
 		background-color: #03071E;
+	}
+
+	.stats-overlay-container {
+		position: absolute;
+		top: 1rem;
+		left: 0;
+		z-index: 6;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		width: 100%;
+		font-family: "PS2P";
+		font-size: 1.25rem;
+	}
+	.flexbox {
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+		margin: 0rem 2rem;
+		align-items: center;
+	}
+	.money-container {
+		color: green;
+	}
+	.dollar-sign {
+		font-size: 3rem;
+		margin: 0 1rem;
+		padding: 0;
+	}
+	.hitpoints-container {
+		color: #CD173F;
+	}
+	.hitpoints-img {
+		height: 8vh;
+		width: auto;
+		padding-bottom: 1rem;
 	}
 
 </style>

@@ -1,21 +1,45 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
-	import avatar from '../assets/img/avatar.png'
 	import garethRunning from '../assets/img/gareth-running.gif'
 	import garethStand from '../assets/img/gareth-stand.png'
+	import rupertRunning from '../assets/img/rupert-running.gif'
+	import rupertStand from '../assets/img/rupert-stand.png'
 
 	// floating message above locations
   	import EntryMessage from './EntryMessage.svelte';
 
 	// list of all location positions, names and components
 	import locationsArray from './Scenarios';
-  	import { playerPosition } from '../stores';
+  	import { playerPosition, avatar } from '../stores';
 
 
 	const keyPress = {
 		right: false,
 		left: false
 	} 
+
+
+	const getImages = () => {
+		switch ($avatar.name) {
+			case 'Loopy Rupert':
+				return {
+					stand: rupertStand,
+					running: rupertRunning
+				}
+			case 'Greasy Gareth':
+				return {
+					stand: garethStand,
+					running: garethRunning
+				}
+			default:
+			return {
+					stand: garethStand,
+					running: garethRunning
+				}
+		}
+	}
+
+	const images = getImages()
 
 
 	//center avatar in the middle of the map
@@ -171,13 +195,13 @@
 	<div class="sliding-background3"></div>
 	<div >
 		{#if standStill && rightDirection} 
-			<img class="avatar" src={garethStand} alt="avatar">
+			<img class="avatar" src={images.stand} alt="avatar">
 		{:else if standStill && !rightDirection}
-			<img class="avatar avatar-left" src={garethStand} alt="avatar">
+			<img class="avatar avatar-left" src={images.stand} alt="avatar">
 		{:else if !standStill && !rightDirection}
-			<img class="avatar avatar-left" src={garethRunning} alt="avatar">
+			<img class="avatar avatar-left" src={images.running} alt="avatar">
 		{:else}
-			<img class="avatar" src={garethRunning} alt="avatar">
+			<img class="avatar" src={images.running} alt="avatar">
 		{/if}
 	</div>
 	<div class="entry-container">
@@ -240,7 +264,7 @@
 		-webkit-transform: translate(-50%);
 		transform: translate(-50%);
 		z-index: 3;
-		height: 14vh;
+		height: 15vh;
 		width: auto;
 	}
 
@@ -251,12 +275,11 @@
 
 	.entry-container {
 		position: absolute;
-		z-index: 3;
-		top: 20%;
+		z-index: 5;
+		top: 15%;
 		left: 50%;
 		-webkit-transform: translate(-50%);
 		transform: translate(-50%);
-		background-color: black;
 	}
 
 

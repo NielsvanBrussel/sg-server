@@ -68,7 +68,9 @@
             stamina: activeCharacter.stats.stamina,
             intellect: activeCharacter.stats.intellect,
             charm: activeCharacter.stats.charm,
-			hitpoints: activeCharacter.stats.hitpoints,
+			maxHitpoints: activeCharacter.stats.hitpoints,
+			currentHitpoints: activeCharacter.stats.hitpoints,
+			money: 20,
 			items: [],
 			date_created: new Date()
 		})
