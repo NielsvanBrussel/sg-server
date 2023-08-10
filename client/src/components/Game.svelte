@@ -30,8 +30,12 @@
 			</div>
 		</div>
 		{#if $activeScenario.component}
-			<svelte:component this={$activeScenario.component} />
-			<TextButton text='back' eventHandler={leaveScenario}/>
+			<div class="scenario-container">
+				<svelte:component this={$activeScenario.component} />
+				<div class="button-container">
+					<TextButton text='back' eventHandler={leaveScenario}/>
+				</div>
+			</div>
 		{:else}
 			<Main />
 		{/if}
@@ -56,7 +60,7 @@
 		position: absolute;
 		top: 1rem;
 		left: 0;
-		z-index: 6;
+		z-index: 5;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
@@ -90,5 +94,11 @@
 	p {
 		margin: 0;
 	}
-
+	.scenario-container {
+		position: relative;
+	}
+	.button-container {
+		z-index: 6;
+		position: relative;
+	}
 </style>
