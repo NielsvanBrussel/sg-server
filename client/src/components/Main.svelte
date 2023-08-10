@@ -1,21 +1,59 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
-	import avatar from '../assets/img/avatar.png'
 	import garethRunning from '../assets/img/gareth-running.gif'
 	import garethStand from '../assets/img/gareth-stand.png'
+	import rupertRunning from '../assets/img/rupert-running.gif'
+	import rupertStand from '../assets/img/rupert-stand.png'
+	import dwayneRunning from '../assets/img/dwayne-running.gif'
+	import dwayneStand from '../assets/img/dwayne-stand.png'
 
 	// floating message above locations
   	import EntryMessage from './EntryMessage.svelte';
 
 	// list of all location positions, names and components
 	import locationsArray from './Scenarios';
-  	import { playerPosition } from '../stores';
+  	import { playerPosition, avatar } from '../stores';
 
 
 	const keyPress = {
 		right: false,
 		left: false
 	} 
+
+
+	const imageSelect = () => {
+		switch ($avatar.name) {
+			case 'King Dwayne':
+				
+				return {
+					standing: dwayneStand,
+					running: dwayneRunning
+				}
+
+			case 'Greasy Gareth':
+			
+				return {
+					standing: garethStand,
+					running: garethRunning
+				}
+
+			case 'Loopy Rupert':
+			
+				return {
+					standing: rupertStand,
+					running: rupertRunning
+				}
+	
+			default:
+				return {
+					standing: dwayneStand,
+					running: dwayneRunning
+				}
+		}
+	}
+
+
+	const avatarImg = imageSelect()
 
 
 	//center avatar in the middle of the map
@@ -171,13 +209,13 @@
 	<div class="sliding-background3"></div>
 	<div >
 		{#if standStill && rightDirection} 
-			<img class="avatar" src={garethStand} alt="avatar">
+			<img class="avatar" src={avatarImg.standing} alt="avatar">
 		{:else if standStill && !rightDirection}
-			<img class="avatar avatar-left" src={garethStand} alt="avatar">
+			<img class="avatar avatar-left" src={avatarImg.standing} alt="avatar">
 		{:else if !standStill && !rightDirection}
-			<img class="avatar avatar-left" src={garethRunning} alt="avatar">
+			<img class="avatar avatar-left" src={avatarImg.running} alt="avatar">
 		{:else}
-			<img class="avatar" src={garethRunning} alt="avatar">
+			<img class="avatar" src={avatarImg.running} alt="avatar">
 		{/if}
 	</div>
 	<div class="entry-container">
