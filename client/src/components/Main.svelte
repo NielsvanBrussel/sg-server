@@ -4,6 +4,8 @@
 	import garethStand from '../assets/img/gareth-stand.png'
 	import rupertRunning from '../assets/img/rupert-running.gif'
 	import rupertStand from '../assets/img/rupert-stand.png'
+	import dwayneRunning from '../assets/img/dwayne-running.gif'
+	import dwayneStand from '../assets/img/dwayne-standing.png'
 
 	// floating message above locations
   	import EntryMessage from './EntryMessage.svelte';
@@ -31,6 +33,11 @@
 					stand: garethStand,
 					running: garethRunning
 				}
+			case 'King Dwayne':
+			return {
+				stand: dwayneStand,
+				running: dwayneRunning
+			}
 			default:
 			return {
 					stand: garethStand,

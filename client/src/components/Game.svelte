@@ -77,16 +77,18 @@
 	}
 	.dollar-sign {
 		font-size: 3rem;
-		margin: 0 1rem;
+		margin: 0 0.5rem;
 		padding: 0;
 	}
 	.hitpoints-container {
 		color: #CD173F;
 	}
 	.hitpoints-img {
-		height: 8vh;
+		height: 6vh;
 		width: auto;
-		padding-bottom: 1rem;
+	}
+	p {
+		margin: 0;
 	}
 
 </style>
