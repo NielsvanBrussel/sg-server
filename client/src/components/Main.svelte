@@ -22,6 +22,7 @@
 
 
 	const imageSelect = () => {
+		console.log($avatar.name)
 		switch ($avatar.name) {
 			case 'King Dwayne':
 				
