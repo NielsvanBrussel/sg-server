@@ -1,6 +1,34 @@
 const mongoose = require('mongoose')
 const User = require('./User')
 
+
+const StatsSchema = new mongoose.Schema({
+    maxHitpoints: {
+        type: Number, 
+        required: true
+    },
+    currentHitpoints: {
+        type: Number,
+        required: true
+    },
+    strength: {
+        type: Number,
+        required: true
+    },
+    stamina: {
+        type: Number,
+        required: true
+    },
+    intellect: {
+        type: Number,
+        required: true
+    },
+    intimidation: {
+        type: Number,
+        required: true
+    },
+})
+
 const SavegameSchema = new mongoose.Schema({
     user: {
         type: mongoose.Types.ObjectId,
@@ -10,13 +38,16 @@ const SavegameSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
+    day: {
+        type: Number,
+        default: 1
+    },
     items: { 
         type: [String]
     },
-    hitpoints: {
-        type: Number,
+    stats: {
+        type: StatsSchema,
         required: true,
-        default: 30
     },
     date_created: { 
         type: Date,

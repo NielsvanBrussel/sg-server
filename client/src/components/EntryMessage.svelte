@@ -31,7 +31,7 @@
 
 <div class="container">
     <p>{scenario.name}</p>
-    <TextButton  text='Enter' eventHandler={enterScenario}/>
+    <TextButton  text='Enter' eventHandler={() => enterScenario()}/>
 </div>
 
 

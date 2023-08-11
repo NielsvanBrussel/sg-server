@@ -17,8 +17,9 @@
 				strength: 10,
 				stamina: 3,
 				intellect: 2,
-				hitpoints: 40,
-				charm: 3,
+				maxHitpoints: 40,
+				currentHitpoints: 40,
+				intimidation: 3,
 			}
 		},
 		{
@@ -28,8 +29,9 @@
 				strength: 2,
 				stamina: 5,
 				intellect: 8, 
-				hitpoints: 25,
-				charm: 5,
+				maxHitpoints: 25,
+				currentHitpoints: 25,
+				intimidation: 5,
 			}
 		},
 		{
@@ -39,13 +41,17 @@
 				strength: 5,
 				stamina: 5,
 				intellect: 5,
-				hitpoints: 30,
-				charm: 8,
+				maxHitpoints: 30,
+				currentHitpoints: 30,
+				intimidation: 8,
 			}
 		},
 	]
 
 	$: activeCharacter = characters[charIndex]
+
+
+	// change thorugh the array of characters
 
 	const changeCharacter = (value) => {
 
@@ -60,16 +66,15 @@
 		
 	}
 
+
+	// initialize avatar 
+
 	const setCharacter = () => {
 
 		avatar.set({ 
 			name: activeCharacter.name,
-			strength: activeCharacter.stats.strength,
-            stamina: activeCharacter.stats.stamina,
-            intellect: activeCharacter.stats.intellect,
-            charm: activeCharacter.stats.charm,
-			maxHitpoints: activeCharacter.stats.hitpoints,
-			currentHitpoints: activeCharacter.stats.hitpoints,
+			stats: activeCharacter.stats,
+			day: 1,
 			money: 20,
 			items: [],
 			date_created: new Date()
@@ -133,7 +138,7 @@
 					<button on:click={() => changeCharacter(1)} class="button-next button-nav"></button>			
 				</div>
 				<div class="button-container">
-					<TextButton eventHandler={setCharacter} text='continue'/>
+					<TextButton eventHandler={() => setCharacter()} text='continue'/>
 				</div>
 			</div>
 		</div>

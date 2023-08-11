@@ -16,11 +16,6 @@
         // make a new game by creating a blank avatar and close the menu
         avatar.set({ 
             name: null,
-            strength: null,
-            stamina: null,
-            intellect: null,
-            charm: null,
-            hitpoints: null,
             items: [],
             date_created: new Date()
         })
