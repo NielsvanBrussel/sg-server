@@ -3,19 +3,27 @@
   import { avatar } from "../../stores";
 
 
-    const changeMoney = (amount) => {
+//   $(document).ready(function () {
 
-        const newAmount = $avatar.money + amount
-        avatar.set({ ...$avatar, money: newAmount })
+// var text = "example text";
+// var i = 0;
 
-    }
+// var consoleTyper = setInterval(function () {
+//     if (i != text.length) {
+//         i += 1;
+//         $("#text").text(text.substr(0, i));
+//     }
+//     else
+//     {
+//      clearInterval(consoleTyper);   
+//     }
 
-    const changeCurrentHP = (amount) => {
+//     console.log(i);
+// }, 50);
+// });
 
-        const newAmount = $avatar.stats.currentHitpoints + amount
-        avatar.set({ ...$avatar, stats: {...$avatar.stats, currentHitpoints: newAmount } })
 
-    }
+
 
 
 </script>
