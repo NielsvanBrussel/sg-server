@@ -8,19 +8,18 @@ const createSavegame = async (req, res) => {
 
         const user_id = req.user
         const data = req.body.savegame
-        console.log(req.body)
 
-        // const checkSaveAmount = await Savegame.find({ user: user_id }).exec()
+        const checkSaveAmount = await Savegame.find({ user: user_id }).exec()
 
-        // // only allow 5 saveslots per user
+        // only allow 5 saveslots per user
 
-        // if (checkSaveAmount.length < 5) {
-        //     const savegame = new Savegame({ user: user_id, name: data.name, hitpoints: data.hitpoints, items: data.items, date_created: data.date_created })
-        //     await savegame.save()   
-        //     return res.status(200).send("savegame created")         
-        // } else {
-        //     return res.status(400).send("maximum amount of saves reached")
-        // }
+        if (checkSaveAmount.length < 5) {
+            const savegame = new Savegame({ user: user_id, name: data.name, money: data.money, day: data.day, stats: data.stats, items: data.items, date_created: data.date_created })
+            await savegame.save()   
+            return res.status(200).send("savegame created")         
+        } else {
+            return res.status(400).send("maximum amount of saves reached")
+        }
 
 
     } catch (error) {
@@ -33,13 +32,15 @@ const updateSavegame = async (req, res) => {
 
     try {
 
+
+        //TODO? check if user id matches savegame user id
         const user_id = req.user
         const savegame_id = req.body.savegame._id
         const data = req.body.data
-        console.log(data)
         const date = new Date()
 
-        const update = await Savegame.updateOne({ _id: savegame_id }, { name: data.name, hitpoints: data.hitpoints, items: data.items, date_active: date}).exec()
+        const update = await Savegame.updateOne({ _id: savegame_id }, { name: data.name, money: data.money, day: data.day, stats: data.stats, items: data.items, date_active: date}).exec()
+
         if (update.acknowledged) {
             return res.status(200).send("savegame updated")  
         } else {
@@ -52,8 +53,7 @@ const updateSavegame = async (req, res) => {
 
 }
 
-const getSavegames = async (req, res) => {
-    console.log('getting savegames')                    
+const getSavegames = async (req, res) => {                   
 
     try {
 
@@ -65,8 +65,6 @@ const getSavegames = async (req, res) => {
             savegames: savegames,
             empty: savegames? false : true
         }
-
-        console.log(data)
 
         return res.status(200).send(data) 
 

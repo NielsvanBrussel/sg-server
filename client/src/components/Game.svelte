@@ -1,10 +1,10 @@
 <script>
 	import { avatar, activeScenario } from '../stores.js';
   	import CharacterCreation from './CharacterCreation.svelte';
-  	import Main from './Main.svelte'
   	import TextButton from './core/TextButton.svelte';
 	import hitpoints from '../assets/img/hitpoints.gif'
-  import CharacterDeath from './CharacterDeath.svelte';
+  	import CharacterDeath from './CharacterDeath.svelte';
+  	import SideScroller from './SideScroller.svelte';
 
 	const leaveScenario = () => {
 		activeScenario.set({
@@ -58,7 +58,7 @@
 					</div>
 				</div>
 			{:else}
-				<Main />
+				<SideScroller />
 			{/if}
 		{/if}
 	{/if}

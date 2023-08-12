@@ -3,26 +3,6 @@
   import { avatar } from "../../stores";
 
 
-//   $(document).ready(function () {
-
-// var text = "example text";
-// var i = 0;
-
-// var consoleTyper = setInterval(function () {
-//     if (i != text.length) {
-//         i += 1;
-//         $("#text").text(text.substr(0, i));
-//     }
-//     else
-//     {
-//      clearInterval(consoleTyper);   
-//     }
-
-//     console.log(i);
-// }, 50);
-// });
-
-
 
 
 

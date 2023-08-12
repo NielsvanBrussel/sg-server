@@ -8,6 +8,7 @@ import PoliceStation from '../Scenarios/PoliceStation.svelte';
 import StorageMain from '../Scenarios/StorageMain.svelte';
 import School from '../Scenarios/School.svelte';
 import Park from '../Scenarios/Park.svelte';
+import BotanicalGardens from './BotanicalGardens.svelte';
 
 
 const locationsArray = [
@@ -22,6 +23,12 @@ const locationsArray = [
         max: 705,
         name: 'Supermarket',
         component: Supermarket
+    },
+    {
+        min: 717,
+        max: 767,
+        name: 'Botanical Gardens',
+        component: BotanicalGardens
     },
     {
         min: 780,

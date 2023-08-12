@@ -278,8 +278,8 @@
 		-webkit-transform: translate(-50%);
 		transform: translate(-50%);
 		z-index: 3;
-		height: 14vh;
-		width: auto;
+		height: auto;
+		width: 9vh;
 	}
 
 	.avatar-left {
@@ -290,7 +290,7 @@
 	.entry-container {
 		position: absolute;
 		z-index: 6;
-		top: 20%;
+		top: 2rem;
 		left: 50%;
 		-webkit-transform: translate(-50%);
 		transform: translate(-50%);

@@ -38,6 +38,10 @@ const SavegameSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
+    money: {
+        type: Number,
+        default: 20
+    },
     day: {
         type: Number,
         default: 1
