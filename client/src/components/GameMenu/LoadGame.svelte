@@ -1,6 +1,6 @@
 <script>
     import axios from "axios";
-    import { avatar, menuActive } from '../../stores.js';
+    import { avatar, menuActive, activeScenario, playerPosition } from '../../stores.js';
     import refreshToken from "../../utility/refreshToken.js";
     import { onMount } from 'svelte';
     import { v4 as uuidv4 } from 'uuid';
@@ -17,6 +17,14 @@
 
     const loadGame = (savegame) => {
         avatar.set(savegame)
+
+        activeScenario.set({
+            name: "",
+            component: null
+        })
+
+        playerPosition.set(-135000)
+
         menuActive.set(false)
 	}
 

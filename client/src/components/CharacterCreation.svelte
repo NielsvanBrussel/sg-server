@@ -123,11 +123,11 @@
 						</div>
 						<div class="stats-flex">
 							<p class="stats-title">intimidation: </p>
-							<p class={activeCharacter.stats.charm > 5 ? "stats-green" : activeCharacter.stats.charm < 5 ? "stats-red" : "stats-default"}>{activeCharacter.stats.charm}</p>
+							<p class={activeCharacter.stats.intimidation > 5 ? "stats-green" : activeCharacter.stats.intimidation < 5 ? "stats-red" : "stats-default"}>{activeCharacter.stats.intimidation}</p>
 						</div>
 						<div class="stats-flex">
 							<p class="stats-title">hitpoints: </p>
-							<p class={activeCharacter.stats.hitpoints > 30 ? "stats-green" : activeCharacter.stats.hitpoints < 30 ? "stats-red" : "stats-default"}>{activeCharacter.stats.hitpoints}</p>
+							<p class={activeCharacter.stats.maxHitpoints > 30 ? "stats-green" : activeCharacter.stats.maxHitpoints < 30 ? "stats-red" : "stats-default"}>{activeCharacter.stats.maxHitpoints}</p>
 						</div>
 					</div>
 				</div>

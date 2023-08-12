@@ -4,6 +4,7 @@
   	import Main from './Main.svelte'
   	import TextButton from './core/TextButton.svelte';
 	import hitpoints from '../assets/img/hitpoints.gif'
+  import CharacterDeath from './CharacterDeath.svelte';
 
 	const leaveScenario = () => {
 		activeScenario.set({
@@ -19,42 +20,46 @@
 	{#if !$avatar.name}
 		<CharacterCreation />
 	{:else}
-		<div class="stats-overlay-container">
-			<div class="flexbox hitpoints-container">
-				<img class="hitpoints-img" src={hitpoints} alt="hitpoints">
-				<p>{$avatar.stats.currentHitpoints} / {$avatar.stats.maxHitpoints}</p>
-			</div>
-			<div class="flexbox money-container">
-				<p class="dollar-sign">$</p>
-				<p>{$avatar.money}</p>
-			</div>
-			<div class="flexbox money-container">
-				{#if $avatar.day === 1}
-					<p>monday</p>
-				{:else if $avatar.day === 2}
-					<p>tuesday</p>
-				{:else if $avatar.day === 3}
-					<p>wednesday</p>
-				{:else if $avatar.day === 4}
-					<p>thursday</p>
-				{:else if $avatar.day === 5}
-					<p>friday</p>
-				{:else if $avatar.day === 6}
-					<p>saturday</p>
-				{:else if $avatar.day === 7}
-					<p>sunday</p>
-				{/if}
-			</div>
-		</div>
-		{#if $activeScenario.component}
-			<div class="scenario-container">
-				<svelte:component this={$activeScenario.component} />
-				<div class="button-container">
-					<TextButton text='back' eventHandler={() => leaveScenario()}/>
+		{#if $avatar.stats.currentHitpoints < 1}
+			<CharacterDeath />
+		{:else}
+			<div class="stats-overlay-container">
+				<div class="flexbox hitpoints-container">
+					<img class="hitpoints-img" src={hitpoints} alt="hitpoints">
+					<p>{$avatar.stats.currentHitpoints} / {$avatar.stats.maxHitpoints}</p>
+				</div>
+				<div class="flexbox money-container">
+					<p class="dollar-sign">$</p>
+					<p>{$avatar.money}</p>
+				</div>
+				<div class="flexbox money-container">
+					{#if $avatar.day === 1}
+						<p>monday</p>
+					{:else if $avatar.day === 2}
+						<p>tuesday</p>
+					{:else if $avatar.day === 3}
+						<p>wednesday</p>
+					{:else if $avatar.day === 4}
+						<p>thursday</p>
+					{:else if $avatar.day === 5}
+						<p>friday</p>
+					{:else if $avatar.day === 6}
+						<p>saturday</p>
+					{:else if $avatar.day === 7}
+						<p>sunday</p>
+					{/if}
 				</div>
 			</div>
-		{:else}
-			<Main />
+			{#if $activeScenario.component}
+				<div class="scenario-container">
+					<svelte:component this={$activeScenario.component} />
+					<div class="button-container">
+						<TextButton text='back' eventHandler={() => leaveScenario()}/>
+					</div>
+				</div>
+			{:else}
+				<Main />
+			{/if}
 		{/if}
 	{/if}
 </div>

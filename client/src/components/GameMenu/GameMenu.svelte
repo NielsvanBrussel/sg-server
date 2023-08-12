@@ -1,5 +1,5 @@
 <script>
-    import { authenticated, avatar, menuActive } from '../../stores.js';
+    import { authenticated, avatar, menuActive, activeScenario, playerPosition } from '../../stores.js';
     import { Circle } from 'svelte-loading-spinners';
     import axios from 'axios'
     import { IconMenu2 } from '@tabler/icons-svelte'; 
@@ -19,7 +19,14 @@
             items: [],
             date_created: new Date()
         })
-        console.log($avatar)
+
+        activeScenario.set({
+            name: "",
+            component: null
+        })
+
+        playerPosition.set(-135000)
+    
         menuActive.set(false)
     }
 
