@@ -3,6 +3,7 @@ import { writable, derived } from 'svelte/store';
 export const authenticated = writable(false);
 export const menuActive = writable(true);
 export const newGame = writable(true);
+export const achievements = writable([]);
 export const activeScenario = writable({name: "", component: null})
 export const playerPosition = writable(-135000)
 
@@ -21,10 +22,44 @@ function createAvatar() {
             for (let i = 0; i < data.length; i++) {
                 switch (data[i].type) {
 
+                    case 'add item':
+                        update((prevValue) => {
+                            console.log('adding item')
+                            const items = prevValue.items
+
+                            // check if user already has the item
+                            const check = items.some(item => item.name === data[i].value)
+
+                            let newItems
+                            if (check) {
+                                // increase the amount if user has the item already
+                                newItems = items.map(item => item.name === data[i].value ? {...item, amount: item.amount + 1} : item)
+                            } else {
+                                // add the item if the user does not have the item
+                                newItems = [...items, {name: data[i].value, amount: 1}]
+                            }
+
+                            return { ...prevValue, items: newItems }
+                        })
+                        break;
+
+                    case 'remove item':
+                        update((prevValue) => {
+                            console.log('removing item')
+                            const items = prevValue.items
+
+                            // check the quantity of the item and lower it if it is more than 1, remove it otherwise
+                            const newItems = items.map(item => item.name === data[i].value ? item.amount > 2 ?{...item, amount: item.amount - 1} : null : item)
+                    
+                            return { ...prevValue, items: newItems }
+                        })
+                        break;
+
                     case 'money':
                         update((prevValue) => {
                             console.log('changing money')
                             const newAmount = prevValue.money + data[i].value
+
                             return { ...prevValue, money: newAmount }
                         })
                         break;
@@ -33,10 +68,12 @@ function createAvatar() {
                         update((prevValue) => {
                             console.log('changing day')
                             let newAmount = prevValue.day + data[i].value
+
                             // reset back to monday after sunday
                             if (newAmount >= 7) {
                                 newAmount = 1
                             }
+
                             return { ...prevValue, day: newAmount }
                         })
                         break;
@@ -45,6 +82,7 @@ function createAvatar() {
                         update((prevValue) => {
                             console.log('changing strength')
                             const newAmount = prevValue.stats.strength + data[i].value
+
                             return { ...prevValue, stats: {...prevValue.stats, strength: newAmount } }
                         })
                         break;
@@ -53,6 +91,7 @@ function createAvatar() {
                         update((prevValue) => {
                             console.log('changing stamina')
                             const newAmount = prevValue.stats.stamina + data[i].value
+
                             return { ...prevValue, stats: {...prevValue.stats, stamina: newAmount } }
                         })
                         break;
@@ -61,6 +100,7 @@ function createAvatar() {
                         update((prevValue) => {
                             console.log('changing intellect')
                             const newAmount = prevValue.stats.intellect + data[i].value
+
                             return { ...prevValue, stats: {...prevValue.stats, intellect: newAmount } }
                         })
                         break;
@@ -69,6 +109,7 @@ function createAvatar() {
                         update((prevValue) => {
                             console.log('changing intimidation')
                             const newAmount = prevValue.stats.intimidation + data[i].value
+
                             return { ...prevValue, stats: {...prevValue.stats, intimidation: newAmount } }
                         })
                         break;
@@ -77,6 +118,7 @@ function createAvatar() {
                         update((prevValue) => {
                             console.log('changing currentHitpoints')
                             const newAmount = prevValue.stats.currentHitpoints + data[i].value
+
                             return { ...prevValue, stats: {...prevValue.stats, currentHitpoints: newAmount } }
                         })
                         break;
@@ -85,6 +127,7 @@ function createAvatar() {
                         update((prevValue) => {
                             console.log('changing maxHitpoints')
                             const newAmount = prevValue.stats.maxHitpoints + data[i].value
+
                             return { ...prevValue, stats: {...prevValue.stats, maxHitpoints: newAmount } }
                         })
                         break;

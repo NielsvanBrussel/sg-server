@@ -34,4 +34,8 @@
 <div>
     <p class="text"></p>
 </div>
-<style></style>
+<style>
+    .text {
+        font-family: 'PS2P';
+    }
+</style>

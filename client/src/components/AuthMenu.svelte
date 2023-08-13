@@ -1,5 +1,5 @@
 <script>
-    import { authenticated } from '../stores.js';
+    import { authenticated, achievements } from '../stores.js';
     import { Circle } from 'svelte-loading-spinners';
     import axios from 'axios'
     import { IconAlertTriangle } from '@tabler/icons-svelte'; 
@@ -45,7 +45,7 @@
             const res = await axios.post('/api/auth/login', { name: username, password: password }, config)
             if (res.status === 201) {
                 loading = false
-                localStorage.setItem('token', res.data)
+                localStorage.setItem('token', res.data.accessToken)
                 authenticated.update((value) => !value)
             }
         } catch (error) {

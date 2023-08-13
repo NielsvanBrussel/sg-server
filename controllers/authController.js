@@ -6,7 +6,6 @@ const { resetUserExpiredRefreshToken, verifyRefreshToken, verifyExpiredAccessTok
 
 const login = async (req, res) => {   
 
-    console.log('logging in')
 
                        
         const name = req.body.name
@@ -43,7 +42,7 @@ const login = async (req, res) => {
                         overwrite: true,
                     })
 
-                    return res.status(201).send(accessToken);
+                    return res.status(201).send({accessToken: accessToken, achievements: user.achievements});
                 }
                     
             } else {
@@ -112,15 +111,17 @@ const refreshToken = async (req, res) => {              // endpoint called when 
                                                                                                    
             const user_id = payloadRefresh
             const user = await User.findOne({ _id: user_id }).exec()
+            console.log(user)
            
 
         // check if user exists    
             if (!user) {                                                                           
-                return res.status(404).send({ ok: false, accessToken: ''})
+                return res.status(404).send({ ok: false, accessToken: '', achievements: null})
             }
  
         // create new accesstoken & refreshtoken
-            const newAccessToken = await createAccessToken(user_id)                                       // create new accesstoken & refreshtoken
+            const newAccessToken = await createAccessToken(user_id)                                       
+        // create new accesstoken & refreshtoken
             const newRefreshToken = await createRefreshToken(user_id)
 
 
@@ -130,12 +131,12 @@ const refreshToken = async (req, res) => {              // endpoint called when 
                 overwrite: true,
             })
 
-            return res.status(201).send({ ok: true, user: user, accessToken: newAccessToken })
+            return res.status(201).send({ ok: true, user: user, accessToken: newAccessToken, achievements: user.achievements })
         } else {       
-            return res.status(400).send({ ok: false, accessToken: ''})
+            return res.status(400).send({ ok: false, accessToken: '', achievements: null})
         }   
     } catch (error) {
-         return res.status(400).send({ ok: false, accessToken: ''})
+         return res.status(400).send({ ok: false, accessToken: '', achievements: null})
     }   
 }
 

@@ -15,6 +15,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    achievements: {
+        type: [String]
+    },
     date_created: { 
         type: Date,
         immutable: true,

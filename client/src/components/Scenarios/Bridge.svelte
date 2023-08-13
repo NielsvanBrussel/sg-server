@@ -17,11 +17,15 @@
          
     </div>
     <div class="container">
-      <TextButton text='free money' eventHandler={() => avatar.changeStats([{ type: 'money', value: 30}, { type: 'currentHitpoints', value: -1}, {type: 'day', value: 1}])}/>  
+      <TextButton text='get poop' eventHandler={() => avatar.changeStats([{ type: 'add item', value: 'poop'}])}/>  
     </div>
-    <!-- <div class="container">
-        <TextButton text='lose hp' eventHandler={() => changeCurrentHP(-1)}/>  
-    </div> -->
+    <div class="container">
+        <TextButton text='get golden poop' eventHandler={() => avatar.changeStats([{ type: 'add item', value: 'gold poop'}])}/>  
+    </div>
+
+    <div class="container">
+        <TextButton text='remove golden poop' eventHandler={() => avatar.changeStats([{ type: 'remove item', value: 'gold poop'}])}/>  
+    </div>
 </div>
 
 
