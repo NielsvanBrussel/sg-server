@@ -1,10 +1,12 @@
 <script>
   import AuthMenu from './components/AuthMenu.svelte';
-  import { authenticated } from './stores.js';
+  import { authenticated, menuActive } from './stores.js';
   import { onMount } from 'svelte';
   import refreshToken from './utility/refreshToken';
   import { Circle } from 'svelte-loading-spinners';
   import GameMenu from './components/GameMenu/GameMenu.svelte';
+  import Game from './components/Game.svelte';
+  
 
   let authenticatedValue
   let loading = true
@@ -35,7 +37,13 @@
     {#if !authenticatedValue}
       <AuthMenu />
     {:else}
-      <GameMenu />
+      <div class="main-container">
+        {#if !$menuActive}
+          <Game />
+        {:else}
+          <GameMenu />
+        {/if}
+      </div>  
     {/if}
   {/if}
 
@@ -50,6 +58,9 @@
     border-radius: 3rem;
     border: #F51743 solid 5px;
     overflow: hidden;
+  }
+  .main-container {
+    position: relative;
   }
   .spinner-container {
     width: 100%;

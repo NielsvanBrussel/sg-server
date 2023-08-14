@@ -1,10 +1,11 @@
 <script>
-	import { avatar, activeScenario } from '../stores.js';
+	import { avatar, activeScenario, menuActive } from '../stores.js';
   	import CharacterCreation from './CharacterCreation.svelte';
   	import TextButton from './core/TextButton.svelte';
 	import hitpoints from '../assets/img/hitpoints.gif'
   	import CharacterDeath from './CharacterDeath.svelte';
   	import SideScroller from './SideScroller.svelte';
+	import { IconMenu2 } from '@tabler/icons-svelte'; 
 
 	const leaveScenario = () => {
 		activeScenario.set({
@@ -16,6 +17,11 @@
 </script>
 
 
+<div class="button__menu__container">
+	<button on:click={() => menuActive.set(true)}> 
+		<IconMenu2 size={30} color={"grey"}/>
+	</button>             
+</div>
 <div class="container">
 	{#if !$avatar.name}
 		<CharacterCreation />
@@ -32,7 +38,7 @@
 					<p class="dollar-sign">$</p>
 					<p>{$avatar.money}</p>
 				</div>
-				<div class="flexbox money-container">
+				<div class="flexbox day-container">
 					{#if $avatar.day === 1}
 						<p>monday</p>
 					{:else if $avatar.day === 2}
@@ -77,7 +83,13 @@
 		position: relative;
 		background-color: #03071E;
 	}
-
+	.button__menu__container {
+		position: absolute;
+		right: 0;
+		top: 0;
+		margin: 2rem;
+		z-index: 10;
+  	}
 	.stats-overlay-container {
 		position: absolute;
 		top: 1rem;

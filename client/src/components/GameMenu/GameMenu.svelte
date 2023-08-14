@@ -1,8 +1,6 @@
 <script>
     import { authenticated, avatar, menuActive, activeScenario, playerPosition, achievements } from '../../stores.js';
-    import { Circle } from 'svelte-loading-spinners';
     import axios from 'axios'
-    import { IconMenu2 } from '@tabler/icons-svelte'; 
     import SaveGame from './SaveGame.svelte';
     import LoadGame from './LoadGame.svelte';
     import MenuBackground from '../MenuBackground.svelte';
@@ -56,15 +54,7 @@
 </script>
 
 
-<div class="main-container">
-    {#if !$menuActive}
-        <Game />
-        <div class="button__menu__container">
-            <button on:click={() => menuActive.set(true)}> 
-                <IconMenu2 size={30} color={"grey"}/>
-            </button>             
-        </div>
-    {:else}
+
         <MenuBackground />
         <div class="container__outer">
             <div class="container__inner">
@@ -146,8 +136,7 @@
                 {/if}    
             </div>
         </div>
-    {/if} 
-</div>
+
 
 
 
@@ -158,9 +147,6 @@
         to { opacity: 1; }
     }
 
-    .main-container {
-        position: relative;
-    }
     .container__outer {
         position: absolute;
         z-index: 2;
@@ -183,13 +169,7 @@
         margin: 2rem auto;
         height: 24rem;
     }
-    .button__menu__container {
-        position: absolute;
-        right: 0;
-        top: 0;
-        margin: 2rem;
-        z-index: 10;
-    }
+
     .flex-column {
         display: flex;
         flex-direction: column;
