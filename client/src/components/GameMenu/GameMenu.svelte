@@ -162,7 +162,6 @@
         font-family: 'Bungee-Spice';
         transform: translate(-50%, -50%);
         overflow: hidden;
-        
     }
     .container__inner {
         width: 80%;

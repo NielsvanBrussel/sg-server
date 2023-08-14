@@ -24,7 +24,7 @@ function createAvatar() {
 
                     case 'add item':
                         update((prevValue) => {
-                            console.log('adding item')
+                         
                             const items = prevValue.items
 
                             // check if user already has the item
@@ -45,11 +45,9 @@ function createAvatar() {
 
                     case 'remove item':
                         update((prevValue) => {
-                            console.log('removing item')
-                            const items = prevValue.items
-
+                         
                             // check the quantity of the item and lower it if it is more than 1, remove it otherwise
-                            const newItems = items.map(item => item.name === data[i].value ? item.amount > 2 ?{...item, amount: item.amount - 1} : null : item)
+                            const newItems = prevValue.items.map(item => item.name === data[i].value ? item.amount > 2 ?{...item, amount: item.amount - 1} : null : item)
                     
                             return { ...prevValue, items: newItems }
                         })
@@ -57,16 +55,15 @@ function createAvatar() {
 
                     case 'money':
                         update((prevValue) => {
-                            console.log('changing money')
+                        
                             const newAmount = prevValue.money + data[i].value
-
                             return { ...prevValue, money: newAmount }
                         })
                         break;
 
                     case 'day':
                         update((prevValue) => {
-                            console.log('changing day')
+                         
                             let newAmount = prevValue.day + data[i].value
 
                             // reset back to monday after sunday
@@ -80,7 +77,7 @@ function createAvatar() {
 
                     case 'strength':
                         update((prevValue) => {
-                            console.log('changing strength')
+                          
                             const newAmount = prevValue.stats.strength + data[i].value
 
                             return { ...prevValue, stats: {...prevValue.stats, strength: newAmount } }
@@ -89,7 +86,7 @@ function createAvatar() {
 
                     case 'stamina':
                         update((prevValue) => {
-                            console.log('changing stamina')
+                          
                             const newAmount = prevValue.stats.stamina + data[i].value
 
                             return { ...prevValue, stats: {...prevValue.stats, stamina: newAmount } }
@@ -98,7 +95,7 @@ function createAvatar() {
 
                     case 'intellect':
                         update((prevValue) => {
-                            console.log('changing intellect')
+                         
                             const newAmount = prevValue.stats.intellect + data[i].value
 
                             return { ...prevValue, stats: {...prevValue.stats, intellect: newAmount } }
@@ -107,7 +104,7 @@ function createAvatar() {
 
                     case 'intimidation':
                         update((prevValue) => {
-                            console.log('changing intimidation')
+                          
                             const newAmount = prevValue.stats.intimidation + data[i].value
 
                             return { ...prevValue, stats: {...prevValue.stats, intimidation: newAmount } }
@@ -116,7 +113,7 @@ function createAvatar() {
 
                     case 'currentHitpoints':
                         update((prevValue) => {
-                            console.log('changing currentHitpoints')
+                       
                             const newAmount = prevValue.stats.currentHitpoints + data[i].value
 
                             return { ...prevValue, stats: {...prevValue.stats, currentHitpoints: newAmount } }
@@ -125,7 +122,7 @@ function createAvatar() {
 
                     case 'maxHitpoints':
                         update((prevValue) => {
-                            console.log('changing maxHitpoints')
+          
                             const newAmount = prevValue.stats.maxHitpoints + data[i].value
 
                             return { ...prevValue, stats: {...prevValue.stats, maxHitpoints: newAmount } }

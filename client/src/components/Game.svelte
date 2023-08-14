@@ -5,7 +5,7 @@
 	import hitpoints from '../assets/img/hitpoints.gif'
   	import CharacterDeath from './CharacterDeath.svelte';
   	import SideScroller from './SideScroller.svelte';
-	import { IconMenu2 } from '@tabler/icons-svelte'; 
+	import { IconMenu2, IconMoneybag } from '@tabler/icons-svelte'; 
 
 	const leaveScenario = () => {
 		activeScenario.set({
@@ -18,9 +18,11 @@
 
 
 <div class="button__menu__container">
-	<button on:click={() => menuActive.set(true)}> 
-		<IconMenu2 size={30} color={"grey"}/>
-	</button>             
+	<button class="menu-button" on:click={() => menuActive.set(true)}> 
+		
+	</button>
+	<button class="inventory-button" on:click={() => null}> 
+	</button>                
 </div>
 <div class="container">
 	{#if !$avatar.name}
@@ -85,14 +87,38 @@
 	}
 	.button__menu__container {
 		position: absolute;
-		right: 0;
-		top: 0;
-		margin: 2rem;
+		left: 0;
+		top: 9rem;
+		margin: 0rem 2rem;
 		z-index: 10;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 1rem;
   	}
+	.menu-button, .inventory-button {
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 2rem auto;
+		min-height: 3rem;
+		min-width: 4rem;
+		border: 3px solid transparent;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	.menu-button:hover, .inventory-button:hover {
+		border-color: #F48C06;
+	}
+	.menu-button {
+		background-image: url('../assets/img/menu.png');
+	}
+	.inventory-button {
+		background-image: url('../assets/img/inventory.png');
+	}
 	.stats-overlay-container {
 		position: absolute;
-		top: 1rem;
+		height: 8rem;
+		padding: 1rem 0 0 0;
+		top: 0rem;
 		left: 0;
 		z-index: 5;
 		display: flex;
@@ -113,8 +139,12 @@
 	.money-container {
 		color: green;
 	}
+	.day-container {
+		color: #F48C06;
+		margin-left: 2.5rem;
+	}
 	.dollar-sign {
-		font-size: 3rem;
+		font-size: 2rem;
 		margin: 0 0.5rem;
 		padding: 0;
 	}
@@ -127,6 +157,7 @@
 	}
 	p {
 		margin: 0;
+		padding: 0;
 	}
 	.scenario-container {
 		position: relative;
