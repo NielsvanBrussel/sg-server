@@ -10,62 +10,80 @@
 	let inventoryActive = false
 	let statsActive = false
 
-</script>
+	const menuStatus = (type) => {
+		if (type === 'inventory') {
+			statsActive = false
+			inventoryActive = !inventoryActive
+		} else {
+			inventoryActive = false
+			statsActive = !statsActive
+		}
+	}
 
-<div class="flexbox-overlay">
-    <div class="button__menu__container">
-        <button class="menu-button" on:click={() => menuActive.set(true)}>
-            <img src={menuIcon} alt='menu' class="menu-img">
-        </button>
-        <button class="stats-button" on:click={() => statsActive = !statsActive}>
-            <img src={statsIcon} alt='stats' class="menu-img">
-        </button>
-        <button class="inventory-button" on:click={() => inventoryActive = !inventoryActive}>
-            <img src={inventoryActive ? inventoryOpenIcon : inventoryIcon} alt='inventory' class="menu-img">
-        </button>                
-    </div>	
-    <div class="stats-overlay-container">
-        <div class="flexbox hitpoints-container">
-            <img class="hitpoints-img" src={hitpoints} alt="hitpoints">
-            <p>{$avatar.stats.currentHitpoints} / {$avatar.stats.maxHitpoints}</p>
-        </div>
-        <div class="flexbox money-container">
-            <p class="dollar-sign">$</p>
-            <p>{$avatar.money}</p>
-        </div>
-        <div class="flexbox day-container">
-            {#if $avatar.day === 1}
-                <p>monday</p>
-            {:else if $avatar.day === 2}
-                <p>tuesday</p>
-            {:else if $avatar.day === 3}
-                <p>wednesday</p>
-            {:else if $avatar.day === 4}
-                <p>thursday</p>
-            {:else if $avatar.day === 5}
-                <p>friday</p>
-            {:else if $avatar.day === 6}
-                <p>saturday</p>
-            {:else if $avatar.day === 7}
-                <p>sunday</p>
-            {/if}
-        </div>
-    </div>		
+</script>
+<div class="container">
+	<div class="flexbox-overlay">
+		<div class="button__menu__container">
+			<button class="menu-button" on:click={() => menuActive.set(true)}>
+				<img src={menuIcon} alt='menu' class="menu-img">
+			</button>
+			<button class={statsActive? "stats-button active":  "stats-button"} on:click={() => menuStatus('stats')}>
+				<img src={statsIcon} alt='stats' class="menu-img">
+			</button>
+			<button class={inventoryActive? "inventory-button active":  "inventory-button"} on:click={() => menuStatus('inventory')}>
+				<img src={inventoryActive ? inventoryOpenIcon : inventoryIcon} alt='inventory' class="menu-img">
+			</button>                
+		</div>	
+		<div class="stats-overlay-container">
+			<div class="flexbox hitpoints-container">
+				<img class="hitpoints-img" src={hitpoints} alt="hitpoints">
+				<p>{$avatar.stats.currentHitpoints} / {$avatar.stats.maxHitpoints}</p>
+			</div>
+			<div class="flexbox money-container">
+				<p class="dollar-sign">$</p>
+				<p>{$avatar.money}</p>
+			</div>
+			<div class="flexbox day-container">
+				{#if $avatar.day === 1}
+					<p>monday</p>
+				{:else if $avatar.day === 2}
+					<p>tuesday</p>
+				{:else if $avatar.day === 3}
+					<p>wednesday</p>
+				{:else if $avatar.day === 4}
+					<p>thursday</p>
+				{:else if $avatar.day === 5}
+					<p>friday</p>
+				{:else if $avatar.day === 6}
+					<p>saturday</p>
+				{:else if $avatar.day === 7}
+					<p>sunday</p>
+				{/if}
+			</div>
+		</div>		
+	</div>
+	{#if inventoryActive}
+		<div class="inv-stats-container">inventory</div>
+	{:else if statsActive}
+		<div class="inv-stats-container">stats</div>
+	{/if}
 </div>
+
 
 
 
 
 <style>
 
-
-	.flexbox-overlay {
-		display: flex;
-		flex-direction: row;
+	.container {
 		position: absolute;
 		top: 1rem;
 		left: 0;
 		z-index: 10;
+	}
+	.flexbox-overlay {
+		display: flex;
+		flex-direction: row;
 	}
 	.button__menu__container {
 		position: relative;
@@ -77,11 +95,14 @@
   	}
 	.menu-button, .inventory-button, .stats-button {
 		border: 3px solid transparent;
-		background-color: rgba(0, 0, 0, 0.3);
+		background-color: rgba(0, 0, 0, 0.5);
 		padding: 0.25rem 0.5rem;
 		display: flex;
 		justify-content: center;
 		flex-direction: row;
+	}
+	.active {
+		border-color: #F48C06 !important;
 	}
 	.menu-img {
 		height: 1.75rem;
@@ -95,6 +116,7 @@
 		position: relative;
 		padding: 0;
 		display: flex;
+		gap: 0.25rem 0;
 		flex-direction: column;
 		justify-content: center;
 		align-items: flex-start;
@@ -130,6 +152,12 @@
 	p {
 		margin: 0;
 		padding: 0;
+	}
+	.inv-stats-container {
+		min-height: 60vh;
+		background-color: rgba(0, 0, 0, 0.5);
+		border-radius: 3rem;
+		margin: 2rem 0 0 2rem;
 	}
 
 </style>
