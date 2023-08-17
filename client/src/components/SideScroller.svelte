@@ -89,6 +89,7 @@
 		loop = false
 		removeEventListener('keydown', keyDownEvent)
 		removeEventListener('keydown', keyUpEvent)
+		playerPosition.set(position)
 	});
 
 

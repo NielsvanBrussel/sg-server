@@ -18,7 +18,7 @@ function createAvatar() {
         changeStats: (data) => {
 
 
-            // change stats depending on the array of data ( [{type, value}, ...])
+            // change stats depending on the array of data ( [{type, amount}, ...])
             for (let i = 0; i < data.length; i++) {
                 switch (data[i].type) {
 

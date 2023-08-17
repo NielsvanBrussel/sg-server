@@ -11,6 +11,7 @@
 	let statsActive = false
 
 	const menuStatus = (type) => {
+		console.log('???hu')
 		if (type === 'inventory') {
 			statsActive = false
 			inventoryActive = !inventoryActive
@@ -63,9 +64,44 @@
 		</div>		
 	</div>
 	{#if inventoryActive}
-		<div class="inv-stats-container">inventory</div>
+		<div class="inv-stats-container__outer">
+			<div class="inv-stats-container__inner">
+				<h3 class="inv-stats-header">inventory</h3>
+				<div>
+					{#each $avatar.items as item, i}
+						<div>{item.name} {item.amount}</div>
+					{/each}
+				</div>
+			</div>
+		</div>
 	{:else if statsActive}
-		<div class="inv-stats-container">stats</div>
+		<div class="inv-stats-container__outer">
+			<div class="inv-stats-container__inner">
+				<h3 class="inv-stats-header">stats</h3>
+				<div class="stats-container">
+					<div class="stats-flex">
+						<p class="stats-title">strength: </p>
+						<p class="stats-value">{$avatar.stats.strength}</p>					
+					</div>
+					<div class="stats-flex">
+						<p class="stats-title">stamina: </p>
+						<p class="stats-value">{$avatar.stats.stamina}</p>
+					</div>
+					<div class="stats-flex">
+						<p class="stats-title">intellect: </p>
+						<p class="stats-value">{$avatar.stats.intellect}</p>
+					</div>
+					<div class="stats-flex">
+						<p class="stats-title">intimidation: </p>
+						<p class="stats-value">{$avatar.stats.intimidation}</p>
+					</div>
+					<div class="stats-flex">
+						<p class="stats-title">hitpoints: </p>
+						<p class="stats-value">{$avatar.stats.maxHitpoints}</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	{/if}
 </div>
 
@@ -95,7 +131,7 @@
   	}
 	.menu-button, .inventory-button, .stats-button {
 		border: 3px solid transparent;
-		background-color: rgba(0, 0, 0, 0.5);
+		background-color: rgba(0, 0, 0, 0.7);
 		padding: 0.25rem 0.5rem;
 		display: flex;
 		justify-content: center;
@@ -153,11 +189,34 @@
 		margin: 0;
 		padding: 0;
 	}
-	.inv-stats-container {
+	.inv-stats-container__outer {
 		min-height: 60vh;
-		background-color: rgba(0, 0, 0, 0.5);
+		background-color: rgba(0, 0, 0, 0.7);
 		border-radius: 3rem;
 		margin: 2rem 0 0 2rem;
+		border: #F48C06 0.5rem solid;
 	}
+	.inv-stats-container__inner {
+		margin: 1rem;
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+		font-family: 'PS2P';
+		
+	}
+	.stats-container {
+		text-align: left;
+		display: flex;
+		flex-direction: column;
+		height: 45vh;
+		justify-content: space-between;
+	}
+	.inv-stats-header {
+		color: #F48C06;
+	}
+	.stats-value {
+		margin: 0.5rem;
+	}
+
 
 </style>

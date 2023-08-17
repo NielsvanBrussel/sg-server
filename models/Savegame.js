@@ -49,6 +49,9 @@ const SavegameSchema = new mongoose.Schema({
     items: { 
         type: [String]
     },
+    unlocks: {
+        type: [String]
+    },
     stats: {
         type: StatsSchema,
         required: true,

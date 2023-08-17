@@ -77,6 +77,7 @@
 			day: 1,
 			money: 20,
 			items: [],
+			unlocks: [],
 			date_created: new Date()
 		})
 
