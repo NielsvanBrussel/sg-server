@@ -29,6 +29,37 @@ const StatsSchema = new mongoose.Schema({
     },
 })
 
+const UnlocksSchema = new mongoose.Schema({
+    hospitalVisits: {
+        type: Number, 
+        default: 0
+    },
+    missingKidney: {
+        type: Boolean,
+        default: false
+    },
+    billy: {
+        type: Boolean,
+        default: false
+    },
+    growingWeed: {
+        type: Boolean,
+        default: false
+    },
+    hoboArena: {
+        type: Boolean,
+        default: false
+    },
+    organTrade: {
+        type: Boolean,
+        default: false
+    },
+    sewers: {
+        type: Boolean,
+        default: false
+    },
+})
+
 const SavegameSchema = new mongoose.Schema({
     user: {
         type: mongoose.Types.ObjectId,
@@ -50,7 +81,8 @@ const SavegameSchema = new mongoose.Schema({
         type: [String]
     },
     unlocks: {
-        type: [String]
+        type: UnlocksSchema,
+        required: true,
     },
     stats: {
         type: StatsSchema,

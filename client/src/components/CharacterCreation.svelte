@@ -77,7 +77,15 @@
 			day: 1,
 			money: 20,
 			items: [],
-			unlocks: [],
+			unlocks: {
+				hospitalVisits: 0,
+				missingKidney: false,
+				billy: false,
+				growingWeed: false,
+				hoboArena: false,
+				organTrade: false,
+				sewers: false,
+			},
 			date_created: new Date()
 		})
 
