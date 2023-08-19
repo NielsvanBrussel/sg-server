@@ -27,7 +27,7 @@
 				<div class="scenario-container">
 					<svelte:component this={$activeScenario.component} />
 					<div class="button-container">
-						<TextButton text='back' eventHandler={() => leaveScenario()}/>
+						<TextButton text='leave' eventHandler={() => leaveScenario()}/>
 					</div>
 				</div>
 			{:else}

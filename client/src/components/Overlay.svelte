@@ -131,7 +131,7 @@
   	}
 	.menu-button, .inventory-button, .stats-button {
 		border: 3px solid transparent;
-		background-color: rgba(0, 0, 0, 0.7);
+		background-image: linear-gradient(to bottom right, #19173D, #87173E);
 		padding: 0.25rem 0.5rem;
 		display: flex;
 		justify-content: center;
@@ -191,10 +191,10 @@
 	}
 	.inv-stats-container__outer {
 		min-height: 60vh;
-		background-color: rgba(0, 0, 0, 0.7);
+		background-image: linear-gradient(to bottom right, #19173D, #87173E);
 		border-radius: 3rem;
 		margin: 2rem 0 0 2rem;
-		border: #F48C06 0.5rem solid;
+		border: #F51743 solid 5px;
 	}
 	.inv-stats-container__inner {
 		margin: 1rem;

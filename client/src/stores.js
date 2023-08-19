@@ -10,7 +10,32 @@ export const playerPosition = writable(-135000)
 
 
 function createAvatar() {
-	const { subscribe, set, update } = writable();
+	const { subscribe, set, update } = writable(
+        {
+            name: null,
+			stats: {
+				strength: null,
+				stamina: null,
+				intellect: null,
+				maxHitpoints: null,
+				currentHitpoints: null,
+				intimidation: null,
+			},
+			day: 1,
+			money: 20,
+			items: [],
+			unlocks: {
+				hospitalVisits: 0,
+				missingKidney: false,
+				billy: false,
+				growingWeed: false,
+				hoboArena: false,
+				organTrade: false,
+				sewers: false,
+			},
+			date_created: null
+        }
+    );
 
 	return {
 		subscribe,

@@ -61,7 +61,7 @@
                 {#if activeTab === 0}
                     <div class="flex-column">
                         <div class="flex-column2"> 
-                        {#if $avatar} 
+                        {#if $avatar.name} 
                             <button 
                                 id="newgame-button" 
                                 class="menu-button" 
