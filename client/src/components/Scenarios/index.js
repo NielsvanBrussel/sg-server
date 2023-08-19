@@ -9,15 +9,10 @@ import StorageMain from '../Scenarios/StorageMain.svelte';
 import School from '../Scenarios/School.svelte';
 import Park from '../Scenarios/Park.svelte';
 import BotanicalGardens from './BotanicalGardens.svelte';
+import Sewers from './Sewers.svelte';
 
 
 const locationsArray = [
-    {
-        min: 502,
-        max: 552,
-        name: 'Hospital',
-        component: Hospital
-    },
     {
         min: 655,
         max: 705,
@@ -48,6 +43,19 @@ const locationsArray = [
         name: 'Bridge',
         component: Bridge
     },
+    {
+        min: 502,
+        max: 552,
+        name: 'Hospital',
+        component: Hospital
+    },    
+    {
+        min: 440,
+        max: 490,
+        name: 'Sewers',
+        component: Sewers
+    },
+
     {
         min: 370,
         max: 420,

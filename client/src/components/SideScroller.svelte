@@ -139,6 +139,12 @@
 
 		for (let i = 0; i < locationsArray.length; i++) {
 			if (truePosition > locationsArray[i].min && truePosition < locationsArray[i].max) {
+
+
+				// if the location is sewers and the avatar hasnt unlocked them yet skip location
+				if(locationsArray[i].name === 'Sewers' && !$avatar.unlocks.sewer) {
+					return false
+				}
 						
 					const value =  (locationsArray[i].min + locationsArray[i].max) / 2
 					if (!showEntry) {
