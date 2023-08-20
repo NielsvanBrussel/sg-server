@@ -20,7 +20,8 @@
 
         activeScenario.set({
             name: "",
-            component: null
+            component: null,
+            introText: ""
         })
 
         playerPosition.set(-135000)

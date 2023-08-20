@@ -12,7 +12,8 @@
 
             activeScenario.set({
                 name: scenario.name,
-                component: scenario.component
+                component: scenario.component,
+                introText: scenario.introText
             })       
     }
     

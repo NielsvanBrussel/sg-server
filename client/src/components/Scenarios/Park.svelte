@@ -1,9 +1,8 @@
 <script>
-    import { avatar, activeScenario } from "../../stores";
-    import AnimatedText from "../core/AnimatedText.svelte";
+    import { avatar } from "../../stores";
     import ScenarioOption from "../core/ScenarioOption.svelte";
 
-    let introText = 'You arrive at the park. The epicenter of nature and recreation in town. Trees, rocks, a duck pond and a playground. What would you like to do?'
+    export let changeIntroText
     let showOptions = true
 
     const forageHandler = () => {
@@ -11,69 +10,56 @@
         if (max > 30)  {
             max = 30
         }
+
         const rng = Math.floor(Math.random() * 100) + max
+
         if (rng > 105) {
-            console.log('adding truffle')
             avatar.changeStats([{ type: 'add item', value: 'truffle'}])
-            introText = 'You found a truffle! Pigs love these things. Better hold on to these.'
+            changeIntroText('You found a truffle! Pigs love these things. Better hold on to these.')
 
         } else if (rng > 80) {
-            console.log('adding mushroom')
             avatar.changeStats([{ type: 'add item', value: 'mushroom'}])
-            introText = 'You found some weird looking mushrooms. Someone might be interested in these.'
+            changeIntroText('You found some weird looking mushrooms. Someone might be interested in these.')
         } else {
-            console.log('adding poop')
             avatar.changeStats([{ type: 'add item', value: 'poop'}, {type: 'day', value: 1}])
-            introText = 'You found some poop. You put it in your pocket. Might come in handy.'
+            changeIntroText('You found a fresh dog turd. You put it in your pocket. Might come in handy.')
         }
+
+        showOptions = false
+    }
+
+    const punchHandler = () => {
+        let max = $avatar.stats.strength
+        if (max > 15)  {
+            max = 15
+        }
+
+        const rng = Math.floor(Math.random() * 5) + max
+
+        if (rng >= 15) {
+            avatar.changeStats([{type: 'day', value: 1}])
+            changeIntroText('These trees are no match for you. You break them one by one.')
+        } else {
+            avatar.changeStats([{ type: 'currentHitpoints', value: -10}, { type: 'strength', value: 1}, {type: 'day', value: 1}])
+            changeIntroText('After repeatably punching the tree you break your wrist. You feel slightly stronger though.')
+        }
+        
         showOptions = false
     }
 
 </script>
 
-
-<div class="container">
-    <div class="header-container">
-       <h3>The Park</h3> 
-    </div>
-
-    <div class="flexbox">
-        <div class="intro-container">
-            <AnimatedText text={introText} /> 
-        </div>
-        {#if showOptions}
-            <div class="options-container">
-                <ScenarioOption text="INT: Forage" eventHandler={() => forageHandler()}/>
-            </div>           
-        {/if}        
-    </div>
-</div>
-
+{#if showOptions}
+    <div class="options-container">
+        <ScenarioOption text="INTELLECT: Forage." eventHandler={() => forageHandler()}/>
+        <ScenarioOption text="STRENGTH: Punch a tree." eventHandler={() => punchHandler()}/>
+    </div>           
+{/if}        
 
 
 <style>
-    .header-container {
-        height: 10rem;
-        font-family: 'PS2P';
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 50%;
-        margin: 0 auto;
-    }
-    .flexbox {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin: 2rem;
-    }
-    h3 {
-        font-size: 1.25rem;
-    }
-    .intro-container, .options-container {
+    .options-container {
         width: 40%;
         text-align: left;
     }
-
 </style>

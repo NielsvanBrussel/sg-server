@@ -23,6 +23,7 @@
         border-radius: 0;
         width: 100%;
         text-align: left;
+		margin: 0.5rem 0;
 	}
 	.button-nav:hover {
 		scale: 1.02;

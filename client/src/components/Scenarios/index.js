@@ -17,74 +17,86 @@ const locationsArray = [
         min: 655,
         max: 705,
         name: 'Supermarket',
-        component: Supermarket
+        component: Supermarket,
+        introText: ""
     },
     {
         min: 717,
         max: 767,
         name: 'Botanical Gardens',
-        component: BotanicalGardens
+        component: BotanicalGardens,
+        introText: ""
     },
     {
         min: 780,
         max: 830,
         name: 'Gym',
-        component: Gym
+        component: Gym,
+        introText: ""
     },
     {
         min: 835,
         max: 885,
         name: 'Children of the Golden Tree',
-        component: Sect
+        component: Sect,
+        introText: ""
     },
     {
         min: 590,
         max: 640,
         name: 'Bridge',
-        component: Bridge
+        component: Bridge,
+        introText: ""
     },
     {
         min: 502,
         max: 552,
         name: 'Hospital',
-        component: Hospital
+        component: Hospital,
+        introText: ""
     },    
     {
         min: 440,
         max: 490,
         name: 'Sewers',
-        component: Sewers
+        component: Sewers,
+        introText: ""
     },
 
     {
         min: 370,
         max: 420,
         name: 'Gas station',
-        component: GasStation
+        component: GasStation,
+        introText: ""
     },
     {
         min: 290,
         max: 340,
         name: 'Police station',
-        component: PoliceStation
+        component: PoliceStation,
+        introText: ""
     },
     {
         min: 100,
         max: 150,
         name: 'Storage',
-        component: StorageMain
+        component: StorageMain,
+        introText: ""
     },
     {
         min: 185,
         max: 235,
         name: 'School',
-        component: School
+        component: School,
+        introText: ""
     },
     {
         min: 5,
         max: 55,
         name: 'Park',
-        component: Park
+        component: Park,
+        introText: "You arrive at the park. The center of nature and recreation in town. Trees, rocks, a duck pond and a playground. What would you like to do?"
     },
 ]
 

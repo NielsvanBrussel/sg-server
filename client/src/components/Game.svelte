@@ -1,17 +1,10 @@
 <script>
 	import { avatar, activeScenario } from '../stores.js';
   	import CharacterCreation from './CharacterCreation.svelte';
-  	import TextButton from './core/TextButton.svelte';
   	import CharacterDeath from './CharacterDeath.svelte';
   	import SideScroller from './SideScroller.svelte';
   	import Overlay from './Overlay.svelte';
-
-	const leaveScenario = () => {
-		activeScenario.set({
-			name: "",
-			component: null,
-        })
-	}
+  	import Scenario from './Scenario.svelte';
 </script>
 
 
@@ -24,12 +17,7 @@
 		{:else}
 			<Overlay />
 			{#if $activeScenario.component}
-				<div class="scenario-container">
-					<svelte:component this={$activeScenario.component} />
-					<div class="button-container">
-						<TextButton text='leave' eventHandler={() => leaveScenario()}/>
-					</div>
-				</div>
+				<Scenario />
 			{:else}
 				<SideScroller />
 			{/if}
@@ -50,12 +38,5 @@
 		position: relative;
 		background-color: #03071E;
 	}
-	.scenario-container {
-		position: relative;
-		z-index: 6;
-	}
-	.button-container {
 	
-		position: relative;
-	}
 </style>

@@ -4,7 +4,7 @@ export const authenticated = writable(false);
 export const menuActive = writable(true);
 export const newGame = writable(true);
 export const achievements = writable([]);
-export const activeScenario = writable({name: "", component: null})
+export const activeScenario = writable({name: "", component: null, introText: ""})
 export const playerPosition = writable(-135000)
 
 
