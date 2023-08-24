@@ -1,4 +1,5 @@
 import { writable, derived } from 'svelte/store';
+import { locations_map1, locations_map2 } from './components/Scenarios';
 
 export const authenticated = writable(false);
 export const menuActive = writable(true);
@@ -6,6 +7,37 @@ export const newGame = writable(true);
 export const achievements = writable([]);
 export const activeScenario = writable({name: "", component: null, introText: ""})
 export const playerPosition = writable(-135000)
+
+
+
+function selectMap() {
+    const { subscribe, set, update } = writable(
+        {
+            name: "map_1",
+            locationsArray: locations_map1
+        }
+    )
+
+    return {
+        subscribe,
+        set: (value) => set(value),
+        select: (value) => {
+            if (value === "map_1") {
+                set({
+                    name: "map_1",
+                    locationsArray: locations_map1
+                })        
+            } else if (value === "map_2") {
+                set({
+                    name: "map_2",
+                    locationsArray: locations_map2
+                }) 
+            }
+        }        
+    }
+}
+
+export const map = selectMap()
 
 
 

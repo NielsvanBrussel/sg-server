@@ -12,7 +12,7 @@ import BotanicalGardens from './BotanicalGardens.svelte';
 import Sewers from './Sewers.svelte';
 
 
-const locationsArray = [
+export const locations_map1 = [
     {
         min: 655,
         max: 705,
@@ -56,13 +56,12 @@ const locationsArray = [
         introText: ""
     },    
     {
-        min: 440,
-        max: 490,
-        name: 'Sewers',
-        component: Sewers,
+        min: 430,
+        max: 480,
+        name: 'other map',
+        component: null,
         introText: ""
     },
-
     {
         min: 370,
         max: 420,
@@ -100,4 +99,27 @@ const locationsArray = [
     },
 ]
 
-export default locationsArray
+export const locations_map2 = [
+    {
+        min: 655,
+        max: 705,
+        name: 'idk',
+        component: Supermarket,
+        introText: ""
+    },
+    {
+        min: 300,
+        max: 450,
+        name: 'Sewers',
+        component: Sewers,
+        introText: ""
+    },
+    {
+        min: 430,
+        max: 480,
+        name: 'other map',
+        component: null,
+        introText: ""
+    },
+]
+

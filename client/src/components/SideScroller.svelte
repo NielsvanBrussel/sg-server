@@ -6,13 +6,15 @@
 	import rupertStand from '../assets/img/rupert-stand.png'
 	import dwayneRunning from '../assets/img/dwayne-running.gif'
 	import dwayneStand from '../assets/img/dwayne-stand.png'
+	import { map } from '../stores';
 
 	// floating message above locations
   	import EntryMessage from './EntryMessage.svelte';
 
 	// list of all location positions, names and components
-	import locationsArray from './Scenarios';
   	import { playerPosition, avatar } from '../stores';
+  import Background1A from './backgrounds/Background1A.svelte';
+  import Background1B from './backgrounds/Background1B.svelte';
 
 
 	const keyPress = {
@@ -58,7 +60,6 @@
 
 	//center avatar in the middle of the map
 	let position  
-	// position = 0
 
 	playerPosition.subscribe((value) => {
         position = value;
@@ -76,14 +77,25 @@
 	let loop = true
 	let standStill = true
 	let rightDirection = true
+	let animating = false
+	let mounted = false
 
 
     onMount(async () => {
-		background = document.querySelector(".sliding-background1")
-		foreground = document.querySelector(".sliding-background0")
 		entryMessage = document.querySelector(".entry-container")
-        animate()
+		mounted = true
 	});
+
+
+	const changeBackground = ({ backgroundValue, foregroundValue }) => {
+		background = backgroundValue
+		foreground = foregroundValue
+		if (!animating) {
+			animate()
+		}
+	}
+
+
 
 	onDestroy(() => {
 		loop = false
@@ -137,20 +149,20 @@
 
 		const truePosition = position - (Math.floor(position / 900) * 900)	
 
-		for (let i = 0; i < locationsArray.length; i++) {
-			if (truePosition > locationsArray[i].min && truePosition < locationsArray[i].max) {
+		for (let i = 0; i < $map.locationsArray.length; i++) {
+			if (truePosition > $map.locationsArray[i].min && truePosition < $map.locationsArray[i].max) {
 
 
 				// if the location is sewers and the avatar hasnt unlocked them yet skip location
-				if(locationsArray[i].name === 'Sewers' && !$avatar.unlocks.sewer) {
+				if($map.locationsArray[i].name === 'Sewers' && !$avatar.unlocks.sewer) {
 					return false
 				}
 						
-					const value =  (locationsArray[i].min + locationsArray[i].max) / 2
+					const value =  ($map.locationsArray[i].min + $map.locationsArray[i].max) / 2
 					if (!showEntry) {
 
 						// dont display the message at first when the player returns from a scenario
-						if (scenario !== locationsArray[i] && scenario && !showEntry2) {
+						if (scenario !== $map.locationsArray[i] && scenario && !showEntry2) {
 							showEntry2 = true
 						}
 
@@ -160,7 +172,7 @@
 						} else {
 							messagePosition = -25
 						}
-						scenario= locationsArray[i]
+						scenario= $map.locationsArray[i]
 					}
 					
 					return true
@@ -172,46 +184,57 @@
 
 	const animate = (timestamp) => {
 
-
-		// fps (not true fps but time between frames) used to mainteam same speed between different Hz monitors
-		const fps = timestamp - previousTimestamp
-		previousTimestamp = timestamp
+		if (mounted) {
+			// fps (not true fps but time between frames) used to mainteam same speed between different Hz monitors
+			const fps = timestamp - previousTimestamp
+			previousTimestamp = timestamp
+			
+			if(keyPress.right) {
+				// edge of map check
+				if (position > -265000) { 
+					position -= (1 * fps / 25)
+					messagePosition -= (1 * fps / 25)
+				}
+			} else if (keyPress.left) {
+				//edge of map check
+				if (position !== 0 && position < 0) {
+					position += (1 * fps / 25)
+					messagePosition += (1 * fps / 25)
+					if (position > 0) {
+						position = 0
+					}              
+				}
+			}	
 		
-		if(keyPress.right) {
-			// edge of map check
-			if (position > -265000) { 
-				position -= (1 * fps / 25)
-				messagePosition -= (1 * fps / 25)
-			}
-		} else if (keyPress.left) {
-			//edge of map check
-            if (position !== 0 && position < 0) {
-			    position += (1 * fps / 25)
-				messagePosition += (1 * fps / 25)
-				if (position > 0) {
-					position = 0
-				}              
-            }
-		}	
-	
-		showEntry = checkPositions()
+			showEntry = checkPositions()
 
-		// move background & entry messages
-        background.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
-		foreground.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
-		entryMessage.style.transform = `translate3d(calc(${messagePosition}vh - 50%), 0, 0)`
+			// move background & entry messages
+			background.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
+			if (foreground) {
+				foreground.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
+			}
+			entryMessage.style.transform = `translate3d(calc(${messagePosition}vh - 50%), 0, 0)`
+
+			
+		}
 
 		if (loop) {
 			requestAnimationFrame(animate)
 		}
+
 	}
 
 </script>
 
 
 <div class="container">
-	<div class="sliding-background0"></div>
-	<div class="sliding-background1"></div>
+	
+	{#if $map.name === "map_2"}
+		<Background1B changeBackground={changeBackground}/>
+	{:else}
+		<Background1A changeBackground={changeBackground}/>
+	{/if}
+	
 	<div class="sliding-background2"></div>
 	<div class="sliding-background3"></div>
 	<div >
@@ -246,23 +269,13 @@
 		background-color: black;
 	}
 
-	.sliding-background0, .sliding-background1, .sliding-background2, .sliding-background3 {
+	.sliding-background2, .sliding-background3 {
 		position: absolute;
 		background-repeat: repeat-x;
 		background-size: 900vh 90vh;
 		height: 90vh;
 		width: 270000vh;
 		margin: auto;
-	}
-
-	.sliding-background0 {
-		background-image: url("../assets/img/layer1.0.png");
-		z-index: 4;
-	}
-
-	.sliding-background1 {
-		background-image: url("../assets/img/layer1.1.png");
-		z-index: 2;
 	}
 
 	.sliding-background2 {

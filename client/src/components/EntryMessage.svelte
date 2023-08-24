@@ -1,20 +1,30 @@
 <script>
     export let scenario
     export let position 
-    import { activeScenario, playerPosition } from '../stores.js';
+    import { activeScenario, playerPosition, map } from '../stores.js';
     import { onDestroy } from 'svelte';
-  import TextButton from './core/TextButton.svelte';
+    import TextButton from './core/TextButton.svelte';
 
     
     const enterScenario = () => {
-        console.log('first')
-             playerPosition.set(position)
 
+        playerPosition.set(position)
+
+        if (!scenario.component) {
+            if ($map.name === "map_1") {
+                map.select("map_2")
+            } else if ($map.name === "map_2") {
+                map.select("map_1")
+            } 
+        } else {
             activeScenario.set({
                 name: scenario.name,
                 component: scenario.component,
                 introText: scenario.introText
-            })       
+            })               
+        }
+
+    
     }
     
 
