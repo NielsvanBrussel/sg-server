@@ -3,30 +3,7 @@
     import TextButton from './core/TextButton.svelte';
 
     const backToMenu = () => {
-        avatar.set(        {
-            name: null,
-			stats: {
-				strength: null,
-				stamina: null,
-				intellect: null,
-				maxHitpoints: null,
-				currentHitpoints: null,
-				intimidation: null,
-			},
-			day: 1,
-			money: 20,
-			items: [],
-			unlocks: {
-				hospitalVisits: 0,
-				missingKidney: false,
-				billy: false,
-				growingWeed: false,
-				hoboArena: false,
-				organTrade: false,
-				sewers: false,
-			},
-			date_created: null
-        })
+        avatar.reset()
         activeScenario.set({
 			name: "",
 			component: null,

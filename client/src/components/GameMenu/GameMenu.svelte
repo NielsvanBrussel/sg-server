@@ -43,9 +43,15 @@
 
             const res = await axios.post('/api/auth/logout', config)
             if (res) {
-                console.log('logout')
                 localStorage.setItem('token', '')
                 authenticated.set(false)
+                avatar.reset()
+                activeScenario.set({
+                    name: "",
+                    component: null,
+                    introText: ""
+                })
+                menuActive.set(true)
             }
         } catch (error) {
             console.log(error)

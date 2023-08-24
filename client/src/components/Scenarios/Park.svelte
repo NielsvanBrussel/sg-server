@@ -6,7 +6,7 @@
     let showOptions = true
 
     const forageHandler = () => {
-        let max = $avatar.stats.intellect
+        let max = $avatar.stats.intellect * 2
         if (max > 30)  {
             max = 30
         }
@@ -18,11 +18,11 @@
             changeIntroText('You found a truffle! Pigs love these things. Better hold on to these.')
 
         } else if (rng > 80) {
-            avatar.changeStats([{ type: 'add item', value: 'mushroom'}])
+            avatar.changeStats([{ type: 'add item', value: 'shroom'}])
             changeIntroText('You found some weird looking mushrooms. Someone might be interested in these.')
         } else {
-            avatar.changeStats([{ type: 'add item', value: 'poop'}, {type: 'day', value: 1}])
-            changeIntroText('You found a fresh dog turd. You put it in your pocket. Might come in handy.')
+            avatar.changeStats([{ type: 'add item', value: 'turd'}, {type: 'day', value: 1}])
+            changeIntroText('You found a dried up dog turd. You put it in your pocket. Might come in handy.')
         }
 
         showOptions = false

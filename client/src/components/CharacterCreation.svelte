@@ -157,13 +157,14 @@
 
 
 <style>
-	
 
 	.flex-column {
 		display: flex;
 		flex-direction: column;
 		width: 35%;
 		border-radius: 0.5rem;
+		max-width: 25rem;
+		min-width: 20rem;
 	}
 	.column-1 {
 		border: #F48C06 1rem solid;
@@ -184,7 +185,7 @@
 		display: flex;
 		flex-direction: row;
 		width: 100%;
-		justify-content: center;
+		justify-content: space-around;
 		gap: 3rem;
 		margin: 2rem 0rem;
 	}
@@ -198,14 +199,14 @@
 		height: auto;
 	}
 	.header-container {
-		height: 8rem;
 		display: flex;
+		margin: 3rem 0rem;
 		justify-content: center;
 		align-items: center;
 	}
 	h1 {
 		font-size: 3rem;
-		margin-top: 3rem;
+		margin: 0;
 	}
 	.stats-container {
 		margin: 0rem 1rem;
@@ -223,24 +224,25 @@
 	}
 	.content-box {
 		height: 100%;
-	}
-	.selection-container {
-		height: calc(100% - 10rem);
 		overflow-y: auto;
 	}
-	.selection-container::-webkit-scrollbar {
+	.selection-container {
+	
+		/* overflow-y: auto; */
+	}
+	.content-box::-webkit-scrollbar {
 		width: 0.6rem;
 		background: transparent;
 		border-radius: 2rem;
 		margin-bottom: 0.5rem;  
   	}
-	.selection-container::-webkit-scrollbar-track {
+	.content-box::-webkit-scrollbar-track {
 		background-color: #F48C06 ;
 		color: transparent;
 		margin: 2rem 0rem 6rem 0rem;
 		border-radius: 2rem;
 	}
-  	.selection-container::-webkit-scrollbar-thumb {
+  	.content-box::-webkit-scrollbar-thumb {
 		background: #F51743;
 		border-radius: 2rem;
   	}
@@ -295,4 +297,11 @@
 		background-image: url('../assets/img/arrow-prev.png');
 	}
 
+
+	@media screen and (max-width: 65em){
+		.flex-row {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
 </style>

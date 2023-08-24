@@ -40,6 +40,30 @@ function createAvatar() {
 	return {
 		subscribe,
         set: (value) => set(value),
+        reset: () => set({
+            name: null,
+			stats: {
+				strength: null,
+				stamina: null,
+				intellect: null,
+				maxHitpoints: null,
+				currentHitpoints: null,
+				intimidation: null,
+			},
+			day: 1,
+			money: 20,
+			items: [],
+			unlocks: {
+				hospitalVisits: 0,
+				missingKidney: false,
+				billy: false,
+				growingWeed: false,
+				hoboArena: false,
+				organTrade: false,
+				sewers: false,
+			},
+			date_created: null
+        }),
         changeStats: (data) => {
 
 
@@ -139,7 +163,10 @@ function createAvatar() {
                     case 'currentHitpoints':
                         update((prevValue) => {
                        
-                            const newAmount = prevValue.stats.currentHitpoints + data[i].value
+                           let newAmount = prevValue.stats.currentHitpoints + data[i].value
+                            if (newAmount > prevValue.stats.maxHitpoints) {
+                                newAmount = prevValue.stats.maxHitpoints
+                            }
 
                             return { ...prevValue, stats: {...prevValue.stats, currentHitpoints: newAmount } }
                         })

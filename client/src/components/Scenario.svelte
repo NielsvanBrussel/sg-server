@@ -7,8 +7,6 @@
     let introText
 
     onMount(async () => {
-        console.log($activeScenario.introText)
-        console.log('wompa')
         introText = $activeScenario.introText
 	});
 

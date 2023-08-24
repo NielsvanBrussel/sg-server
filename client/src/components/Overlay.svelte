@@ -5,6 +5,7 @@
 	import inventoryOpenIcon from '../assets/img/inventory-open.png'
 	import menuIcon from '../assets/img/menu.png'
 	import statsIcon from '../assets/img/stats.png'
+  import InventoryItem from './InventoryItem.svelte';
 
 
 	let inventoryActive = false
@@ -67,9 +68,9 @@
 		<div class="inv-stats-container__outer">
 			<div class="inv-stats-container__inner">
 				<h3 class="inv-stats-header">inventory</h3>
-				<div>
+				<div class="inv-stats">
 					{#each $avatar.items as item, i}
-						<div>{item.name} {item.amount}</div>
+						<InventoryItem  data={item}/>
 					{/each}
 				</div>
 			</div>
@@ -195,6 +196,7 @@
 		border-radius: 3rem;
 		margin: 2rem 0 0 2rem;
 		border: #F51743 solid 5px;
+		width: 17rem;
 	}
 	.inv-stats-container__inner {
 		margin: 1rem;
@@ -213,9 +215,17 @@
 	}
 	.inv-stats-header {
 		color: #F48C06;
+		margin-bottom: 3rem;
 	}
 	.stats-value {
 		margin: 0.5rem;
+	}
+	.inv-stats {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		gap: 1rem;
+		flex-wrap: wrap;
 	}
 
 
