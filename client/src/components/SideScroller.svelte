@@ -147,7 +147,11 @@
 	// check if the avatar is close to any buildings
 	const checkPositions = () => {
 
-		const truePosition = position - (Math.floor(position / 900) * 900)	
+
+		// get the position on the image, regardless of how many times it looped
+		const truePosition = position - (Math.floor(position / 900) * 900)
+		
+		console.log(truePosition)
 
 		for (let i = 0; i < $map.locationsArray.length; i++) {
 			if (truePosition > $map.locationsArray[i].min && truePosition < $map.locationsArray[i].max) {
