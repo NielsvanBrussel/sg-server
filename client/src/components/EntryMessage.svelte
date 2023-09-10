@@ -20,7 +20,8 @@
             activeScenario.set({
                 name: scenario.name,
                 component: scenario.component,
-                introText: scenario.introText
+                introText: scenario.introText,
+                enemies: scenario.enemies,
             })               
         }
 

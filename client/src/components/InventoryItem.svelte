@@ -1,11 +1,11 @@
 <script>
-    import imageSelect from "../utility/inventoryImageSelect";
+    import inventoryItems from "../utility/inventoryItems";
     export let data
-    const image = imageSelect(data.name)
+    const image = inventoryItems[data.name].img
 </script>
 
 <div class="container">
-    <img class="item-img" src={image} alt="item" title={`${data.name}: ${data.amount}`}>
+    <img class="item-img" src={image} alt="item" title={`${inventoryItems[data.name].name}: ${data.amount}`}>
     <div class="text-amount">{data.amount}</div>
 </div>
 

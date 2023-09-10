@@ -111,7 +111,6 @@
             }
 
         } catch (error) {
-            console.log(error)
             if (error.response.data === 'accesstoken expired') {
                 const res = await refreshToken()
                 if (res && refreshCheck) {

@@ -1,6 +1,22 @@
 <script>
-  import TextButton from "../core/TextButton.svelte";
-  import { avatar } from "../../stores";
+  import { avatar, activeScenario } from "../../stores";
+  import inventoryItems from "../../utility/inventoryItems";
+  import ScenarioOption from "../core/ScenarioOption.svelte";
+
+  export  let setCombat
+  export let changeIntroText 
+
+  
+  let showOptions = true
+
+  const combatHandler = () => {
+    avatar.changeStats([{type: 'day', value: 1}])
+    setCombat(true)
+  }
+ 
+  const dealHandler = () => {
+    avatar.changeStats([{type: 'add item', value: inventoryItems.shotgun.id}, {type: 'add item', value: inventoryItems.knife.id}, {type: 'add item', value: inventoryItems.knife_poisoned.id}, {type: 'add item', value: inventoryItems.nailgun.id}, {type: 'add item', value: inventoryItems.pistol.id}, {type: 'add item', value: inventoryItems.nail.id}, {type: 'add item', value: inventoryItems.chainsaw.id}, {type: 'add item', value: inventoryItems.oil.id}, {type: 'add item', value: inventoryItems.hammer.id}, {type: 'add item', value: inventoryItems.syringe_poisoned.id}, {type: 'add item', value: inventoryItems.rifle.id} ])
+  }
 
 
 
@@ -9,31 +25,11 @@
 </script>
 
 
-<div class="container">
-    <div>
-        <p>
-            bridge   
-        </p>
-         
-    </div>
-    <div class="container">
-      <TextButton text='get poop' eventHandler={() => avatar.changeStats([{ type: 'add item', value: 'poop'}])}/>  
-    </div>
-    <div class="container">
-        <TextButton text='get golden poop' eventHandler={() => avatar.changeStats([{ type: 'add item', value: 'gold poop'}])}/>  
-    </div>
-
-    <div class="container">
-        <TextButton text='remove golden poop' eventHandler={() => avatar.changeStats([{ type: 'remove item', value: 'gold poop'}])}/>  
-    </div>
-</div>
-
-
+  {#if showOptions}              
+      <ScenarioOption text="COMBAT: enter the hobo arena. (MEDIUM)" eventHandler={() => combatHandler()}/>
+        <ScenarioOption text="get weapons" eventHandler={() => dealHandler()}/>
+  {/if}  
 
 <style>
-    .container {
-        position: relative;
-        margin: 3rem 3rem 3rem 3rem;
-    }
 
 </style>

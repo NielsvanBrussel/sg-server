@@ -17,13 +17,11 @@ const refreshToken = async () => {
     }
 
     try {
-        console.log("refreshing")
         const res = await axios.get("/api/auth/refresh", config)
         const token = res.data.accessToken
         localStorage.setItem('token', token);
         return true
     } catch (err) {
-        console.log(err)
         return false
     }
 }

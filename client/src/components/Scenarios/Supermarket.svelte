@@ -1,60 +1,16 @@
 <script>
-    import { avatar } from "../../stores";
-    import ScenarioOption from "../core/ScenarioOption.svelte";
+    import inventoryItems from "../../utility/inventoryItems";
+    import ShopItem from "../core/ShopItem.svelte";
 
     export let changeIntroText
     let showOptions = true
 
-    const forageHandler = () => {
-
-        const rng = Math.floor(Math.random() * 100)
-
-        if (rng > 90) {
-            avatar.changeStats([{ type: 'add item', value: 'cocaine'}])
-            changeIntroText('cocaine')
-        } else if (rng > 80) {
-            avatar.changeStats([{ type: 'add item', value: 'weed'}])
-            changeIntroText('weed')
-        } else if (rng > 70) {
-            avatar.changeStats([{ type: 'add item', value: 'oil'}])
-            changeIntroText('oil')
-        } else if (rng > 60) {
-            avatar.changeStats([{ type: 'add item', value: 'antifreeze'}])
-            changeIntroText('antifreeze')
-        } else if (rng > 50) {
-            avatar.changeStats([{ type: 'add item', value: 'organs'}])
-            changeIntroText('organs')
-        } else if (rng > 40) {
-            avatar.changeStats([{ type: 'add item', value: 'lolly'}])
-            changeIntroText('lolly')
-        } else if (rng > 30) {
-            avatar.changeStats([{ type: 'add item', value: 'seeds'}])
-            changeIntroText('seeds')
-        } else if (rng > 20) {
-            avatar.changeStats([{ type: 'add item', value: 'shotgun'}])
-            changeIntroText('shotgun')
-        } else if (rng > 10) {
-            avatar.changeStats([{ type: 'add item', value: 'shroom'}])
-            changeIntroText('shroom')
-        } else {
-            avatar.changeStats([{ type: 'add item', value: 'turd'}])
-            changeIntroText('turd')
-        }
-    }
-
-
 </script>
 
 {#if showOptions}
-    <div class="options-container">
-        <ScenarioOption text="get random shit" eventHandler={() => forageHandler()}/>
-    </div>           
+    <ShopItem changeIntroText={changeIntroText} item={inventoryItems.nail} price={8} locked={false} description="Good for carpentry or used in the nailgun."/>
+    <ShopItem changeIntroText={changeIntroText} item={inventoryItems.hammer} price={60} locked={false} description="Good for carpentry or caving skulls in."/>
+    <ShopItem changeIntroText={changeIntroText} item={inventoryItems.knife} price={130} locked={true} description="General purpose combat knife."/> 
+    <ShopItem changeIntroText={changeIntroText} item={inventoryItems.nailgun} price={500} locked={false} description="Shoots nails. Requires nails to work."/>
+    <ShopItem changeIntroText={changeIntroText} item={inventoryItems.chainsaw} price={900} locked={true} description="Tears through anything. Requires motoroil to work."/>      
 {/if}        
-
-
-<style>
-    .options-container {
-        width: 40%;
-        text-align: left;
-    }
-</style>

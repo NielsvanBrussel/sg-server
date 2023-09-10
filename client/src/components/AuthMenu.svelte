@@ -49,7 +49,6 @@
                 authenticated.update((value) => !value)
             }
         } catch (error) {
-            console.log(error)
             createError(error.response.data)
             loading = false
         }

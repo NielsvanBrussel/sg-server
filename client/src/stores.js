@@ -1,12 +1,37 @@
 import { writable, derived } from 'svelte/store';
 import { locations_map1, locations_map2 } from './components/Scenarios';
 
-export const authenticated = writable(false);
+export const authenticated = writable(true);
 export const menuActive = writable(true);
 export const newGame = writable(true);
 export const achievements = writable([]);
-export const activeScenario = writable({name: "", component: null, introText: ""})
 export const playerPosition = writable(-135000)
+
+
+function selectActiveScenario() {
+    const { subscribe, set, update } = writable(
+        {
+            name: "",
+            component: null,
+            introText: "",
+            enemies: [],
+        }
+    )
+
+    return {
+        subscribe,
+        set: (value) => set(value),
+        reset: () => set(
+            {
+                name: "",
+                component: null,
+                introText: "",
+                enemies: [],
+            }
+        )
+    }
+}
+export const activeScenario = selectActiveScenario()
 
 
 
@@ -36,7 +61,6 @@ function selectMap() {
         }        
     }
 }
-
 export const map = selectMap()
 
 
@@ -51,7 +75,7 @@ function createAvatar() {
 				intellect: null,
 				maxHitpoints: null,
 				currentHitpoints: null,
-				intimidation: null,
+				luck: null,
 			},
 			day: 1,
 			money: 20,
@@ -59,11 +83,12 @@ function createAvatar() {
 			unlocks: {
 				hospitalVisits: 0,
 				missingKidney: false,
-				billy: false,
+				billy: 0,
 				growingWeed: false,
 				hoboArena: false,
 				organTrade: false,
 				sewers: false,
+                items: [],
 			},
 			date_created: null
         }
@@ -80,7 +105,7 @@ function createAvatar() {
 				intellect: null,
 				maxHitpoints: null,
 				currentHitpoints: null,
-				intimidation: null,
+				luck: null,
 			},
 			day: 1,
 			money: 20,
@@ -88,11 +113,12 @@ function createAvatar() {
 			unlocks: {
 				hospitalVisits: 0,
 				missingKidney: false,
-				billy: false,
+				billy: 0,
 				growingWeed: false,
 				hoboArena: false,
 				organTrade: false,
 				sewers: false,
+                items: [],
 			},
 			date_created: null
         }),
@@ -126,10 +152,19 @@ function createAvatar() {
 
                     case 'remove item':
                         update((prevValue) => {
-                         
+
+                            const filterFunction = (item) => {
+                                if (item.name === data[i].value && item.amount === 1) {
+                                    return false
+                                }
+                                return true
+                            }
+                            
                             // check the quantity of the item and lower it if it is more than 1, remove it otherwise
-                            const newItems = prevValue.items.map(item => item.name === data[i].value ? item.amount > 2 ?{...item, amount: item.amount - 1} : null : item)
-                    
+                            const newItems = prevValue.items
+                                .filter(filterFunction)
+                                .map(item => item.name === data[i].value && item.amount > 1 ?{...item, amount: item.amount - 1} : item)
+ 
                             return { ...prevValue, items: newItems }
                         })
                         break;
@@ -148,7 +183,7 @@ function createAvatar() {
                             let newAmount = prevValue.day + data[i].value
 
                             // reset back to monday after sunday
-                            if (newAmount >= 7) {
+                            if (newAmount > 7) {
                                 newAmount = 1
                             }
 
@@ -183,12 +218,12 @@ function createAvatar() {
                         })
                         break;
 
-                    case 'intimidation':
+                    case 'luck':
                         update((prevValue) => {
                           
-                            const newAmount = prevValue.stats.intimidation + data[i].value
+                            const newAmount = prevValue.stats.luck + data[i].value
 
-                            return { ...prevValue, stats: {...prevValue.stats, intimidation: newAmount } }
+                            return { ...prevValue, stats: {...prevValue.stats, luck: newAmount } }
                         })
                         break;
 
@@ -222,6 +257,4 @@ function createAvatar() {
         }
 	};
 }
-
-
 export const avatar = createAvatar()

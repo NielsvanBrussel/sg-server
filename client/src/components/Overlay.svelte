@@ -5,14 +5,13 @@
 	import inventoryOpenIcon from '../assets/img/inventory-open.png'
 	import menuIcon from '../assets/img/menu.png'
 	import statsIcon from '../assets/img/stats.png'
-  import InventoryItem from './InventoryItem.svelte';
+  	import InventoryItem from './InventoryItem.svelte';
 
 
 	let inventoryActive = false
 	let statsActive = false
 
 	const menuStatus = (type) => {
-		console.log('???hu')
 		if (type === 'inventory') {
 			statsActive = false
 			inventoryActive = !inventoryActive
@@ -69,7 +68,7 @@
 			<div class="inv-stats-container__inner">
 				<h3 class="inv-stats-header">inventory</h3>
 				<div class="inv-stats">
-					{#each $avatar.items as item, i}
+					{#each $avatar.items as item (item.name)}
 						<InventoryItem  data={item}/>
 					{/each}
 				</div>
@@ -93,8 +92,8 @@
 						<p class="stats-value">{$avatar.stats.intellect}</p>
 					</div>
 					<div class="stats-flex">
-						<p class="stats-title">intimidation: </p>
-						<p class="stats-value">{$avatar.stats.intimidation}</p>
+						<p class="stats-title">luck: </p>
+						<p class="stats-value">{$avatar.stats.luck}</p>
 					</div>
 					<div class="stats-flex">
 						<p class="stats-title">hitpoints: </p>
@@ -121,6 +120,7 @@
 	.flexbox-overlay {
 		display: flex;
 		flex-direction: row;
+		width: 20rem;
 	}
 	.button__menu__container {
 		position: relative;
@@ -194,9 +194,9 @@
 		min-height: 60vh;
 		background-image: linear-gradient(to bottom right, #19173D, #87173E);
 		border-radius: 3rem;
-		margin: 2rem 0 0 2rem;
+		margin: 2rem 0 0 1rem;
 		border: #F51743 solid 5px;
-		width: 17rem;
+		width: calc(18rem - 10px);
 	}
 	.inv-stats-container__inner {
 		margin: 1rem;

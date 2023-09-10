@@ -4,12 +4,7 @@
 
     const backToMenu = () => {
         avatar.reset()
-        activeScenario.set({
-			name: "",
-			component: null,
-            introText: ""
-        })
-        menuActive.set(true)
+        activeScenario.reset()
     }
 
 </script>

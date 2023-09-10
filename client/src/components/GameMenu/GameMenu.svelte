@@ -18,11 +18,7 @@
             date_created: new Date()
         })
 
-        activeScenario.set({
-            name: "",
-            component: null,
-            introText: ""
-        })
+        activeScenario.reset()
 
         playerPosition.set(-135000)
     
@@ -46,15 +42,11 @@
                 localStorage.setItem('token', '')
                 authenticated.set(false)
                 avatar.reset()
-                activeScenario.set({
-                    name: "",
-                    component: null,
-                    introText: ""
-                })
+                activeScenario.reset()
                 menuActive.set(true)
             }
         } catch (error) {
-            console.log(error)
+           throw error
         }
     }
 
@@ -91,7 +83,7 @@
                             >
                                 Load game 
                             </button>
-                        {#if $avatar} 
+                        {#if $avatar && !$activeScenario.name} 
                             <button
                                 id="savegame-button" 
                                 class="menu-button"  

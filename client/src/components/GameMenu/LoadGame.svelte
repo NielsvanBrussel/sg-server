@@ -18,11 +18,7 @@
     const loadGame = (savegame) => {
         avatar.set(savegame)
 
-        activeScenario.set({
-            name: "",
-            component: null,
-            introText: ""
-        })
+        activeScenario.reset()
 
         playerPosition.set(-135000)
 
@@ -51,8 +47,6 @@
             }
     
             const res = await axios.get('/api/savegame', config)
-
-            console.log(res)
         
             if (res) {
                 // populate the array with data (empty object if no data available)
@@ -63,12 +57,10 @@
                         savegames[i] = {_id: uuidv4()}
                     }
                 }
-                console.log(savegames)
                 loading = false
             }
 
         } catch (error) {
-            console.log(error.response)
             if (error.response.data === 'accesstoken expired') {
                 const res = await refreshToken()
                 if (res && refreshCheck) {

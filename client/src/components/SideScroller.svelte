@@ -6,15 +6,14 @@
 	import rupertStand from '../assets/img/rupert-stand.png'
 	import dwayneRunning from '../assets/img/dwayne-running.gif'
 	import dwayneStand from '../assets/img/dwayne-stand.png'
-	import { map } from '../stores';
+	import { map, playerPosition, avatar } from '../stores';
 
 	// floating message above locations
   	import EntryMessage from './EntryMessage.svelte';
 
 	// list of all location positions, names and components
-  	import { playerPosition, avatar } from '../stores';
-  import Background1A from './backgrounds/Background1A.svelte';
-  import Background1B from './backgrounds/Background1B.svelte';
+	import Background1A from './backgrounds/Background1A.svelte';
+	import Background1B from './backgrounds/Background1B.svelte';
 
 
 	const keyPress = {
@@ -84,12 +83,14 @@
     onMount(async () => {
 		entryMessage = document.querySelector(".entry-container")
 		mounted = true
+		showEntry = false
 	});
 
 
 	const changeBackground = ({ backgroundValue, foregroundValue }) => {
 		background = backgroundValue
 		foreground = foregroundValue
+		scenario= $map.locationsArray[0]
 		if (!animating) {
 			animate()
 		}
@@ -151,7 +152,6 @@
 		// get the position on the image, regardless of how many times it looped
 		const truePosition = position - (Math.floor(position / 900) * 900)
 		
-		console.log(truePosition)
 
 		for (let i = 0; i < $map.locationsArray.length; i++) {
 			if (truePosition > $map.locationsArray[i].min && truePosition < $map.locationsArray[i].max) {
@@ -165,10 +165,7 @@
 					const value =  ($map.locationsArray[i].min + $map.locationsArray[i].max) / 2
 					if (!showEntry) {
 
-						// dont display the message at first when the player returns from a scenario
-						if (scenario !== $map.locationsArray[i] && scenario && !showEntry2) {
-							showEntry2 = true
-						}
+
 
 						// position the message in the middle of the building (depending on which way he enters from)
 						if (truePosition > value) {
@@ -211,6 +208,11 @@
 			}	
 		
 			showEntry = checkPositions()
+
+			// dont display entrymessage on loading in
+			if (!showEntry && !showEntry2) {
+				showEntry2 = true
+			}
 
 			// move background & entry messages
 			background.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`

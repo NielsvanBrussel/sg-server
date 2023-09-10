@@ -1,0 +1,16 @@
+drawings: 
+
+ - gasoline
+
+ - crossbow
+ - burger
+ - enemy: soldier sergeant commando, meth addict, drug dealer, yeti, bear, wolf, bambi?, pikey, police, hobo, nurse, surgeon
+
+
+
+- character death
+- scenarios
+- responsiveness
+- achievements
+- school: lab equipment handler
+- locked items shops

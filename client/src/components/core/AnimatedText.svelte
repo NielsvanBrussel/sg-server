@@ -17,9 +17,9 @@
 	});
 
     const animateText = () => {
-        console.log("animating text")
+        
         let i = 0;
-        const interval = 3000 / text.length
+        const interval = 2500 / text.length
         clearInterval(typerInterval)
 
         typerInterval = setInterval(function () {
@@ -34,12 +34,18 @@
 
 </script>
 
-<div>
+<div class="container">
     <p class="text"></p>
 </div>
 <style>
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
     .text {
         font-family: 'PS2P';
-        min-height: 40vh;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
     }
 </style>

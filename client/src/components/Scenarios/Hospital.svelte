@@ -1,8 +1,10 @@
 <script>
-    import { avatar } from "../../stores";
+    import { activeScenario, avatar, map, playerPosition } from "../../stores";
     import ScenarioOption from "../core/ScenarioOption.svelte";
+    import Motel from "./Motel.svelte";
 
     export let changeIntroText
+    export let setCombat
     let showOptions = true
 
     const healHandler = () => {
@@ -11,7 +13,13 @@
         if ($avatar.unlocks.hospitalVisits === 3) {
             avatar.changeStats([{type: 'currentHitpoints', value: 100}, {type: 'day', value: 1}])
             avatar.set({...$avatar, unlocks: {...$avatar.unlocks, missingKidney: true, hospitalVisits: 4}})
-            changeIntroText("You wake up half naked behind a dumpster. There's a huge scar on your abdomen and a empty feeling where your kidney used to be. You will now lose 5 hitpoints per day (unless you somehow get your kidney back).")
+            changeIntroText("You wake up naked in a motel room's bathtub. Everything is covered in blood, especially you. There's a huge scar on your abdomen and an empty feeling where your kidney used to be. You will now lose 5 hitpoints per day (unless you somehow manage to get your kidney back).")
+            activeScenario.set({ name: 'Sundown Motel',
+        enemies: null,
+        component: Motel,
+        introText: ""})
+            map.select("map_2")
+            playerPosition.set(-135575)
         } else {
             avatar.set({...$avatar, unlocks: {...$avatar.unlocks, hospitalVisits: $avatar.unlocks.hospitalVisits + 1}})
             avatar.changeStats([{type: 'currentHitpoints', value: 100}, {type: 'day', value: 1}])

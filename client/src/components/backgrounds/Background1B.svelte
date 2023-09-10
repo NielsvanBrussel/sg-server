@@ -34,7 +34,7 @@
 	}
 
     .sliding-background1B {
-        background-image: url("../../assets/img/test.png");
+        background-image: url("../../assets/img/layer1.1_b.png");
 		z-index: 2; 
     }
 

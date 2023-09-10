@@ -23,7 +23,7 @@ const StatsSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    intimidation: {
+    luck: {
         type: Number,
         required: true
     },
@@ -39,8 +39,8 @@ const UnlocksSchema = new mongoose.Schema({
         default: false
     },
     billy: {
-        type: Boolean,
-        default: false
+        type: Number,
+        default: 0
     },
     growingWeed: {
         type: Boolean,
@@ -58,6 +58,10 @@ const UnlocksSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    items: {
+        type: [String],
+        default: []
+    }
 })
 
 const SavegameSchema = new mongoose.Schema({

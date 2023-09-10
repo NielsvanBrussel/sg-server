@@ -3,7 +3,7 @@
 	import { Circle } from 'svelte-loading-spinners';
 	import dwayne from '../assets/img/dwayne.gif'
 	import rupert from '../assets/img/rupert.gif'
-	import rodney from '../assets/img/rodney.gif'
+	import gareth from '../assets/img/gareth.gif'
   	import TextButton from './core/TextButton.svelte';
 
 	let loading = false
@@ -12,14 +12,14 @@
 	const characters = [
 		{
 			name: 'Greasy Gareth',
-			img: rodney,
+			img: gareth,
 			stats: {
 				strength: 10,
 				stamina: 3,
 				intellect: 2,
 				maxHitpoints: 40,
 				currentHitpoints: 40,
-				intimidation: 3,
+				luck: 3,
 			}
 		},
 		{
@@ -31,7 +31,7 @@
 				intellect: 8, 
 				maxHitpoints: 25,
 				currentHitpoints: 25,
-				intimidation: 5,
+				luck: 5,
 			}
 		},
 		{
@@ -43,7 +43,7 @@
 				intellect: 5,
 				maxHitpoints: 30,
 				currentHitpoints: 30,
-				intimidation: 8,
+				luck: 4,
 			}
 		},
 	]
@@ -131,8 +131,8 @@
 							<p class={activeCharacter.stats.intellect > 5 ? "stats-green" : activeCharacter.stats.intellect < 5 ? "stats-red" : "stats-default"}>{activeCharacter.stats.intellect}</p>
 						</div>
 						<div class="stats-flex">
-							<p class="stats-title">intimidation: </p>
-							<p class={activeCharacter.stats.intimidation > 5 ? "stats-green" : activeCharacter.stats.intimidation < 5 ? "stats-red" : "stats-default"}>{activeCharacter.stats.intimidation}</p>
+							<p class="stats-title">luck: </p>
+							<p class={activeCharacter.stats.luck > 5 ? "stats-green" : activeCharacter.stats.luck < 5 ? "stats-red" : "stats-default"}>{activeCharacter.stats.luck}</p>
 						</div>
 						<div class="stats-flex">
 							<p class="stats-title">hitpoints: </p>
