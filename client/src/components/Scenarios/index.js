@@ -1,7 +1,7 @@
 import Supermarket from '../Scenarios/Supermarket.svelte';
 import Hospital from '../Scenarios/Hospital.svelte';
 import Gym from '../Scenarios/Gym.svelte';
-import CrackHouse from './CrackHouse.svelte';
+import Cult from './Cult.svelte';
 import Bridge from '../Scenarios/Bridge.svelte';
 import GasStation from '../Scenarios/GasStation.svelte';
 import PoliceStation from '../Scenarios/PoliceStation.svelte';
@@ -13,6 +13,9 @@ import ArmyBase from './ArmyBase.svelte';
 import { enemies } from '../combat/enemies';
 import FastfoodRestaurant from './FastfoodRestaurant.svelte';
 import Forest from './Forest.svelte';
+import BotanicalGardens from './BotanicalGardens.svelte';
+import Caravan from './Caravan.svelte';
+import Motel from './Motel.svelte';
 
 
 export const locations_map1 = [
@@ -41,12 +44,20 @@ export const locations_map1 = [
         introText: "",
     },
     {
+        min: 717,
+        max: 767,
+        name: 'Botanical Gardens',
+        component: BotanicalGardens,
+        enemies: null,
+        introText: "Ramshaven Botanical Gardens. Home of some of the rarest plants in the world. A gardener comes at you and welcomes you."
+    },
+    {
         min: 835,
         max: 885,
-        name: 'Crack House',
-        enemies: enemies.crackhouse,
-        component: CrackHouse,
-        introText: "You enter the filthy house. You enter the filthy house.You enter the filthy house.You enter the filthy house.You enter the filthy house. You enter the filthy house. You enter the filthy house. You enter the filthy house. You enter the filthy house. You enter the filthy house. You enter the filthy house. You enter the filthy house. You enter the filthy house.",
+        name: 'Children of the Golden Flower',
+        enemies: enemies.Cult,
+        component: Cult,
+        introText: "You enter the filthy house. There's junk lying around everywhere and zombie like people crawling around.",
     },
     {
         min: 590,
@@ -68,7 +79,7 @@ export const locations_map1 = [
         min: 370,
         max: 420,
         name: 'Gas station',
-        enemies: null,
+        enemies: enemies.armoredTransport,
         component: GasStation,
         introText: ""
     },
@@ -76,15 +87,15 @@ export const locations_map1 = [
         min: 290,
         max: 340,
         name: 'Police station',
-        enemies: null,
+        enemies: enemies.police,
         component: PoliceStation,
         introText: ""
     },
     {
         min: 100,
         max: 150,
-        name: 'Storage',
-        enemies: null,
+        name: 'Warehouse',
+        enemies: enemies.warehouse,
         component: StorageMain,
         introText: ""
     },
@@ -119,7 +130,7 @@ export const locations_map2 = [
         min: 512,
         max: 562,
         name: "Wacky's",
-        enemies: null,
+        enemies: enemies.armoredTransport,
         component: FastfoodRestaurant,
         introText: "Welcome to Wacky's. Can I take your order please?"
     },
@@ -134,16 +145,16 @@ export const locations_map2 = [
     {
         min: 38,
         max: 88,
-        name: 'Pikey camp',
+        name: 'Trailer Park',
         enemies: null,
-        component: Sewers,
-        introText: ""
+        component: Caravan,
+        introText: "You make your way to the fanciest looking caravan. A big dark bearded man is sitting in front."
     },
     {
         min: 152,
         max: 202,
         name: 'Red Creek Forest',
-        enemies: null,
+        enemies: enemies.forest,
         component: Forest,
         introText: "You enter the forest. The smell of pine trees and wet grass relaxes you. At the same time however you have a feeling that something is watching you from the shadows."
     },
@@ -152,7 +163,7 @@ export const locations_map2 = [
         max: 350,
         name: 'Sundown Motel',
         enemies: null,
-        component: Sewers,
+        component: Motel,
         introText: ""
     },
     // {

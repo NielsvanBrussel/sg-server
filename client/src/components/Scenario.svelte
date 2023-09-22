@@ -5,11 +5,16 @@
 	import gareth from '../assets/img/gareth.gif'
     import Combat from './combat/Combat.svelte';
     import { onMount } from 'svelte';
-    import randomImg from '../assets/img/tempEnemy.png'
     import AnimatedText from './core/AnimatedText.svelte';
     import TextButton from './core/TextButton.svelte';
 
-    let combatActive = false
+    let combatMode = 0
+
+
+    const setCombatMode = (value) => {
+        combatMode = value
+    }
+
     let introText
 
     const avatarGif = () => {
@@ -26,9 +31,6 @@
         }
     }
 
-    const setCombat = (value) => {
-        combatActive = value
-    }
 
     onMount(async () => {
         introText = $activeScenario.introText
@@ -50,8 +52,8 @@
         </div>
     </div>
     <div class="scenario-container-bottom flexbox">
-        {#if combatActive}
-            <Combat  setCombat={setCombat} enemies={$activeScenario.enemies}/>
+        {#if combatMode === 1}
+            <Combat  setCombatMode={setCombatMode} enemies={$activeScenario.enemies}/>
         {:else}
             <div class="scenario-content-left">
                 <div class="image-container img-bottom">
@@ -71,7 +73,7 @@
                 </div>
                 <div class="options-container-outer content-box">
                     <div class="options-container-inner">
-                        <svelte:component this={$activeScenario.component} setCombat={setCombat} changeIntroText={changeIntroText}/> 
+                        <svelte:component this={$activeScenario.component} setCombatMode={setCombatMode} combatMode={combatMode} changeIntroText={changeIntroText}/> 
                     </div>
                 </div>
             </div> 

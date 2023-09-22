@@ -6,6 +6,7 @@ export const menuActive = writable(true);
 export const newGame = writable(true);
 export const achievements = writable([]);
 export const playerPosition = writable(-135000)
+export const armoredCar = writable({ day: null, location: "", type: "" })
 
 
 function selectActiveScenario() {
@@ -82,10 +83,12 @@ function createAvatar() {
 			items: [],
 			unlocks: {
 				hospitalVisits: 0,
+                transportRobbery: 0,
 				missingKidney: false,
 				billy: 0,
-				growingWeed: false,
-				hoboArena: false,
+				growingWeed: 0,
+				methLab: 0,
+                cult: 0,
 				organTrade: false,
 				sewers: false,
                 items: [],
@@ -113,9 +116,11 @@ function createAvatar() {
 			unlocks: {
 				hospitalVisits: 0,
 				missingKidney: false,
+                transportRobbery: 0,
 				billy: 0,
-				growingWeed: false,
-				hoboArena: false,
+				growingWeed: 0,
+				methLab: 0,
+                cult: 0,
 				organTrade: false,
 				sewers: false,
                 items: [],
@@ -187,7 +192,17 @@ function createAvatar() {
                                 newAmount = 1
                             }
 
-                            return { ...prevValue, day: newAmount }
+                            // increase values if this event is ongoing (billy dealing drugs @3+ and weed growing in gardens @1+)
+                            let billy = prevValue.unlocks.billy 
+                            if (prevValue.unlocks.billy > 3) {
+                                billy ++
+                            }
+                            let weed = prevValue.unlocks.growingWeed
+                            if (prevValue.unlocks.growingWeed > 1) {
+                                weed ++
+                            }
+
+                            return { ...prevValue, day: newAmount, unlocks: {...prevValue.unlocks, billy: billy, growingWeed: weed} }
                         })
                         break;
 

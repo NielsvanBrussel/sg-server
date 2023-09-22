@@ -6,7 +6,7 @@
 	import rupertStand from '../assets/img/rupert-stand.png'
 	import dwayneRunning from '../assets/img/dwayne-running.gif'
 	import dwayneStand from '../assets/img/dwayne-stand.png'
-	import { map, playerPosition, avatar } from '../stores';
+	import { map, playerPosition, avatar, armoredCar } from '../stores';
 
 	// floating message above locations
   	import EntryMessage from './EntryMessage.svelte';
@@ -14,6 +14,15 @@
 	// list of all location positions, names and components
 	import Background1A from './backgrounds/Background1A.svelte';
 	import Background1B from './backgrounds/Background1B.svelte';
+
+	
+	let showVan
+	
+	$: if($armoredCar.location === $map.name && $armoredCar.day === $avatar.day) {
+			showVan = true
+		} else {
+			showVan = false
+		}
 
 
 	const keyPress = {
@@ -67,6 +76,9 @@
 
 	let messagePosition = 0
     let background
+	let plane
+	let planePosition = -270000
+	let vanBackground
 	let foreground
 	let entryMessage
 	let showEntry = false
@@ -82,14 +94,16 @@
 
     onMount(async () => {
 		entryMessage = document.querySelector(".entry-container")
+		plane = document.querySelector(".sliding-background3")
 		mounted = true
 		showEntry = false
 	});
 
 
-	const changeBackground = ({ backgroundValue, foregroundValue }) => {
+	const changeBackground = ({ backgroundValue, foregroundValue, vanBackgroundValue }) => {
 		background = backgroundValue
 		foreground = foregroundValue
+		vanBackground = vanBackgroundValue
 		scenario= $map.locationsArray[0]
 		if (!animating) {
 			animate()
@@ -195,6 +209,7 @@
 				if (position > -265000) { 
 					position -= (1 * fps / 25)
 					messagePosition -= (1 * fps / 25)
+					planePosition += (0.6 * fps / 25)
 				}
 			} else if (keyPress.left) {
 				//edge of map check
@@ -203,9 +218,14 @@
 					messagePosition += (1 * fps / 25)
 					if (position > 0) {
 						position = 0
-					}              
+					}
+					planePosition += (2 * fps / 25)              
 				}
-			}	
+			} else {
+				planePosition += (1.2 * fps / 25)
+			}
+			
+			console.log(planePosition)
 		
 			showEntry = checkPositions()
 
@@ -216,8 +236,18 @@
 
 			// move background & entry messages
 			background.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
+			plane.style.transform = `translate3d(calc(${planePosition}vh + 45vw), 0, 0)`
+			
+
 			if (foreground) {
 				foreground.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
+			}
+			if (vanBackground) {
+				let offset = 20
+				if ($map.name === 'map_1') {
+					offset = 260
+				} 
+				vanBackground.style.transform = `translate3d(calc(${position}vh + ${offset}vh + 45vw), 0, 0)`
 			}
 			entryMessage.style.transform = `translate3d(calc(${messagePosition}vh - 50%), 0, 0)`
 
@@ -234,25 +264,35 @@
 
 
 <div class="container">
-	
 	{#if $map.name === "map_2"}
-		<Background1B changeBackground={changeBackground}/>
+		<Background1B showVan={showVan} changeBackground={changeBackground}/>
 	{:else}
-		<Background1A changeBackground={changeBackground}/>
-	{/if}
-	
+		<Background1A showVan={showVan} changeBackground={changeBackground}/>
+	{/if}		
 	<div class="sliding-background2"></div>
 	<div class="sliding-background3"></div>
-	<div >
-		{#if standStill && rightDirection} 
-			<img class="avatar" src={avatarImg.standing} alt="avatar">
-		{:else if standStill && !rightDirection}
-			<img class="avatar avatar-left" src={avatarImg.standing} alt="avatar">
-		{:else if !standStill && !rightDirection}
-			<img class="avatar avatar-left" src={avatarImg.running} alt="avatar">
-		{:else}
-			<img class="avatar" src={avatarImg.running} alt="avatar">
-		{/if}
+	<div class="avatar-container">
+			<!-- stack all 4 types of images on top of eachother and change zindex depending on condition -->
+			<img 
+				class={standStill && rightDirection ? "avatar visible" : "avatar hidden"} 
+				src={avatarImg.standing} 
+				alt="avatar"
+			>
+			<img 
+				class={standStill && !rightDirection ? "avatar avatar-left visible" : "avatar avatar-left hidden"} 
+				src={avatarImg.standing} 
+				alt="avatar"
+			>
+			<img 
+				class={!standStill && !rightDirection ? "avatar avatar-left visible" : "avatar avatar-left hidden"} 
+				src={avatarImg.running} 
+				alt="avatar"
+			>
+			<img 
+				class={!standStill && rightDirection ? "avatar visible" : "avatar hidden"} 
+				src={avatarImg.running} 
+				alt="avatar"
+			>
 	</div>
 	<div class="entry-container">
 		{#if showEntry && showEntry2} 
@@ -278,22 +318,22 @@
 	.sliding-background2, .sliding-background3 {
 		position: absolute;
 		background-repeat: repeat-x;
-		background-size: 900vh 90vh;
 		height: 90vh;
 		width: 270000vh;
+		background-size: 900vh 90vh;
 		margin: auto;
 	}
 
 	.sliding-background2 {
 		background-image: url("../assets/img/layer2.png");
 		animation: slide-left 240s linear infinite;
+		background-size: 900vh 90vh;
 		z-index: 0;
 	}
 
 
 	.sliding-background3 {
 		background-image: url("../assets/img/layer3.png");
-		animation: slide-right 20s linear infinite;
 		z-index: 1;
 	}
 
@@ -308,6 +348,14 @@
 		width: 9vh;
 	}
 
+	.visible {
+		z-index: 3;
+	}
+
+	.hidden {
+		z-index: -5;
+	}
+
 	.avatar-left {
 		-webkit-transform: scaleX(-1);
   		transform: scaleX(-1);
@@ -315,7 +363,7 @@
 
 	.entry-container {
 		position: absolute;
-		z-index: 6;
+		z-index: 7;
 		top: 2rem;
 		left: 50%;
 		-webkit-transform: translate(-50%);

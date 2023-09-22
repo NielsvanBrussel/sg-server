@@ -42,13 +42,21 @@ const UnlocksSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    growingWeed: {
-        type: Boolean,
-        default: false
+    transportRobbery: {
+        type: Number,
+        default: 0
     },
-    hoboArena: {
-        type: Boolean,
-        default: false
+    growingWeed: {
+        type: Number,
+        default: 0
+    },
+    methLab: {
+        type: Number,
+        default: 0
+    },
+    cult: {
+        type: Number,
+        default: 0
     },
     organTrade: {
         type: Boolean,

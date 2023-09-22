@@ -1,7 +1,10 @@
 import turd_png from '../assets/img/inv/turd.png'
 import cocaine_png from '../assets/img/inv/cocaine.png'
+import pills_png from '../assets/img/inv/pills.png'
+import weed_png from '../assets/img/inv/weed.png'
 import truffle_png from '../assets/img/inv/truffle.png'
 import shroom_png from '../assets/img/inv/shroom.png'
+import gas_png from '../assets/img/inv/gas.png'
 import shotgun_png from '../assets/img/inv/shotgun.png'
 import antifreeze_png from '../assets/img/inv/antifreeze.png'
 import oil_png from '../assets/img/inv/oil.png'
@@ -9,21 +12,27 @@ import seeds_png from '../assets/img/inv/seeds.png'
 import lolly_png from '../assets/img/inv/lolly.png'
 import lolly_cocaine_png from '../assets/img/inv/lolly-cocaine.png'
 import organs_png from '../assets/img/inv/organs.png'
-import weed_png from '../assets/img/inv/weed.png'
 import rifle_png from '../assets/img/inv/rifle.png'
 import pistol_png from '../assets/img/inv/pistol.png'
 import burger_basic_png from '../assets/img/inv/burger-basic.png'
 import burger_super_png from '../assets/img/inv/burger-super.png'
 import burger_mega_png from '../assets/img/inv/burger-mega.png'
+import sprute_png from '../assets/img/inv/sprute.png'
 import syringe_png from '../assets/img/inv/syringe.png'
 import syringe_poisoned_png from '../assets/img/inv/syringe-poisoned.png'
 import knife_png from '../assets/img/inv/knife.png'
 import knife_poisoned_png from '../assets/img/inv/knife-poisoned.png'
 import chainsaw_png from '../assets/img/inv/chainsaw.png'
 import hammer_png from '../assets/img/inv/hammer.png'
+import molotov_png from '../assets/img/inv/molotov.png'
 import nailgun_png from '../assets/img/inv/nailgun.png'
 import nail_png from '../assets/img/inv/nail.png'
 import frog_png from '../assets/img/inv/frog.png'
+import meat3_png from '../assets/img/inv/meat-3.png'
+import meat2_png from '../assets/img/inv/meat-2.png'
+import meat_png from '../assets/img/inv/meat.png'
+import key_png from '../assets/img/inv/key.png'
+
 
 
 // list of all items in the game
@@ -48,6 +57,12 @@ const inventoryItems = {
         id: 'burger_mega',
         weapon: false,
     },
+    sprute: {
+        name: 'Bottle of Sprute',
+        img: sprute_png,
+        id: 'sprute',
+        weapon: false,
+    },
     pistol: {
         name: 'Glock',
         img: pistol_png,
@@ -64,6 +79,12 @@ const inventoryItems = {
         name: 'M16 Assault Rifle',
         img: rifle_png,
         id: 'rifle',
+        weapon: true,
+    },
+    molotov: {
+        name: 'Molotov Cocktail',
+        img: molotov_png,
+        id: 'molotov',
         weapon: true,
     },
     nailgun: {
@@ -132,6 +153,12 @@ const inventoryItems = {
         id: 'oil',
         weapon: false,
     },
+    gas: {
+        name: 'Gasoline',
+        img: gas_png,
+        id: 'gas',
+        weapon: false,
+    },
     cocaine: {
         name: 'Cocaine',
         img: cocaine_png,
@@ -144,6 +171,12 @@ const inventoryItems = {
         id: 'weed',
         weapon: false,
     },
+    pills: {
+        name: 'Pills',
+        img: pills_png,
+        id: 'pills',
+        weapon: false,
+    },
     truffle: {
         name: 'Truffle',
         img: truffle_png,
@@ -154,6 +187,12 @@ const inventoryItems = {
         name: 'Turd',
         img: turd_png,
         id: 'turd',
+        weapon: false,
+    },
+    key: {
+        name: 'Mysterious Key',
+        img: key_png,
+        id: 'key',
         weapon: false,
     },
     shroom: {
@@ -184,6 +223,24 @@ const inventoryItems = {
         name: 'Poisonous Frog',
         img: frog_png,
         id: 'frog',
+        weapon: false,
+    },
+    deermeat: {
+        name: 'Deer Meat',
+        img: meat3_png,
+        id: 'deermeat',
+        weapon: false,
+    },
+    wolfmeat: {
+        name: 'Wolf Meat',
+        img: meat2_png,
+        id: 'wolfmeat',
+        weapon: false,
+    },
+    bearmeat: {
+        name: 'Bear Meat',
+        img: meat_png,
+        id: 'bearmeat',
         weapon: false,
     },
 

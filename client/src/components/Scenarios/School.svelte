@@ -2,13 +2,30 @@
     import { avatar } from "../../stores";
     import ScenarioOption from "../core/ScenarioOption.svelte";
     import inventoryItems from "../../utility/inventoryItems";
+    import { onMount } from "svelte";
 
     export let changeIntroText
+    export let setCombatMode
+    export let combatMode
+
     let showOptions = true
 
-    $: billyCount = $avatar.unlocks.billy % 2
     $: lolly = $avatar.items.some(item => item.name === inventoryItems.lolly_cocaine.id)
     $: cocaine = $avatar.items.some(item => item.name === inventoryItems.cocaine.id)
+
+
+    onMount(async () => {
+        if(combatMode === 2) {
+            showOptions = false
+            postCombatHandler()
+        }
+	});
+
+
+    const postCombatHandler = () => {
+        changeIntroText("You handled the guards but in the distance you hear police sirens coming closer. You'll have to come back for the equipment another time.")
+        showOptions = false
+    }
 
 
     const schoolHandler = () => {
@@ -39,9 +56,9 @@
 
         avatar.changeStats([{ type: 'remove item', value: inventoryItems.lolly_cocaine.id}, { type: 'remove item', value: inventoryItems.cocaine}, {type: 'day', value: 1}])
 
-        changeIntroText('You give Billy some cocaine and another lolly to keep him motivated. Check back on him on friday.') 
+        changeIntroText('You give Billy some cocaine and another lolly to keep him motivated. Check back on him in a couple of days.') 
 
-        avatar.set({...$avatar, unlocks: {...$avatar.unlocks, billy: $avatar.unlocks.billy + 1}})
+        avatar.set({...$avatar, unlocks: {...$avatar.unlocks, billy: 4}})
         showOptions = false
     }
 
@@ -51,11 +68,28 @@
 
         changeIntroText('Billy did good, he sold all the cocaine. You receive $200!') 
 
-        avatar.set({...$avatar, unlocks: {...$avatar.unlocks, billy: $avatar.unlocks.billy + 1}})
+        avatar.set({...$avatar, unlocks: {...$avatar.unlocks, billy: 3}})
         showOptions = false
     }
 
     const stealHandler = () => {
+
+        const rng = Math.random() + (0.01 * $avatar.stats.luck)
+        avatar.changeStats([{type: 'day', value: 1}])
+
+        // 2 possible outcomes (combat & success)
+        if(rng > 0.7) {
+            // success
+            changeIntroText("You wait until nightime and break into the school. There's no sign of any security so you grab all the equipment you can use and make a run for it.")
+            avatar.set({...$avatar, unlocks: {...$avatar.unlocks, methLab: 2}})
+            showOptions = false 
+        } else {
+            // combat
+            changeIntroText("You wait until nightime and break into the school. You trip the alarm and two guards come running...")
+            setTimeout(() => {
+                setCombatMode(1)
+            }, 3000);
+        }
 
         // TODO
         avatar.changeStats([{ type: 'add item', value: inventoryItems.cocaine.id}, { type: 'add item', value: inventoryItems.lolly_cocaine.id}, {type: 'day', value: 1}])
@@ -69,16 +103,21 @@
         {#if $avatar.day === 7 && $avatar.money >= 200}
             <ScenarioOption text="INTELLECT: Go to Sunday School." eventHandler={() => schoolHandler()}/>
         {/if}
-        {#if $avatar.unlocks.billy > 2 && billyCount === 1 && $avatar.day === 1 && cocaine && lolly}
-            <ScenarioOption text="Give Billy some cocaine to sell (and another lolly)." eventHandler={() => drugdealHandler()}/>
+        {#if $avatar.day !== 6 && $avatar.day !== 7}
+            {#if $avatar.unlocks.billy === 3 && cocaine && lolly}
+                <ScenarioOption text="Give Billy some cocaine to sell (and another lolly)." eventHandler={() => drugdealHandler()}/>
+            {/if}
+            {#if $avatar.unlocks.billy > 8}
+                <ScenarioOption text="Collect from Billy." eventHandler={() => collectHandler()}/>
+            {/if}
+            {#if $avatar.unlocks.billy < 3 && lolly}
+                <ScenarioOption text="Give Billy a special Lolly" eventHandler={() => lollyHandler()}/>
+            {/if}
         {/if}
-        {#if $avatar.unlocks.billy > 2 && billyCount === 0 && $avatar.day === 5}
-            <ScenarioOption text="Collect from Billy." eventHandler={() => collectHandler()}/>
+        {#if $avatar.unlocks.methLab === 1}
+            <ScenarioOption text="LUCK/COMBAT: Steal school science lab equipment." eventHandler={() => stealHandler()}/>
         {/if}
-        {#if $avatar.unlocks.billy < 3 && $avatar.day !== 6 && $avatar.day !== 7 && lolly}
-            <ScenarioOption text="Give Billy a special Lolly" eventHandler={() => lollyHandler()}/>
-        {/if}
-        <ScenarioOption text="LUCK/COMBAT: Steal school science lab equipment." eventHandler={() => stealHandler()}/>
+        
     </div>           
 {/if}        
 

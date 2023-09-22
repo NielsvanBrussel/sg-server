@@ -80,6 +80,15 @@ export const weapons = {
         poison: 0,
         strength: false,
     },
+    molotov: {
+        name: "molotov",
+        damage: [20, 26],
+        stamina: 8,
+        staminaDamage: 0,
+        bleedDamage: 0,
+        poison: 0,
+        strength: false,
+    },
     nailgun: {
         name: "nailgun",
         damage: [5, 8],

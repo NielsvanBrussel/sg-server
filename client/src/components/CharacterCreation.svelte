@@ -75,16 +75,18 @@
 			name: activeCharacter.name,
 			stats: activeCharacter.stats,
 			day: 1,
-			money: 20,
+			money: 5000,
 			items: [],
 			unlocks: {
 				hospitalVisits: 0,
 				missingKidney: false,
 				billy: false,
-				growingWeed: false,
-				hoboArena: false,
+				growingWeed: 0,
+				methLab: 0,
+				cult: 0,
 				organTrade: false,
 				sewers: false,
+				transportRobbery: 0,
 			},
 			date_created: new Date()
 		})

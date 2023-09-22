@@ -4,7 +4,7 @@
     import ScenarioOption from "../core/ScenarioOption.svelte";
 
     export let changeIntroText
-    export  let setCombat
+    export  let setCombatMode
 
     let showOptions = true
 
@@ -17,7 +17,7 @@
 
 {#if showOptions}
     <div class="options-container">
-        <ScenarioOption text="COMBAT: Raid" eventHandler={() => setCombat(true)}/>
+        <ScenarioOption text="COMBAT: Raid" eventHandler={() => setCombatMode(1)}/>
     </div>
 {/if}        
 

@@ -5,8 +5,6 @@
     export let price
     export let changeIntroText
     export let locked
-    import { weapons } from "../combat/weapons";
-    import TextButton from "./TextButton.svelte";
  
 
     const buyItem = () => {

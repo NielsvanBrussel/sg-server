@@ -14,3 +14,7 @@ drawings:
 - achievements
 - school: lab equipment handler
 - locked items shops
+- antifreeze bridge hobos
+- coca cola wacky's item + molotov cocktail crafting
+- font size clamp
+- motel postcombat

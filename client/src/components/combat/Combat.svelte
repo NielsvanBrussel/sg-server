@@ -15,7 +15,7 @@
     import damagePng from '../../assets/img/damage.png'
   
 
-    export let setCombat
+    export let setCombatMode
     export let enemies
     
 
@@ -69,7 +69,7 @@
         } else {
             enemy.img = emptyEnemy
             // code if player finished last round
-            changeIntroText("Congratulations, you have conquered all the enemies!")
+            changeIntroText("You killed all of the enemies!")
         }
     }
 
@@ -118,7 +118,14 @@
         currentStamina -= weapons[weapon].stamina
 
 
-        if (weapon === "shotgun" || weapon === "knife_poisoned" || weapon === "rifle" || weapon === "pistol" || weapon === "syringe_poisoned") {
+        if (
+            weapon === "shotgun" || 
+            weapon === "knife_poisoned" || 
+            weapon === "rifle" || 
+            weapon === "pistol" || 
+            weapon === "syringe_poisoned" || 
+            weapon === "molotov"
+        ) {
             avatar.changeStats([{ type: 'remove item', value: `${weapon}`}])
         } else if (weapon === "chainsaw") {
             avatar.changeStats([{ type: 'remove item', value: 'oil'}])
@@ -283,11 +290,11 @@
             </div>
             <div class="options content-box">
                 {#if combatRound === enemiesCopy.length}
-                    <ScenarioOption text="leave" eventHandler={() => setCombat(false)}/>
+                    <ScenarioOption text="leave" eventHandler={() => setCombatMode(2)}/>
                 {:else}
                     {#if finishedCombat}
                         <ScenarioOption text="continue" eventHandler={() => nextRound()}/>
-                        <ScenarioOption text="run away" eventHandler={() => setCombat(false)}/>  
+                        <ScenarioOption text="run away" eventHandler={() => setCombatMode(0)}/>  
                     {:else if !attacking}
                         {#each $avatar.items as item (item.name)}
                             {#if inventoryItems[item.name].weapon && currentStamina >= weapons[item.name].stamina}

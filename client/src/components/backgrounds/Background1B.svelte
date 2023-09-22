@@ -1,15 +1,24 @@
 <script>
     export let changeBackground
+    export let showVan
     import { onMount, onDestroy } from 'svelte';
 
     onMount(async () => {
+
+        let vanBackground = null
 		const background = document.querySelector(".sliding-background1B")
-        changeBackground({ backgroundValue: background, foregroundValue: null })
+        if (showVan) {
+            vanBackground = document.querySelector(".sliding-background-van")
+        }
+        changeBackground({ backgroundValue: background, foregroundValue: null, vanBackgroundValue: vanBackground })
 	});
     
 </script>
 
 <div class="sliding-background1B"></div>
+{#if showVan}
+    <div class="sliding-background-van"></div>
+{/if}
 <div class="fade"></div>
 
 <style>
@@ -23,7 +32,7 @@
         }
     }
 
-    .sliding-background1B, .fade {
+    .sliding-background1B, .sliding-background-van, .fade {
 		position: absolute;
 		background-repeat: repeat-x;
 		background-size: 900vh 90vh;
@@ -39,8 +48,14 @@
     }
 
     .fade {
-        z-index: 5;
+        z-index: 6;
         animation: fade-in 3s forwards;
     }
+
+    .sliding-background-van {
+		background-image: url("../../assets/img/armoredcar.png");
+        transform: translate3d(calc(20vh + 45vw), 0, 0);
+		z-index: 5;
+	}
 
 </style>
