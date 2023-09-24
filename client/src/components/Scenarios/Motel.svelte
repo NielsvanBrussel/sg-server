@@ -67,8 +67,12 @@
     }
    
     const combatHandler = (value) => {
+        showOptions = false
         if (enemiesArray[value].name === 0) {
             changeIntroText("You break into the room but it's empty.")
+            setTimeout(() => {
+                showOptions = true
+            }, 3000);
         } else {
             if (enemiesArray[value].name === 1) {
                 changeIntroText("You break into the room and there's a half naked man inside staring at you.")
@@ -121,7 +125,7 @@
         } else {
             room = `0${index + 1}`
         }
-        changeIntroText(`The room you are looking for is ${room}`)
+        changeIntroText(`He tells you that the room you are looking for is ${room}.`)
         avatar.changeStats([{type: 'money', value: -100}])
         setTimeout(() => {
             showOptions = true

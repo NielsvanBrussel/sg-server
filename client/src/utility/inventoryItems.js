@@ -32,6 +32,7 @@ import meat3_png from '../assets/img/inv/meat-3.png'
 import meat2_png from '../assets/img/inv/meat-2.png'
 import meat_png from '../assets/img/inv/meat.png'
 import key_png from '../assets/img/inv/key.png'
+import token_png from '../assets/img/inv/token.png'
 
 
 
@@ -193,6 +194,12 @@ const inventoryItems = {
         name: 'Mysterious Key',
         img: key_png,
         id: 'key',
+        weapon: false,
+    },
+    token: {
+        name: 'Vending Machine Token',
+        img: token_png,
+        id: 'token',
         weapon: false,
     },
     shroom: {

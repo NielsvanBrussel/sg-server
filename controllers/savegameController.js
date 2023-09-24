@@ -14,7 +14,7 @@ const createSavegame = async (req, res) => {
         // only allow 5 saveslots per user
 
         if (checkSaveAmount.length < 5) {
-            const savegame = new Savegame({ user: user_id, name: data.name, money: data.money, unlocks: data.unlocks, day: data.day, stats: data.stats, items: data.items, date_created: data.date_created })
+            const savegame = new Savegame({ user: user_id, name: data.name, experience: data.experience, level: data.level, money: data.money, unlocks: data.unlocks, day: data.day, stats: data.stats, items: data.items, date_created: data.date_created })
             await savegame.save()   
             return res.status(200).send("savegame created")         
         } else {
@@ -39,7 +39,7 @@ const updateSavegame = async (req, res) => {
         const data = req.body.data
         const date = new Date()
 
-        const update = await Savegame.updateOne({ _id: savegame_id }, { name: data.name, money: data.money, unlocks: data.unlocks, day: data.day, stats: data.stats, items: data.items, date_active: date}).exec()
+        const update = await Savegame.updateOne({ _id: savegame_id }, { name: data.name, money: data.money, experience: data.experience, level: data.level, unlocks: data.unlocks, day: data.day, stats: data.stats, items: data.items, date_active: date}).exec()
 
         if (update.acknowledged) {
             return res.status(200).send("savegame updated")  
