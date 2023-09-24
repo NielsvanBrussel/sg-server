@@ -24,7 +24,6 @@
 			showVan = false
 		}
 
-
 	const keyPress = {
 		right: false,
 		left: false
@@ -224,8 +223,7 @@
 			} else {
 				planePosition += (1.2 * fps / 25)
 			}
-			
-			console.log(planePosition)
+		
 		
 			showEntry = checkPositions()
 

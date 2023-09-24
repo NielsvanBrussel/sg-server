@@ -18,3 +18,4 @@ drawings:
 - coca cola wacky's item + molotov cocktail crafting
 - font size clamp
 - motel postcombat
+-data-title hover items

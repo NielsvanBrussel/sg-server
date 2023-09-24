@@ -64,10 +64,6 @@
             default:
                 break;
         }
-  
-        changeIntroText("")
-        console.log(enemytype)
-        console.log($activeScenario.enemies)
     }
    
     const combatHandler = (value) => {

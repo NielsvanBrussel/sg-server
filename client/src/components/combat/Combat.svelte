@@ -79,6 +79,8 @@
 
         enemyDead = true
 
+        avatar.changeStats([{type: 'experience', value: 50}])
+
         const getsDrop = (Math.random() + ($avatar.stats.luck * 0.01)) >= enemy.drop.chance ? true : false
         
         if (getsDrop) {

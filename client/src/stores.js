@@ -70,6 +70,8 @@ function createAvatar() {
 	const { subscribe, set, update } = writable(
         {
             name: null,
+            level: null,
+            experience: null,
 			stats: {
 				strength: null,
 				stamina: null,
@@ -102,6 +104,8 @@ function createAvatar() {
         set: (value) => set(value),
         reset: () => set({
             name: null,
+            level: null,
+            experience: null,
 			stats: {
 				strength: null,
 				stamina: null,
@@ -171,6 +175,22 @@ function createAvatar() {
                                 .map(item => item.name === data[i].value && item.amount > 1 ?{...item, amount: item.amount - 1} : item)
  
                             return { ...prevValue, items: newItems }
+                        })
+                        break;
+
+                    case 'experience':
+                        update((prevValue) => {
+                        
+                            const newAmount = prevValue.experience + data[i].value
+                            const threshhold = (prevValue.level * 100)
+                            if (newAmount >= threshhold) {
+                                // code for levelup
+                                console.log("leveling up")
+                                return { ...prevValue, experience: newAmount, level: (prevValue.level + 1)}
+                            } else {
+                               return { ...prevValue, experience: newAmount } 
+                            }
+                            
                         })
                         break;
 

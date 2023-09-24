@@ -81,6 +81,14 @@ const SavegameSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
+    level: {
+        type: Number,
+        default: 1
+    },
+    experience: {
+        type: Number,
+        default: 0
+    },
     money: {
         type: Number,
         default: 20

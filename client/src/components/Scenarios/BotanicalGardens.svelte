@@ -13,9 +13,6 @@
     $: turd = $avatar.items.some(item => item.name === inventoryItems.turd.id)
     $: seeds = $avatar.items.some(item => item.name === inventoryItems.seeds.id)
 
-    console.log($avatar.unlocks.growingWeed)
-
-
 
     const questHandler = () => {
         changeIntroText("One of my ex-employees stole a bag of seeds when they got fired. Could you go and retrieve them for me? The guy is quite alternative and should be living in the forest somewhere.")

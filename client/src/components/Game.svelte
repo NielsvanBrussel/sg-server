@@ -5,6 +5,24 @@
   	import SideScroller from './SideScroller.svelte';
   	import Overlay from './Overlay.svelte';
   	import Scenario from './Scenario.svelte';
+	import LevelUpMessage from './LevelUpMessage.svelte';
+
+	let levelupMessage = false
+	let level = $avatar.level
+
+
+	const check = () => {
+		if (level !== $avatar.level && level) {
+			toggleMessage()
+		}
+		level = $avatar.level
+	}
+
+	const toggleMessage = () => {
+		levelupMessage = !levelupMessage
+	}
+
+	$: $avatar.level, check()
 </script>
 
 
@@ -16,6 +34,9 @@
 			<CharacterDeath />
 		{:else}
 			<Overlay />
+			{#if levelupMessage}
+				<LevelUpMessage toggleMessage={toggleMessage} />
+			{/if}
 			{#if $activeScenario.component}
 				<Scenario />
 			{:else}

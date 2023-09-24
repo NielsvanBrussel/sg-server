@@ -74,6 +74,8 @@
 		avatar.set({ 
 			name: activeCharacter.name,
 			stats: activeCharacter.stats,
+			level: 1,
+            experience: 0,
 			day: 1,
 			money: 5000,
 			items: [],
