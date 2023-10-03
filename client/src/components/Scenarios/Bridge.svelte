@@ -14,10 +14,10 @@
   $: shrooms = $avatar.items.some(item => item.name === inventoryItems.shroom.id)
 
   onMount(async () => {
-        if(combatMode === 2) {
-            showOptions = false
-            postCombatHandler()
-        }
+    if(combatMode === 2) {
+        showOptions = false
+        postCombatHandler()
+    }
 	});
 
   const postCombatHandler = () => {
@@ -42,14 +42,17 @@
     }
     showOptions = false
   }
+  
 
 </script>
 
 
   {#if showOptions}
-    {#if shrooms}
-      <ScenarioOption text="Sell shrooms to the hobo's. (COMBAT?)" eventHandler={() => dealHandler()}/>
-    {/if}              
+    <ScenarioOption 
+      unlocked={shrooms} 
+      text="Sell shrooms to the hobo's. (COMBAT?)" 
+      eventHandler={() => dealHandler()}
+    />            
   {/if}  
 
 <style>

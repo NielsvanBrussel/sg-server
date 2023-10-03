@@ -28,15 +28,6 @@
     }
 
 
-    const schoolHandler = () => {
-
-        avatar.changeStats([{ type: 'intellect', value: 1}, {type: 'money', value: -200}, {type: 'day', value: 1}])
-
-        changeIntroText('You sign up for one of the courses. You feel slightly smarter afterwards.')
-        showOptions = false
-
-    }
-
     const lollyHandler = () => {
 
         avatar.changeStats([{ type: 'remove item', value: inventoryItems.lolly_cocaine.id}, {type: 'day', value: 1}])
@@ -74,7 +65,7 @@
 
     const stealHandler = () => {
 
-        const rng = Math.random() + (0.01 * $avatar.stats.luck)
+        const rng = Math.random() + (0.02 * $avatar.stats.luck)
         avatar.changeStats([{type: 'day', value: 1}])
 
         // 2 possible outcomes (combat & success)
@@ -91,31 +82,53 @@
             }, 3000);
         }
 
-        // TODO
-        avatar.changeStats([{ type: 'add item', value: inventoryItems.cocaine.id}, { type: 'add item', value: inventoryItems.lolly_cocaine.id}, {type: 'day', value: 1}])
+    }
 
+    const schoolHandler = () => {
+        changeIntroText("You follow a course on eastern scandanavian burrowing mice. You will feel slightly smarter for a week.")
+        avatar.set({...$avatar, buffs: {...$avatar.buffs, intellectBuff: 7}})
+        avatar.changeStats([{type: 'day', value: 1}, {type: 'money', value: -150}])
+        showOptions = false
     }
 
 </script>
 
 {#if showOptions}
     <div class="options-container">
-        {#if $avatar.day === 7 && $avatar.money >= 200}
-            <ScenarioOption text="INTELLECT: Go to Sunday School." eventHandler={() => schoolHandler()}/>
-        {/if}
+        <ScenarioOption 
+            unlocked={$avatar.money >= 150 && avatar.day === 7} 
+            text="Go to sunday school. ($150)" 
+            eventHandler={() => schoolHandler()}
+        />
         {#if $avatar.day !== 6 && $avatar.day !== 7}
-            {#if $avatar.unlocks.billy === 3 && cocaine && lolly}
-                <ScenarioOption text="Give Billy some cocaine to sell (and another lolly)." eventHandler={() => drugdealHandler()}/>
+            {#if $avatar.unlocks.billy === 3}
+                <ScenarioOption 
+                    unlocked={cocaine && lolly} 
+                    text="Give Billy some cocaine to sell (and another lolly)." 
+                    eventHandler={() => drugdealHandler()}
+                />
             {/if}
             {#if $avatar.unlocks.billy > 8}
-                <ScenarioOption text="Collect from Billy." eventHandler={() => collectHandler()}/>
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Collect from Billy." 
+                    eventHandler={() => collectHandler()}
+                />
             {/if}
-            {#if $avatar.unlocks.billy < 3 && lolly}
-                <ScenarioOption text="Give Billy a special Lolly" eventHandler={() => lollyHandler()}/>
+            {#if $avatar.unlocks.billy < 3}
+                <ScenarioOption 
+                    unlocked={lolly} 
+                    text="Give Billy a special Lolly" 
+                    eventHandler={() => lollyHandler()}
+                />
             {/if}
         {/if}
         {#if $avatar.unlocks.methLab === 1}
-            <ScenarioOption text="LUCK/COMBAT: Steal school science lab equipment." eventHandler={() => stealHandler()}/>
+            <ScenarioOption 
+                unlocked={true} 
+                text="LUCK/COMBAT: Steal school science lab equipment." 
+                eventHandler={() => stealHandler()}
+            />
         {/if}
         
     </div>           

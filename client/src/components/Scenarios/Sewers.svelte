@@ -27,10 +27,10 @@
   
     {#if showOptions}   
        
-            <ScenarioOption text="COMBAT: enter the hobo arena. (MEDIUM)" eventHandler={() => combatHandler()}/>
+            <ScenarioOption unlocked={true} text="COMBAT: enter the hobo arena. (MEDIUM)" eventHandler={() => combatHandler()}/>
            
        
-        <ScenarioOption text="get weapons" eventHandler={() => dealHandler()}/>
+        <ScenarioOption unlocked={true} text="get weapons" eventHandler={() => dealHandler()}/>
     {/if}  
   
   <style>

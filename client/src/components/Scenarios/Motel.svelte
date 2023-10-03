@@ -139,20 +139,64 @@
     <div class="options-container">
         {#if showOptions}
             {#if options === 0}
-                <ScenarioOption text="COMBAT: Raid a room (MEDIUM)" eventHandler={() => options = 1} />              
-                <ScenarioOption text="Go see the owner at his office" eventHandler={() => officeHandler()} />
+                <ScenarioOption 
+                    unlocked={true}  
+                    text="COMBAT: Raid a room (MEDIUM)" 
+                    eventHandler={() => options = 1} 
+                />              
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Go see the owner at his office" 
+                    eventHandler={() => officeHandler()} 
+                />
             {:else if options === 1}
-                <ScenarioOption text="Room 01" eventHandler={() => combatHandler(0)}/>
-                <ScenarioOption text="Room 02" eventHandler={() => combatHandler(1)}/>
-                <ScenarioOption text="Room 03" eventHandler={() => combatHandler(2)}/>
-                <ScenarioOption text="Room 11" eventHandler={() => combatHandler(3)}/>
-                <ScenarioOption text="Room 12" eventHandler={() => combatHandler(4)}/>
-                <ScenarioOption text="Room 13" eventHandler={() => combatHandler(5)}/>
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Room 01" 
+                    eventHandler={() => combatHandler(0)}
+                />
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Room 02" 
+                    eventHandler={() => combatHandler(1)}
+                />
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Room 03" 
+                    eventHandler={() => combatHandler(2)}
+                />
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Room 11" 
+                    eventHandler={() => combatHandler(3)}
+                />
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Room 12" 
+                    eventHandler={() => combatHandler(4)}
+                />
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Room 13" 
+                    eventHandler={() => combatHandler(5)}
+                />
             {:else if options === 2} 
-                <ScenarioOption text="Rent a room for $60 (heal to full)" eventHandler={() => rentHandler()}/>
-                <ScenarioOption text="Pass him $100 and ask him if there are any drug dealers at the motel" eventHandler={() => infoHandler("dealer")}/>
+                <ScenarioOption 
+                    unlocked={$avatar.money >= 60} 
+                    text="Rent a room for $60 (heal to full)" 
+                    eventHandler={() => rentHandler()}
+                />
+                <ScenarioOption 
+                    unlocked={$avatar.money >= 100} 
+                    text="Pass him $100 and ask him if there are any drug dealers at the motel" 
+                    eventHandler={() => infoHandler("dealer")}
+                />
                 {#if $avatar.unlocks.cult > 1}
-                    <ScenarioOption text="Pass $100 and ask him in what room the informant is located" eventHandler={() => infoHandler("informant")}/>
+                    <ScenarioOption 
+                        unlocked={$avatar.money >= 100} 
+                        text="Pass $100 and ask him in what room the informant is located" 
+                        eventHandler={() => infoHandler("informant")}
+                    />
                 {/if}
                 
             {/if}

@@ -32,7 +32,7 @@
 
 
 {#if showOptions && combatMode === 0 && $avatar.unlocks.missingKidney}              
-    <ScenarioOption text="COMBAT: Get your kidney back! (MEDIUM)" eventHandler={() => combatHandler()}/>
+    <ScenarioOption unlocked={true} text="COMBAT: Get your kidney back! (MEDIUM)" eventHandler={() => combatHandler()}/>
 {/if}  
 
 <style>

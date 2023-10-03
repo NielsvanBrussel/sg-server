@@ -106,6 +106,7 @@
 		scenario= $map.locationsArray[0]
 		if (!animating) {
 			animate()
+			animating = true
 		}
 	}
 

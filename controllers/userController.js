@@ -52,14 +52,7 @@ const registerUser = async (req, res) => {                           // route fo
 }
 
 
-const test = async (req, res) => {
-    return res.status(200).send("test completed")
-}
-
-
-
 
 module.exports = {
     registerUser,
-    test
 }

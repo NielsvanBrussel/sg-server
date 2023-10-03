@@ -10,19 +10,13 @@
 
   let authenticatedValue
   let loading = true
-  let old
+
 
   authenticated.subscribe((value) => {
 		authenticatedValue = value;
 	});
 
 
-  // for (let index = 1; index < 30; index++) {
-  //   const threshhold = (1500 * index) - (2 * (index ** 2)) - (6 * (index **2)) + (0.2 * index ** 4)
-  //   const difference = threshhold - old
-  //   console.log(difference)
-  //   old = threshhold
-  // }
 
   onMount(async () => {
 		const res = await refreshToken()

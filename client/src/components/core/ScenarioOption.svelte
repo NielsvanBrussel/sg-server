@@ -1,9 +1,17 @@
 <script>
     export let text
     export let eventHandler
+	export let unlocked
 </script>
 
-<button class="button-nav" on:click={eventHandler}>{text}</button>
+
+{#if unlocked}
+	<button class="button-nav unlocked" on:click={eventHandler}>{text}</button>	
+{:else}
+	<button class="button-nav locked">{text}</button>	
+{/if}
+
+
 
 <style>
 
@@ -26,18 +34,25 @@
 		color: #F48C06;
 		line-height: 1.6;
 	}
-	.button-nav:hover {
+
+	.locked {
+		cursor: default;
+		-webkit-filter: grayscale(100%);
+		filter: grayscale(100%);
+	}
+
+	.unlocked:hover {
 		scale: 1.02;
 	}
 	button:focus-visible {
   		outline: none !important;
 	}
-	.button-nav:active{
+	.unlocked:active{
 		scale: 1.02;
 		border: none;
 	}
 
-	.button-nav:active{
+	.unlocked:active{
 		-webkit-box-shadow: 2px 2px 0px 2px #91173F inset;
 		box-shadow: 2px 2px 0px 2px #91173F inset;
 		scale: 1.02;

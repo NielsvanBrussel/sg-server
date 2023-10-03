@@ -121,68 +121,93 @@
 
 {#if showOptions}
     <div class="options-container">
-      
             {#if options === 0}
-                <ScenarioOption text="Ask for work." eventHandler={() => questHandler()}/>
-                <ScenarioOption text="skipday" eventHandler={() => skipday()} />
-                    {#if $avatar.unlocks.methLab === 0 && $avatar.unlocks.transportRobbery === 1 && $avatar.money >= 7000}
-                        <ScenarioOption text="Buy a trailer (7000$)." eventHandler={() => buyTrailerHandler()} />
-                    {/if}
-                    {#if $avatar.unlocks.methLab === 1}
-                        <ScenarioOption text="Set up your drug lab." eventHandler={() => setupTrailerHandler()} />
-                    {/if}
-                    {#if $avatar.unlocks.methLab === 3}
-                        <ScenarioOption text="Enter your trailer." eventHandler={() => enterTrailerHandler()} />
-                    {/if}
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Ask for work." 
+                    eventHandler={() => questHandler()}
+                />
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="skipday" 
+                    eventHandler={() => skipday()} 
+                />
+                {#if $avatar.unlocks.methLab === 0 && $avatar.unlocks.transportRobbery === 1}
+                    <ScenarioOption 
+                        unlocked={$avatar.money >= 7000} 
+                        text="Buy a trailer (7000$)." 
+                        eventHandler={() => buyTrailerHandler()} 
+                    />
+                {/if}
+                {#if $avatar.unlocks.methLab === 1}
+                    <ScenarioOption 
+                        unlocked={true} 
+                        text="Set up your drug lab." 
+                        eventHandler={() => setupTrailerHandler()} 
+                    />
+                {/if}
+                {#if $avatar.unlocks.methLab === 3}
+                    <ScenarioOption 
+                        unlocked={true} 
+                        text="Enter your trailer." 
+                        eventHandler={() => enterTrailerHandler()} 
+                    />
+                {/if}
             {/if}
             {#if options === 1}
-                    {#if $avatar.unlocks.transportRobbery === 0 || $avatar.money >= 200}
-                        <ScenarioOption text="I'll get right on it." eventHandler={() => initiateRobberyHandler()} />
-                    {/if}
-                    <ScenarioOption text="Maybe another time." eventHandler={() => activeScenario.reset()} />
+                {#if $avatar.unlocks.transportRobbery === 0 || $avatar.money >= 200}
+                    <ScenarioOption 
+                        unlocked={true} 
+                        text="I'll get right on it." 
+                        eventHandler={() => initiateRobberyHandler()} 
+                    />
+                {/if}
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Maybe another time." 
+                    eventHandler={() => activeScenario.reset()} 
+                />
             {/if}
             {#if options === 2}
-                        <!-- crafting options go here -->
-                        <CraftingItem 
-                            item={inventoryItems.pills}
-                            ingredients={[inventoryItems.antifreeze, inventoryItems.shroom, ]}
-                            changeIntroText={changeIntroText}
-                            description="Amphetamines. For people who want to get cranked up."
-                            locked={false}  
+                <!-- crafting options go here -->
+                <CraftingItem 
+                    item={inventoryItems.pills}
+                    ingredients={[inventoryItems.antifreeze, inventoryItems.shroom, ]}
+                    changeIntroText={changeIntroText}
+                    description="Amphetamines. For people who want to get cranked up."
+                    locked={true}  
 
-                        />
-                        <CraftingItem 
-                            item={inventoryItems.cocaine}
-                            ingredients={[inventoryItems.weed, inventoryItems.gas, ]}
-                            changeIntroText={changeIntroText}
-                            description="Cocaine. One of the classic drugs. Very widely used."
-                            locked={false}  
+                />
+                <CraftingItem 
+                    item={inventoryItems.cocaine}
+                    ingredients={[inventoryItems.weed, inventoryItems.gas, ]}
+                    changeIntroText={changeIntroText}
+                    description="Cocaine. One of the classic drugs. Very widely used."
+                    locked={true}  
 
-                        />
-                        <CraftingItem 
-                            item={inventoryItems.syringe_poisoned}
-                            ingredients={[inventoryItems.frog, inventoryItems.syringe]}
-                            changeIntroText={changeIntroText}
-                            description="A deadly syringe you can use in combat. Weakens the target."
-                            locked={false}  
-                        />
-                        <CraftingItem 
-                            item={inventoryItems.knife_poisoned}
-                            ingredients={[inventoryItems.frog, inventoryItems.knife]}
-                            changeIntroText={changeIntroText}
-                            description="Knife upgrade. Weakens the target. Single use only."
-                            locked={false}  
-                        />
-                        <CraftingItem 
-                            item={inventoryItems.molotov}
-                            ingredients={[inventoryItems.gas, inventoryItems.sprute]}
-                            changeIntroText={changeIntroText}
-                            description="Cheap way of setting things on fire."
-                            locked={false}  
-                        />
-
+                />
+                <CraftingItem 
+                    item={inventoryItems.syringe_poisoned}
+                    ingredients={[inventoryItems.frog, inventoryItems.syringe]}
+                    changeIntroText={changeIntroText}
+                    description="A deadly syringe you can use in combat. Weakens the target."
+                    locked={true}  
+                />
+                <CraftingItem 
+                    item={inventoryItems.knife_poisoned}
+                    ingredients={[inventoryItems.frog, inventoryItems.knife]}
+                    changeIntroText={changeIntroText}
+                    description="Knife upgrade. Weakens the target. Single use only."
+                    locked={true}  
+                />
+                <CraftingItem 
+                    item={inventoryItems.molotov}
+                    ingredients={[inventoryItems.gas, inventoryItems.sprute]}
+                    changeIntroText={changeIntroText}
+                    description="Cheap way of setting things on fire."
+                    locked={true}  
+                />
             {/if}
-        
     </div>           
 {/if}        
 

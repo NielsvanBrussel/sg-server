@@ -41,8 +41,16 @@
 
 {#if showOptions}
     <div class="options-container">
-        <ScenarioOption text="INTELLECT: Forage." eventHandler={() => forageHandler()}/>
-        <ScenarioOption text="COMBAT: Hunt. (MEDIUM - HARD)" eventHandler={() => combatHandler()}/>
+        <ScenarioOption 
+            unlocked={true} 
+            text="INTELLECT: Forage." 
+            eventHandler={() => forageHandler()}
+        />
+        <ScenarioOption 
+            unlocked={true} 
+            text="COMBAT: Hunt. (MEDIUM - HARD)" 
+            eventHandler={() => combatHandler()}
+        />
     </div>           
 {/if}        
 

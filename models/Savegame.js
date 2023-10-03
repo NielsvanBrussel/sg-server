@@ -29,6 +29,22 @@ const StatsSchema = new mongoose.Schema({
     },
 })
 
+const BuffsSchema = new mongoose.Schema({
+    strengthBuff: {
+        type: Number, 
+        default: 0
+    },
+    intellectBuff: {
+        type: Number,
+        default: 0
+    },
+    luckBuff: {
+        type: Number,
+        default: 0
+    },
+})
+
+
 const UnlocksSchema = new mongoose.Schema({
     hospitalVisits: {
         type: Number, 
@@ -106,6 +122,10 @@ const SavegameSchema = new mongoose.Schema({
     },
     stats: {
         type: StatsSchema,
+        required: true,
+    },
+    buffs: {
+        type: BuffsSchema,
         required: true,
     },
     date_created: { 

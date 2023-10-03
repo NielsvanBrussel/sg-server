@@ -43,9 +43,17 @@
 
 {#if showOptions}
     {#if options === 0}
-        <ScenarioOption text="Order some food." eventHandler={() => options = 1}/>
+        <ScenarioOption 
+            unlocked={true} 
+            text="Order some food." 
+            eventHandler={() => options = 1}
+        />
         {#if $armoredCar.day === $avatar.day && $armoredCar.location === $map.name}
-            <ScenarioOption text="Attack the armored transport." eventHandler={() => combatHandler()}/>
+            <ScenarioOption 
+                unlocked={true} 
+                text="Attack the armored transport." 
+                eventHandler={() => combatHandler()}
+            />
         {/if}
     {:else}
         <ShopItem 
@@ -64,20 +72,20 @@
         />
         <ShopItem 
             changeIntroText={changeIntroText} 
-            locked={true} 
+            locked={false} 
             item={inventoryItems.burger_basic} 
             price={12} description="Basic burger. Heals for 12."
         />
         <ShopItem 
             changeIntroText={changeIntroText} 
-            locked={true} 
+            locked={false} 
             item={inventoryItems.burger_super} 
             price={18} 
             description="That's more like it. Heals for 16."
         /> 
         <ShopItem 
             changeIntroText={changeIntroText} 
-            locked={true} 
+            locked={false} 
             item={inventoryItems.burger_mega} 
             price={25} 
             description="The absolute best. Heals for 20."

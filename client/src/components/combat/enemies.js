@@ -359,6 +359,50 @@ export const enemies = {
             img: cop_png,
         },
     ],
+    hospital: [
+        {
+            name: "Nurse",
+            currentStamina: 12,
+            maxStamina: 12,
+            attackStamina: 4,
+            attackDamage: [1, 4],
+            currentHitpoints: 10,
+            maxHitpoints: 10,
+            drop: {
+                chance: 1,
+                item: inventoryItems.pistol.id
+            },
+            img: nurse_png,
+        },
+        {
+            name: "Surgeon",
+            currentStamina: 12,
+            maxStamina: 12,
+            attackStamina: 4,
+            attackDamage: [1, 4],
+            currentHitpoints: 10,
+            maxHitpoints: 10,
+            drop: {
+                chance: 1,
+                item: inventoryItems.pistol.id
+            },
+            img: surgeon_png,
+        },
+        {
+            name: "Security Guard",
+            currentStamina: 12,
+            maxStamina: 12,
+            attackStamina: 4,
+            attackDamage: [1, 4],
+            currentHitpoints: 10,
+            maxHitpoints: 10,
+            drop: {
+                chance: 1,
+                item: inventoryItems.pistol.id
+            },
+            img: cop_png,
+        },
+    ],
     warehouse: [
         {
             name: "Nurse",

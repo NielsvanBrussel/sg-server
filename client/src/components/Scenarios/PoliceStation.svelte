@@ -44,6 +44,12 @@
 
         changeIntroText(`The cop eagerly takes the ${value} and tells you the informant is beind held out of town at the Sundown Motel. He doesn't know what room though.`)
 
+        if (value === "truffle") {
+            avatar.changeStats([{type: "remove item", value: inventoryItems.truffle.id}])
+        } else {
+            avatar.changeStats([{type: "money", value: -500}])
+        }
+
         avatar.set({...$avatar, unlocks: {...$avatar.unlocks, cult: 2}}) 
     }
 
@@ -61,26 +67,34 @@
 
 {#if showOptions}
     <div class="options-container">
-      
-            {#if options === 0}
-                {#if $avatar.unlocks.cult === 1}
-                    <ScenarioOption text="Find the corrupt cop and ask him where the informant is being held." eventHandler={() => cultQuestHandler()} />
-                {/if}
-                {#if $armoredCar.type === "prisoner" && $armoredCar.day === $avatar.day}
-                    <ScenarioOption text="Ambush the prisoner transport." eventHandler={() => combatHandler()} />
-                {/if}
+        {#if options === 0}
+            {#if $avatar.unlocks.cult === 1}
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Find the corrupt cop and ask him where the informant is being held." 
+                    eventHandler={() => cultQuestHandler()} 
+                />
             {/if}
-            {#if options === 1}
-                {#if truffle}
-                    <ScenarioOption text="Give him a Truffle." eventHandler={() => cultQuestFollowupHandler("truffle")} />
-                {/if}
-                {#if $avatar.money >= 500}
-                    <ScenarioOption text="Give him $500." eventHandler={() => cultQuestFollowupHandler("money")} />
-                {:else if !truffle}
-                    <p>You have nothing to give to the cop!</p>
-                {/if}
-
+            {#if $armoredCar.type === "prisoner" && $armoredCar.day === $avatar.day}
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Ambush the prisoner transport." 
+                    eventHandler={() => combatHandler()} 
+                />
             {/if}
+        {/if}
+        {#if options === 1}
+            <ScenarioOption 
+                unlocked={truffle} 
+                text="Give him a Truffle." 
+                eventHandler={() => cultQuestFollowupHandler("truffle")} 
+            />
+            <ScenarioOption 
+                unlocked={$avatar.money >= 500} 
+                text="Give him $500." 
+                eventHandler={() => cultQuestFollowupHandler("money")} 
+            />
+        {/if}
     </div>           
 {/if}        
 
@@ -90,8 +104,5 @@
         width: 100%;
         text-align: left;
         margin-bottom: 3rem;
-    }
-    p {
-        font-family: 'PS2P';
     }
 </style>

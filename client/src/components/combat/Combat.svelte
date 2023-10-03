@@ -22,6 +22,7 @@
     const enemiesCopy = structuredClone(enemies)
     
     let combatRound = 0
+    let healOption = true
     let attacking
     let finishedCombat = false
     let enemy = enemiesCopy[combatRound]
@@ -43,7 +44,7 @@
     // player stats
 
     // for every rank of stamina increase attackpoints by 1 with a base of 10
-    const maxStamina = Math.floor(20 + ($avatar.stats.strength / 4))
+    const maxStamina = Math.floor(10 + $avatar.stats.stamina)
     let currentStamina = maxStamina
 
     // deal 3% more damage for each rank of strength
@@ -78,10 +79,11 @@
     const checkDrop = () => {
 
         enemyDead = true
+        healOption = true
 
         avatar.changeStats([{type: 'experience', value: 50}])
 
-        const getsDrop = (Math.random() + ($avatar.stats.luck * 0.01)) >= enemy.drop.chance ? true : false
+        const getsDrop = (Math.random() + ($avatar.stats.luck * 0.02)) >= enemy.drop.chance ? true : false
         
         if (getsDrop) {
             changeIntroText(`${enemy.name} dies and drops ${inventoryItems[enemy.drop.item].name}!`)                    
@@ -104,6 +106,7 @@
     const playerAttack = (weapon) => {
 
         attacking = true
+        healOption = false
 
         const modifier = weapon.strength ? strModifier : intModifier
 
@@ -153,6 +156,7 @@
     const endTurn = () => {
 
         attacking = true
+        healOption = true
         let numberOfAttacks = Math.floor(enemy.currentStamina / enemy.attackStamina)
 
         const reset = () => {                    
@@ -221,6 +225,14 @@
            enemyAttack()  
         }
         
+    }
+
+    const playerHeal = (item) => {
+        changeIntroText(`You consume the ${item.name}. It heals for ${item.healing}.`)
+        avatar.changeStats([{ type: 'currentHitpoints', value: item.healing}, { type: 'remove item', value: item.id }])
+        setTimeout(() => {
+            endTurn()  
+        }, 3500);
     }
 </script>
 
@@ -292,31 +304,64 @@
             </div>
             <div class="options content-box">
                 {#if combatRound === enemiesCopy.length}
-                    <ScenarioOption text="leave" eventHandler={() => setCombatMode(2)}/>
+                    <ScenarioOption 
+                        unlocked={true} 
+                        text="leave" 
+                        eventHandler={() => setCombatMode(2)}
+                    />
                 {:else}
                     {#if finishedCombat}
-                        <ScenarioOption text="continue" eventHandler={() => nextRound()}/>
-                        <ScenarioOption text="run away" eventHandler={() => setCombatMode(0)}/>  
+                        <ScenarioOption 
+                            unlocked={true} 
+                            text="continue" 
+                            eventHandler={() => nextRound()}
+                        />
+                        <ScenarioOption 
+                            unlocked={true} 
+                            text="run away" 
+                            eventHandler={() => setCombatMode(0)}
+                        />  
                     {:else if !attacking}
+                        <ScenarioOption 
+                            unlocked={currentStamina >= weapons.fist.stamina} 
+                            text="attack with Fists" 
+                            eventHandler={() => playerAttack("fist")}
+                        /> 
                         {#each $avatar.items as item (item.name)}
-                            {#if inventoryItems[item.name].weapon && currentStamina >= weapons[item.name].stamina}
+                            {#if inventoryItems[item.name].weapon}
                                 {#if item.name === inventoryItems.chainsaw.id}
-                                    {#if oil}
-                                        <ScenarioOption text="attack with Chainsaw" eventHandler={() => playerAttack(inventoryItems.chainsaw.id)}/> 
-                                    {/if}
+                                    <ScenarioOption 
+                                        unlocked={oil && currentStamina >= weapons[item.name].stamina} 
+                                        text="attack with Chainsaw" 
+                                        eventHandler={() => playerAttack(inventoryItems.chainsaw.id)}
+                                    /> 
                                 {:else if item.name === inventoryItems.nailgun.id}
-                                    {#if nail}
-                                        <ScenarioOption text="attack with Nailgun" eventHandler={() => playerAttack(inventoryItems.nailgun.id)}/> 
-                                    {/if}     
+                                    <ScenarioOption 
+                                        unlocked={nail && currentStamina >= weapons[item.name].stamina} 
+                                        text="attack with Nailgun" 
+                                        eventHandler={() => playerAttack(inventoryItems.nailgun.id)}
+                                    /> 
                                 {:else}
-                                    <ScenarioOption text={`attack with ${inventoryItems[item.name].name}`} eventHandler={() => playerAttack(inventoryItems[item.name].id)}/>     
+                                    <ScenarioOption 
+                                        unlocked={currentStamina >= weapons[item.name].stamina} 
+                                        text={`attack with ${inventoryItems[item.name].name}`} 
+                                        eventHandler={() => playerAttack(inventoryItems[item.name].id)}
+                                    />     
                                 {/if}
                             {/if}
+                            {#if inventoryItems[item.name].healing}
+                                <ScenarioOption 
+                                    unlocked={healOption} 
+                                    text={`consume ${inventoryItems[item.name].name}`} 
+                                    eventHandler={() => playerHeal(inventoryItems[item.name])}
+                                />  
+                            {/if}
                         {/each}
-                        {#if currentStamina >= weapons.fist.stamina}
-                            <ScenarioOption text="attack with Fists" eventHandler={() => playerAttack("fist")}/> 
-                        {/if}
-                        <ScenarioOption text="end turn" eventHandler={() => endTurn()}/>        
+                        <ScenarioOption 
+                            unlocked={true} 
+                            text="end turn" 
+                            eventHandler={() => endTurn()}
+                        />        
                     {/if}
                 {/if}  
             </div>   

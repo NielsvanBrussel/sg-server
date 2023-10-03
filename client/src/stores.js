@@ -4,7 +4,6 @@ import { locations_map1, locations_map2 } from './components/Scenarios';
 export const authenticated = writable(true);
 export const menuActive = writable(true);
 export const newGame = writable(true);
-export const achievements = writable([]);
 export const playerPosition = writable(-135000)
 export const armoredCar = writable({ day: null, location: "", type: "" })
 
@@ -50,19 +49,49 @@ function selectMap() {
         select: (value) => {
             if (value === "map_1") {
                 set({
-                    name: "map_1",
+                    name: value,
                     locationsArray: locations_map1
                 })        
             } else if (value === "map_2") {
                 set({
-                    name: "map_2",
+                    name: value,
                     locationsArray: locations_map2
-                }) 
+                })    
             }
         }        
     }
 }
 export const map = selectMap()
+
+
+function initAchievements() {
+    const { subscribe, set, update } = writable(
+        {
+            firstTimePlaying: false,
+            billyTheKid: false,
+            gladiator: false,
+            cook: false,
+            maxLevel: false,
+            pigsTruffle: false,
+        }
+    )
+
+    return {
+        subscribe,
+        set: (value) => set(value),
+        unlockAchievement: (value) => {
+
+            update((prevValue) => {
+
+                const updatedAchievements = { ...prevValue, [value]: true } 
+                        
+                return updatedAchievements
+            
+            })
+        }        
+    }
+}
+export const achievements = initAchievements()
 
 
 
@@ -80,6 +109,11 @@ function createAvatar() {
 				currentHitpoints: null,
 				luck: null,
 			},
+            buffs: {
+                strengthBuff: 0,
+                intellectBuff: 0,
+                luckBuff: 0,
+            },
 			day: 1,
 			money: 20,
 			items: [],
@@ -114,6 +148,11 @@ function createAvatar() {
 				currentHitpoints: null,
 				luck: null,
 			},
+            buffs: {
+                strengthBuff: 0,
+                intellectBuff: 0,
+                luckBuff: 0,
+            },
 			day: 1,
 			money: 20,
 			items: [],
@@ -182,9 +221,10 @@ function createAvatar() {
                         update((prevValue) => {
                         
                             const newAmount = prevValue.experience + data[i].value
-                            const threshhold = (prevValue.level * 100)
-                            if (newAmount >= threshhold) {
-                                // code for levelup
+                            const threshhold = Math.floor((150 * prevValue.level) + ((prevValue.level + 5) ** 2) + (1.85 * prevValue.level ** 3))
+
+                            if (newAmount >= threshhold && prevValue.level < 30) {
+                                // code for levelup, max level is 30
                                 console.log("leveling up")
                                 return { ...prevValue, experience: newAmount, level: (prevValue.level + 1)}
                             } else {
@@ -212,6 +252,20 @@ function createAvatar() {
                                 newAmount = 1
                             }
 
+                            // decrease buffs by 1 if active
+                            let strengthBuff = prevValue.buffs.strengthBuff
+                            if (strengthBuff > 0) {
+                                strengthBuff --
+                            }
+                            let intellectBuff = prevValue.buffs.intellectBuff
+                            if (intellectBuff > 0) {
+                                intellectBuff --
+                            }
+                            let luckBuff = prevValue.buffs.luckBuff
+                            if (luckBuff > 0) {
+                                luckBuff --
+                            }
+
                             // increase values if this event is ongoing (billy dealing drugs @3+ and weed growing in gardens @1+)
                             let billy = prevValue.unlocks.billy 
                             if (prevValue.unlocks.billy > 3) {
@@ -222,7 +276,12 @@ function createAvatar() {
                                 weed ++
                             }
 
-                            return { ...prevValue, day: newAmount, unlocks: {...prevValue.unlocks, billy: billy, growingWeed: weed} }
+                            return { 
+                                ...prevValue, 
+                                day: newAmount, 
+                                unlocks: {...prevValue.unlocks, billy: billy, growingWeed: weed}, 
+                                buffs: {strengthBuff: strengthBuff, intellectBuff: intellectBuff, luckBuff: luckBuff} 
+                            }
                         })
                         break;
 
@@ -266,8 +325,8 @@ function createAvatar() {
                         update((prevValue) => {
                        
                            let newAmount = prevValue.stats.currentHitpoints + data[i].value
-                            if (newAmount > prevValue.stats.maxHitpoints) {
-                                newAmount = prevValue.stats.maxHitpoints
+                            if (newAmount > prevValue.stats.maxHitpoints * 5) {
+                                newAmount = prevValue.stats.maxHitpoints * 5
                             }
 
                             return { ...prevValue, stats: {...prevValue.stats, currentHitpoints: newAmount } }

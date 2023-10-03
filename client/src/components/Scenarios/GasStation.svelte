@@ -46,9 +46,17 @@
 
 {#if showOptions}
     {#if options === 0}
-        <ScenarioOption text="Go to the shop." eventHandler={() => options = 1}/>
+        <ScenarioOption 
+            unlocked={true} 
+            text="Go to the shop." 
+            eventHandler={() => options = 1}
+        />
         {#if $armoredCar.day === $avatar.day && $armoredCar.location === $map.name && $armoredCar.type !== "prisoner"}
-            <ScenarioOption text="Attack the armored transport." eventHandler={() => combatHandler()}/>
+            <ScenarioOption 
+                unlocked={true} 
+                text="Attack the armored transport." 
+                eventHandler={() => combatHandler()}
+            />
         {/if}
     {:else}
         <ShopItem 

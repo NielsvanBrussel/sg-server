@@ -8,6 +8,9 @@
     let showOptions = true
     let options = 0
 
+    $: shrooms = $avatar.items.some(item => item.name === inventoryItems.shroom.id)
+    $: weed = $avatar.items.some(item => item.name === inventoryItems.weed.id)
+
 
     const initiationQuestHandler = () => {
 
@@ -39,7 +42,7 @@
 
         setTimeout(() => {
             showOptions = true
-            options = 1 
+            options = 0 
         }, 2000);
     }
 
@@ -76,27 +79,57 @@
 
 {#if showOptions}
     <div class="options-container">
-      
-            {#if options === 0}
-                {#if $avatar.unlocks.cult === 0 || $avatar.unlocks.cult === 1}
-                    <ScenarioOption text="I'd like to join and follow the words of the Prophet Rudy." eventHandler={() => initiationQuestHandler()} />
-                {/if}
-                {#if $avatar.unlocks.cult === 3}
-                    <ScenarioOption text="I dealt with the informant." eventHandler={() => finishQuestHandler()} />
-                {/if}
-                {#if $avatar.unlocks.cult === 4}
-                    <ScenarioOption text="Go talk to Rudy." eventHandler={() => rudyHandler()} />
-                {/if}
-                <ScenarioOption text="Sell some shrooms." eventHandler={() => sellHandler("shroom")} />
+        {#if options === 0}
+            {#if $avatar.unlocks.cult === 0 || $avatar.unlocks.cult === 1}
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="I'd like to join and follow the words of the Prophet Rudy." 
+                    eventHandler={() => initiationQuestHandler()} 
+                />
             {/if}
-            {#if options === 1}
-                <ScenarioOption text="Where can I find this person?" eventHandler={() => questInfoHandler()} />
-                <ScenarioOption text="I'll start looking right away." eventHandler={() => activeScenario.reset()} />
+            {#if $avatar.unlocks.cult === 3}
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="I dealt with the informant." 
+                    eventHandler={() => finishQuestHandler()} 
+                />
             {/if}
-            {#if options === 2}
-                <ScenarioOption text="Is there anything you need from me?" eventHandler={() => questHandler()} />
-                <ScenarioOption text="Sell Rudy some weed." eventHandler={() => sellHandler("weed")} />
+            {#if $avatar.unlocks.cult === 4}
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Go talk to Rudy." 
+                    eventHandler={() => rudyHandler()} 
+                />
             {/if}
+            <ScenarioOption 
+                unlocked={shrooms} 
+                text="Sell some shrooms." 
+                eventHandler={() => sellHandler("shroom")} 
+            />
+        {/if}
+        {#if options === 1}
+            <ScenarioOption 
+                unlocked={true} 
+                text="Where can I find this person?" 
+                eventHandler={() => questInfoHandler()} 
+            />
+            <ScenarioOption 
+                unlocked={true} 
+                text="I'll start looking right away." 
+                eventHandler={() => activeScenario.reset()} 
+            />
+        {/if}
+        {#if options === 2}
+            <ScenarioOption 
+                unlocked={true} text="Is there anything you need from me?" 
+                eventHandler={() => questHandler()} 
+            />
+            <ScenarioOption 
+                unlocked={weed} 
+                text="Sell Rudy some weed." 
+                eventHandler={() => sellHandler("weed")} 
+            />
+        {/if}
     </div>           
 {/if}        
 

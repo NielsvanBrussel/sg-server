@@ -1,11 +1,9 @@
 <script>
-    import { activeScenario, avatar, map, playerPosition } from "../../stores";
+    import { activeScenario, avatar } from "../../stores";
     import inventoryItems from "../../utility/inventoryItems";
     import ScenarioOption from "../core/ScenarioOption.svelte";
-    import Motel from "./Motel.svelte";
 
     export let changeIntroText
-    export let setCombatMode
 
     let showOptions = true
     let options = 0
@@ -50,38 +48,54 @@
         avatar.changeStats([{type: 'add item', value: inventoryItems.weed.id}, {type: 'day', value: 1}])
     }
 
-    const skipday = () => {
-        avatar.changeStats([{type: 'add item', value: inventoryItems.turd.id}, {type: 'add item', value: inventoryItems.seeds.id},{type: 'day', value: 1}])
-    }
-
 </script>
 
 {#if showOptions}
     <div class="options-container">
         {#if $avatar.day !== 1 && $avatar.day !== 2}
             {#if options === 0}
-                <ScenarioOption text="Ask for a quest." eventHandler={() => questHandler()}/>
-                {#if turd}
-                    <ScenarioOption text='Sell "fertilizer (2$).' eventHandler={() => fertilizerHandler()} />
-                {/if}
-                {#if turd && seeds && $avatar.unlocks.growingWeed === 1}
-                    <ScenarioOption text='Plant mysterious seeds (takes seeds & turd). ' eventHandler={() => plantHandler()} />
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Ask for a quest." 
+                    eventHandler={() => questHandler()}
+                />
+                <ScenarioOption 
+                    unlocked={turd} 
+                    text='Sell "fertilizer (2$).' 
+                    eventHandler={() => fertilizerHandler()} 
+                />
+                {#if $avatar.unlocks.growingWeed === 1}
+                    <ScenarioOption 
+                        unlocked={turd && seeds} 
+                        text='Plant mysterious seeds (takes seeds & turd).' 
+                        eventHandler={() => plantHandler()} 
+                    />
                 {/if}
                 {#if $avatar.unlocks.growingWeed > 7}
-                    <ScenarioOption text='Harvest plant.' eventHandler={() => harvestHandler()} />
+                    <ScenarioOption 
+                        unlocked={true} 
+                        text='Harvest plant.' 
+                        eventHandler={() => harvestHandler()} 
+                    />
                 {/if}
-                <ScenarioOption text="skipday" eventHandler={() => skipday()} />
             {/if}
             {#if options === 1}
                 {#if seeds}
-                    <ScenarioOption text='I found the seeds. (hand over seeds)' eventHandler={() => seedHandler()} />
+                    <ScenarioOption 
+                        unlocked={true} 
+                        text='I found the seeds. (hand over seeds)' 
+                        eventHandler={() => seedHandler()} 
+                    />
                 {:else}
-                    <ScenarioOption text="I'll see what I can do." eventHandler={() => activeScenario.reset()} />
+                    <ScenarioOption 
+                        unlocked={true} 
+                        text="I'll see what I can do." 
+                        eventHandler={() => activeScenario.reset()} 
+                    />
                 {/if}  
             {/if}
         {:else}
             <div>Closed on mondays and tuesdays</div>
-            <ScenarioOption text="skipday" eventHandler={() => skipday()} />
         {/if}
         
     </div>           

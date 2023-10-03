@@ -17,8 +17,8 @@
 				strength: 10,
 				stamina: 3,
 				intellect: 2,
-				maxHitpoints: 40,
-				currentHitpoints: 40,
+				maxHitpoints: 20,
+				currentHitpoints: 100,
 				luck: 3,
 			}
 		},
@@ -29,8 +29,8 @@
 				strength: 2,
 				stamina: 5,
 				intellect: 8, 
-				maxHitpoints: 25,
-				currentHitpoints: 25,
+				maxHitpoints: 8,
+				currentHitpoints: 40,
 				luck: 5,
 			}
 		},
@@ -41,8 +41,8 @@
 				strength: 5,
 				stamina: 5,
 				intellect: 5,
-				maxHitpoints: 30,
-				currentHitpoints: 30,
+				maxHitpoints: 10,
+				currentHitpoints: 50,
 				luck: 4,
 			}
 		},
@@ -74,6 +74,11 @@
 		avatar.set({ 
 			name: activeCharacter.name,
 			stats: activeCharacter.stats,
+			buffs: {
+                strengthBuff: 0,
+                intellectBuff: 0,
+                luckBuff: 0,
+            },
 			level: 1,
             experience: 0,
 			day: 1,

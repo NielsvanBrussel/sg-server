@@ -1,65 +1,54 @@
 <script>
     import { avatar } from "../../stores";
     import ScenarioOption from "../core/ScenarioOption.svelte";
+    import { onMount } from "svelte";
 
     export let changeIntroText
+    export let setCombatMode
+    export let combatMode
+
     let showOptions = true
 
-    const forageHandler = () => {
-        let max = $avatar.stats.intellect * 2
-        if (max > 30)  {
-            max = 30
-        }
-
-        const rng = Math.floor(Math.random() * 100) + max
-
-        if (rng > 105) {
-            avatar.changeStats([{ type: 'add item', value: 'truffle'}])
-            changeIntroText('You found a truffle! Pigs love these things. Better hold on to these.')
-
-        } else if (rng > 80) {
-            avatar.changeStats([{ type: 'add item', value: 'shroom'}])
-            changeIntroText('You found some weird looking mushrooms. Someone might be interested in these.')
-        } else {
-            avatar.changeStats([{ type: 'add item', value: 'turd'}, {type: 'day', value: 1}])
-            changeIntroText('You found a dried up dog turd. You put it in your pocket. Might come in handy.')
-        }
-
+    onMount(async () => {
+    if(combatMode === 2) {
         showOptions = false
+        postCombatHandler()
+    }
+	});
+
+    const postCombatHandler = () => {
+        changeIntroText("You dealt with the pervert but now it's getting dark. Looks like you wont be finding any four-leaf clovers today.")
     }
 
-    const punchHandler = () => {
-        let max = $avatar.stats.strength
-        if (max > 15)  {
-            max = 15
-        }
-
-        const rng = Math.floor(Math.random() * 5) + max
-
-        if (rng >= 15) {
-            avatar.changeStats([{type: 'day', value: 1}])
-            changeIntroText('These trees are no match for you. You break them one by one.')
-        } else {
-            avatar.changeStats([{ type: 'currentHitpoints', value: -10}, { type: 'strength', value: 1}, {type: 'day', value: 1}])
-            changeIntroText('After repeatably punching the tree you break your wrist. You feel slightly stronger though.')
-        }
-        
+    const luckBuffHandler = () => {
+        const rng = Math.random()
         showOptions = false
+        if (rng > 0.5) {
+            changeIntroText("You wander off the path when looking for the clover. An old man jumps out of the bushes and exposes himself to you.")
+            avatar.changeStats([{type: 'day', value: 1}])
+            setTimeout(() => {
+                setCombatMode(1)
+            }, 3000);     
+        } else {
+            changeIntroText("Just before it gets dark you finally find a four-leaf clover. You will feel luckier for a week.")
+            avatar.set({...$avatar, buffs: {...$avatar.buffs, luckBuff: 7}})
+            avatar.changeStats([{type: 'day', value: 1}])            
+        }
+
     }
 
 </script>
 
 {#if showOptions}
     <div class="options-container">
-        <ScenarioOption text="INTELLECT: Forage." eventHandler={() => forageHandler()}/>
-        <ScenarioOption text="STRENGTH: Punch a tree." eventHandler={() => punchHandler()}/>
+        <ScenarioOption unlocked={true} text="LUCK: Look for a four-leaf clover." eventHandler={() => luckBuffHandler()}/>
     </div>           
 {/if}        
 
 
 <style>
     .options-container {
-        width: 40%;
+        width: 100%;
         text-align: left;
     }
 </style>

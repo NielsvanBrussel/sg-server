@@ -3,10 +3,6 @@ const userController = require("../controllers/userController");
 // const { checkToken } = require('../middleware/auth')
 
 
-
-
-
-
 // router.get('/', checkToken, userController.getUser);
 
 

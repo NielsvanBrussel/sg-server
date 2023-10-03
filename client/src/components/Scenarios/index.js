@@ -71,7 +71,7 @@ export const locations_map1 = [
         min: 502,
         max: 552,
         name: 'Hospital',
-        enemies: null,
+        enemies: enemies.hospital,
         component: Hospital,
         introText: ""
     },    
@@ -111,7 +111,7 @@ export const locations_map1 = [
         min: 5,
         max: 55,
         name: 'Park',
-        enemies: null,
+        enemies: enemies.flasher,
         component: Park,
         introText: "You arrive at the park. The center of nature and recreation in town. Trees, rocks, a duck pond and a playground. What would you like to do?"
     },
