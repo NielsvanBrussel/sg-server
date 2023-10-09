@@ -1,5 +1,5 @@
 <script>
-    import { authenticated, avatar, menuActive, activeScenario, playerPosition, achievements } from '../../stores.js';
+    import { authenticated, avatar, menuActive, activeScenario, playerPosition, achievements, achievementPopup } from '../../stores.js';
     import axios from 'axios'
     import SaveGame from './SaveGame.svelte';
     import LoadGame from './LoadGame.svelte';

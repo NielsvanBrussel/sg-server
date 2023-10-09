@@ -61,7 +61,7 @@
 		<div class="stats-overlay-container">
 			<div class="flexbox hitpoints-container">
 				<img class="hitpoints-img" src={hitpoints} alt="hitpoints">
-				<p>{$avatar.stats.currentHitpoints} / {$avatar.stats.maxHitpoints * 5}</p>
+				<p>{$avatar.stats.currentHitpoints}/{$avatar.stats.maxHitpoints * 5}</p>
 			</div>
 			<div class="flexbox money-container">
 				<p class="dollar-sign">$</p>

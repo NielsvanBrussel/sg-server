@@ -44,8 +44,9 @@
             
             const res = await axios.post('/api/auth/login', { name: username, password: password }, config)
             if (res.status === 201) {
-                loading = false
+                // store token in localstorage && achievements in svelte store
                 localStorage.setItem('token', res.data.accessToken)
+                achievements.set(res.data.achievements)
                 authenticated.update((value) => !value)
             }
         } catch (error) {

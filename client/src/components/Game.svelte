@@ -6,6 +6,7 @@
   	import Overlay from './Overlay.svelte';
   	import Scenario from './Scenario.svelte';
 	import LevelUpMessage from './LevelUpMessage.svelte';
+ 	import AchievementPopup from './AchievementPopup.svelte';
 
 	let levelupMessage = false
 	let level = $avatar.level
@@ -33,6 +34,7 @@
 		{#if $avatar.stats.currentHitpoints < 1}
 			<CharacterDeath />
 		{:else}
+			<AchievementPopup />
 			<Overlay />
 			{#if levelupMessage}
 				<LevelUpMessage toggleMessage={toggleMessage} />

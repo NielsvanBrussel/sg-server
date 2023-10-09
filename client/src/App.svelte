@@ -1,15 +1,17 @@
 <script>
   import AuthMenu from './components/AuthMenu.svelte';
-  import { authenticated, menuActive } from './stores.js';
+  import { authenticated, menuActive, achievements } from './stores.js';
   import { onMount } from 'svelte';
   import refreshToken from './utility/refreshToken';
   import { Circle } from 'svelte-loading-spinners';
   import GameMenu from './components/GameMenu/GameMenu.svelte';
   import Game from './components/Game.svelte';
+  import axios from 'axios';
   
 
   let authenticatedValue
   let loading = true
+  let refreshCheck = true
 
 
   authenticated.subscribe((value) => {
@@ -17,15 +19,55 @@
 	});
 
 
+  const getAchievements = async () => {
+    const JWT = localStorage.getItem('token');
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'token': JWT,
+            'Accept' : 'application/json',
+        },
+        withCredentials: true
+    }
+
+    try {
+        const res = await axios.get('/api/achievement', config)
+        refreshCheck = true
+        achievements.set(res.data)
+        return true
+    } catch (err) {
+   
+        if (err.response.data === 'accesstoken expired') {
+            const res = await refreshToken()
+           
+            if (res && refreshCheck) {
+                refreshCheck = false
+                const res = await getAchievements()
+                return res
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+  }
+
+
 
   onMount(async () => {
-		const res = await refreshToken()
+    
+    // try and get achievements from saved user (cookie & localstorage)
+    const res = await getAchievements()
+
+
+    // if response is negative show authentication menu, else show gamemenu
     if (res) {
       authenticated.set(true)
-    } else {
-      
-    }
+    } 
     loading = false
+
 	});
 
 </script>
@@ -41,10 +83,10 @@
       <AuthMenu />
     {:else}
       <div class="main-container">
-        {#if !$menuActive}
-          <Game />
-        {:else}
+        {#if $menuActive}
           <GameMenu />
+        {:else}
+          <Game />
         {/if}
       </div>  
     {/if}

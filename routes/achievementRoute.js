@@ -1,9 +1,10 @@
 const router = require ('express').Router()
-const userController = require("../controllers/userController");
+const achievementController = require("../controllers/achievementController");
 const { checkToken } = require('../middleware/auth')
 
 
-router.post('/', checkToken, achievementController.updateAchievement);
+router.put('/', checkToken, achievementController.updateAchievement);
+router.get('/', checkToken, achievementController.getAchievements);
 
 
 

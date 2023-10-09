@@ -40,7 +40,7 @@ export const locations_map1 = [
         max: 830,
         name: 'Gym',
         enemies: null,
-        component: Forest,
+        component: Gym,
         introText: "",
     },
     {

@@ -6,7 +6,6 @@ const registerUser = async (req, res) => {                           // route fo
 
     try {
 
-        console.log(req.body)
         const name = req.body.name
         const password = req.body.password
         const refresh_id = uuidv4()
@@ -23,7 +22,12 @@ const registerUser = async (req, res) => {                           // route fo
             const hashedPassword = bcrypt.hashSync(password, salt)  
 
             // create the user
-            const user = new User({ name: nameLowercase, password: hashedPassword, achievements: [], refresh_id: refresh_id })
+            const user = new User({ 
+                name: nameLowercase,
+                password: hashedPassword,
+
+                refresh_id: refresh_id 
+            })
             await user.save()
             return res.status(201).send('User created.')            
         } else {

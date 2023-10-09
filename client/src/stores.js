@@ -1,11 +1,13 @@
-import { writable, derived } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { locations_map1, locations_map2 } from './components/Scenarios';
+import updateAchievement from './utility/updateAchievement';
 
-export const authenticated = writable(true);
+export const authenticated = writable(false);
 export const menuActive = writable(true);
 export const newGame = writable(true);
 export const playerPosition = writable(-135000)
 export const armoredCar = writable({ day: null, location: "", type: "" })
+export const achievementPopup = writable({ id: null, title: null, description: null })
 
 
 function selectActiveScenario() {
@@ -64,6 +66,7 @@ function selectMap() {
 export const map = selectMap()
 
 
+
 function initAchievements() {
     const { subscribe, set, update } = writable(
         {
@@ -82,11 +85,25 @@ function initAchievements() {
         unlockAchievement: (value) => {
 
             update((prevValue) => {
+                // update the object
+                const updatedAchievements = { ...prevValue, [value.id]: true }
+                
+                // update it in the database
+                updateAchievement(value.id)
+                .then((res) => {
+                    if (res) {
+                        // set the value for the popup to trigger
+                        achievementPopup.set(value)  
+                        return updatedAchievements                      
+                    } else {
+                        return { ...prevValue }
+                    } 
+                })
+                .catch((err) => {
+                    throw err
+                })
 
-                const updatedAchievements = { ...prevValue, [value]: true } 
-                        
                 return updatedAchievements
-            
             })
         }        
     }
@@ -225,7 +242,6 @@ function createAvatar() {
 
                             if (newAmount >= threshhold && prevValue.level < 30) {
                                 // code for levelup, max level is 30
-                                console.log("leveling up")
                                 return { ...prevValue, experience: newAmount, level: (prevValue.level + 1)}
                             } else {
                                return { ...prevValue, experience: newAmount } 

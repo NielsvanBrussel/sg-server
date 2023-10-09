@@ -16,13 +16,14 @@
     });
 
     const loadGame = (savegame) => {
+
         avatar.set(savegame)
 
+        // reset all values & close the menu
         activeScenario.reset()
-
         playerPosition.set(-135000)
-
         menuActive.set(false)
+
 	}
 
 
