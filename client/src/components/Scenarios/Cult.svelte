@@ -97,7 +97,7 @@
             {#if $avatar.unlocks.cult === 4}
                 <ScenarioOption 
                     unlocked={true} 
-                    text="Go talk to Rudy." 
+                    text="Ask for an audience with Rudy." 
                     eventHandler={() => rudyHandler()} 
                 />
             {/if}

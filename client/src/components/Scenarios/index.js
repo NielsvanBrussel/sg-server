@@ -49,7 +49,7 @@ export const locations_map1 = [
         name: 'Botanical Gardens',
         component: BotanicalGardens,
         enemies: null,
-        introText: "Ramshaven Botanical Gardens. Home of some of the rarest plants in the world. A gardener comes at you and welcomes you."
+        introText: "Ramshaven Botanical Gardens. Home of some of the rarest plants in the world. A gardener approaches you and welcomes you."
     },
     {
         min: 835,
@@ -57,7 +57,7 @@ export const locations_map1 = [
         name: 'Children of the Golden Flower',
         enemies: enemies.Cult,
         component: Cult,
-        introText: "You enter the filthy house. There's junk lying around everywhere and zombie like people crawling around.",
+        introText: 'You stand before a massive door with a golden plaque with the words "Children of the Golden Sun". You ring the doorbell and a woman in a white gown opens.',
     },
     {
         min: 590,

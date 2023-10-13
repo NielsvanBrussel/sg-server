@@ -6,7 +6,7 @@
 	import rupertStand from '../assets/img/rupert-stand.png'
 	import dwayneRunning from '../assets/img/dwayne-running.gif'
 	import dwayneStand from '../assets/img/dwayne-stand.png'
-	import { map, playerPosition, avatar, armoredCar } from '../stores';
+	import { map, playerPosition, avatar, armoredCar, achievements } from '../stores';
 
 	// floating message above locations
   	import EntryMessage from './EntryMessage.svelte';
@@ -14,6 +14,7 @@
 	// list of all location positions, names and components
 	import Background1A from './backgrounds/Background1A.svelte';
 	import Background1B from './backgrounds/Background1B.svelte';
+  import achievementsData from '../utility/achievements';
 
 	
 	let showVan
@@ -90,8 +91,15 @@
 	let animating = false
 	let mounted = false
 
+	const checkAchievement = () => {
+		if (!$achievements.firstTimePlaying) {
+			achievements.unlockAchievement(achievementsData.firstTimePlaying)
+		}
+	}
+
 
     onMount(async () => {
+		checkAchievement()
 		entryMessage = document.querySelector(".entry-container")
 		plane = document.querySelector(".sliding-background3")
 		mounted = true

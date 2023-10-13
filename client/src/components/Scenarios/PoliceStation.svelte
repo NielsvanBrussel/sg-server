@@ -1,5 +1,6 @@
 <script>
-    import { armoredCar, avatar } from "../../stores";
+    import { armoredCar, avatar, achievements } from "../../stores";
+  import achievementsData from "../../utility/achievements";
     import inventoryItems from "../../utility/inventoryItems";
     import ScenarioOption from "../core/ScenarioOption.svelte";
     import { onMount } from "svelte";
@@ -38,6 +39,12 @@
         }, 2000);
     }
 
+    const checkAchievement = () => {
+		if (!$achievements.pigsTruffle) {
+			achievements.unlockAchievement(achievementsData.pigsTruffle)
+		}
+	}
+
     const cultQuestFollowupHandler = (value) => {
 
         showOptions = false
@@ -45,6 +52,7 @@
         changeIntroText(`The cop eagerly takes the ${value} and tells you the informant is beind held out of town at the Sundown Motel. He doesn't know what room though.`)
 
         if (value === "truffle") {
+            checkAchievement()
             avatar.changeStats([{type: "remove item", value: inventoryItems.truffle.id}])
         } else {
             avatar.changeStats([{type: "money", value: -500}])

@@ -1,5 +1,7 @@
 <script>
-    import { avatar } from "../../stores";
+    import { avatar, achievements } from "../../stores";
+  import achievementsData from "../../utility/achievements";
+    import inventoryItems from "../../utility/inventoryItems";
     export let item
     export let description
     export let ingredients
@@ -8,11 +10,21 @@
 
 
     let craftable = true
+
+
+    const checkAchievement = () => {
+		if (!$achievements.cook) {
+			achievements.unlockAchievement(achievementsData.cook)
+		}
+	}
  
 
-    const buyItem = () => {
+    const craftItem = () => {
         for (let i = 0; i < ingredients.length; i++) {
             avatar.changeStats([{ type: 'remove item', value: ingredients[i].id}])
+        }
+        if (item.name === inventoryItems.cocaine || item.name === inventoryItems.pills) {
+            checkAchievement()
         }
         avatar.changeStats([{ type: 'add item', value: item.id}])
         changeIntroText(`You craft ${item.name}.`)
@@ -61,7 +73,7 @@
                 <h3>{item.name}</h3>
                 <div class="button-container">
                     {#if craftable}
-                        <button class="button-nav active" on:click={() => buyItem()}>craft</button> 
+                        <button class="button-nav active" on:click={() => craftItem()}>craft</button> 
                     {:else}
                         <button class="inactive-button-nav">craft</button>
                     {/if}

@@ -34,14 +34,17 @@
             avatar.set({...$avatar, buffs: {...$avatar.buffs, luckBuff: 7}})
             avatar.changeStats([{type: 'day', value: 1}])            
         }
-
     }
 
 </script>
 
 {#if showOptions}
     <div class="options-container">
-        <ScenarioOption unlocked={true} text="LUCK: Look for a four-leaf clover." eventHandler={() => luckBuffHandler()}/>
+        <ScenarioOption 
+            unlocked={true} 
+            text="LUCK: Look for a four-leaf clover." 
+            eventHandler={() => luckBuffHandler()}
+        />
     </div>           
 {/if}        
 

@@ -1,8 +1,9 @@
 <script>
-    import { avatar } from "../../stores";
+    import { avatar, achievements } from "../../stores";
     import ScenarioOption from "../core/ScenarioOption.svelte";
     import inventoryItems from "../../utility/inventoryItems";
     import { onMount } from "svelte";
+  import achievementsData from "../../utility/achievements";
 
     export let changeIntroText
     export let setCombatMode
@@ -21,6 +22,12 @@
         }
 	});
 
+    const checkAchievement = () => {
+		if (!$achievements.billyTheKid) {
+			achievements.unlockAchievement(achievementsData.billyTheKid)
+		}
+	}
+
 
     const postCombatHandler = () => {
         changeIntroText("You handled the guards but in the distance you hear police sirens coming closer. You'll have to come back for the equipment another time.")
@@ -33,6 +40,7 @@
         avatar.changeStats([{ type: 'remove item', value: inventoryItems.lolly_cocaine.id}, {type: 'day', value: 1}])
 
         if ($avatar.unlocks.billy === 2) {
+            checkAchievement()
             changeIntroText('You give Billy another lolly. He eagerly takes it out of your hands. Billy will now do anything for a lolly. Come back on mondays with some cocaine...') 
         } else {
             changeIntroText('You give Billy a special treat. He seems to enjoy it a lot.')

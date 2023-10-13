@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 import { locations_map1, locations_map2 } from './components/Scenarios';
 import updateAchievement from './utility/updateAchievement';
+import achievementsData from './utility/achievements';
 
 export const authenticated = writable(false);
 export const menuActive = writable(true);
@@ -241,6 +242,9 @@ function createAvatar() {
                             const threshhold = Math.floor((150 * prevValue.level) + ((prevValue.level + 5) ** 2) + (1.85 * prevValue.level ** 3))
 
                             if (newAmount >= threshhold && prevValue.level < 30) {
+                                if (prevValue.level === 29) {
+                                    achievements.unlockAchievement(achievementsData.maxLevel)
+                                }
                                 // code for levelup, max level is 30
                                 return { ...prevValue, experience: newAmount, level: (prevValue.level + 1)}
                             } else {
