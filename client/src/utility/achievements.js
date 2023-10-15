@@ -31,7 +31,7 @@ const achievementsData = {
     },
     pigsTruffle: {
         id: "pigsTruffle",
-        description: "give a pig a truffle",
+        description: "bribe an officer of the law with a truffle",
         title: "Truffles for the pigs"
     },
 }

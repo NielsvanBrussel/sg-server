@@ -16,6 +16,7 @@ import Forest from './Forest.svelte';
 import BotanicalGardens from './BotanicalGardens.svelte';
 import Caravan from './Caravan.svelte';
 import Motel from './Motel.svelte';
+import Arena from './Arena.svelte';
 
 
 export const locations_map1 = [
@@ -65,7 +66,7 @@ export const locations_map1 = [
         name: 'Bridge',
         enemies: enemies.bridge,
         component: Bridge,
-        introText: ""
+        introText: "As you pass under the bridge you see large encampments of tents where hobos are strolling around. In the back there's a big circus tent, surrounded by a big fence and an even bigger gate."
     },
     {
         min: 502,
@@ -116,6 +117,17 @@ export const locations_map1 = [
         introText: "You arrive at the park. The center of nature and recreation in town. Trees, rocks, a duck pond and a playground. What would you like to do?"
     },
 ]
+
+export const locations_nomap = [
+    {
+        min: null,
+        max: null,
+        name: 'Hobo Arena',
+        enemies: enemies.hoboArena,
+        component: Arena,
+        introText: "The loud cheering and chanting of a huge crowd welcomes you as you enter the tent. Hundreds of peoples eyes are all fixated at the center, where bloodied men are busy fighting eachother in a cage. You notice the fat man who gave you the key near the entrance. Once again he approaches you and asks if you are ready."
+    },
+] 
 
 export const locations_map2 = [
     {

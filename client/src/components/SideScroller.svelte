@@ -14,7 +14,8 @@
 	// list of all location positions, names and components
 	import Background1A from './backgrounds/Background1A.svelte';
 	import Background1B from './backgrounds/Background1B.svelte';
-  import achievementsData from '../utility/achievements';
+	
+  	import achievementsData from '../utility/achievements';
 
 	
 	let showVan
@@ -78,6 +79,8 @@
     let background
 	let plane
 	let planePosition = -270000
+	let car
+	let carPosition = 0
 	let vanBackground
 	let foreground
 	let entryMessage
@@ -102,6 +105,7 @@
 		checkAchievement()
 		entryMessage = document.querySelector(".entry-container")
 		plane = document.querySelector(".sliding-background3")
+		car = document.querySelector(".sliding-background4")
 		mounted = true
 		showEntry = false
 	});
@@ -218,6 +222,7 @@
 					position -= (1 * fps / 25)
 					messagePosition -= (1 * fps / 25)
 					planePosition += (0.6 * fps / 25)
+					carPosition -= (2.4 * fps / 25)
 				}
 			} else if (keyPress.left) {
 				//edge of map check
@@ -227,10 +232,12 @@
 					if (position > 0) {
 						position = 0
 					}
-					planePosition += (2 * fps / 25)              
+					planePosition += (2 * fps / 25)
+					carPosition -= (0.6 * fps / 25)              
 				}
 			} else {
 				planePosition += (1.2 * fps / 25)
+				carPosition -= (1.4 * fps / 25)
 			}
 		
 		
@@ -244,6 +251,7 @@
 			// move background & entry messages
 			background.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
 			plane.style.transform = `translate3d(calc(${planePosition}vh + 45vw), 0, 0)`
+			car.style.transform = `translate3d(calc(${carPosition}vh + 45vw), 0, 0)`
 			
 
 			if (foreground) {
@@ -278,6 +286,7 @@
 	{/if}		
 	<div class="sliding-background2"></div>
 	<div class="sliding-background3"></div>
+	<div class="sliding-background4"></div>
 	<div class="avatar-container">
 			<!-- stack all 4 types of images on top of eachother and change zindex depending on condition -->
 			<img 
@@ -322,7 +331,7 @@
 		background-color: black;
 	}
 
-	.sliding-background2, .sliding-background3 {
+	.sliding-background2, .sliding-background3, .sliding-background4 {
 		position: absolute;
 		background-repeat: repeat-x;
 		height: 90vh;
@@ -342,6 +351,11 @@
 	.sliding-background3 {
 		background-image: url("../assets/img/layer3.png");
 		z-index: 1;
+	}
+
+	.sliding-background4 {
+		background-image: url("../assets/img/layer4.png");
+		z-index: 6;
 	}
 
 	.avatar {
@@ -370,7 +384,7 @@
 
 	.entry-container {
 		position: absolute;
-		z-index: 7;
+		z-index: 8;
 		top: 2rem;
 		left: 50%;
 		-webkit-transform: translate(-50%);

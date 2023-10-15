@@ -69,6 +69,7 @@
         animation-delay: 0s, 6s;
         animation-timing-function: ease-in;
         overflow: hidden;
+        z-index: 9;
     }
     .achievement-container-inner {
         display: flex;

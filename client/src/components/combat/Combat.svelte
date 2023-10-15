@@ -70,7 +70,7 @@
         } else {
             enemy.img = emptyEnemy
             // code if player finished last round
-            changeIntroText("You killed all of the enemies!")
+            setCombatMode(2)
         }
     }
 
@@ -303,13 +303,6 @@
                 <p class="enemy-info-text">{currentStamina}/{maxStamina}</p>
             </div>
             <div class="options content-box">
-                {#if combatRound === enemiesCopy.length}
-                    <ScenarioOption 
-                        unlocked={true} 
-                        text="leave" 
-                        eventHandler={() => setCombatMode(2)}
-                    />
-                {:else}
                     {#if finishedCombat}
                         <ScenarioOption 
                             unlocked={true} 
@@ -363,7 +356,6 @@
                             eventHandler={() => endTurn()}
                         />        
                     {/if}
-                {/if}  
             </div>   
             
         </div>

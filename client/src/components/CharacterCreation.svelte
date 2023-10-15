@@ -94,6 +94,7 @@
 				organTrade: false,
 				sewers: false,
 				transportRobbery: 0,
+				items: []
 			},
 			date_created: new Date()
 		})

@@ -51,7 +51,10 @@
             }
         } catch (error) {
             createError(error.response.data)
-            loading = false
+            setTimeout(() => {
+               loading = false 
+            }, 200);
+            
         }
     }
 
@@ -63,10 +66,15 @@
             if (res.status === 201) {
                 loading = false
                 createError(res.data)
+                setTimeout(() => {
+                    activeMenu = 1
+                }, 3000);
             }
         } catch (error) {
             createError(error.response.data)
-            loading = false
+            setTimeout(() => {
+               loading = false 
+            }, 200);
         }
         
     }
@@ -125,15 +133,15 @@
                             </div>
                         {/if}
                     </div>
+                    <div class="input-container">
+                       <input autofocus placeholder="Username" bind:value={username} on:keypress={(e) => changeFocus({e: e, name: "A"})} type="text">
+                       <input placeholder="Password" id="A" type="password" bind:value={password} on:keypress={(e) => onEnter({e: e, action: "login"})}>            
+                   </div>
+                   <div>
+                       <button on:click={() => login()}> log in </button>
+                       <button on:click={() => activeMenu = 0}> back </button>            
+                   </div>               
                 {/if}
-                     <div class="input-container">
-                        <input autofocus placeholder="Username" bind:value={username} on:keypress={(e) => changeFocus({e: e, name: "A"})} type="text">
-                        <input placeholder="Password" id="A" type="password" bind:value={password} on:keypress={(e) => onEnter({e: e, action: "login"})}>            
-                    </div>
-                    <div>
-                        <button on:click={() => login()}> log in </button>
-                        <button on:click={() => activeMenu = 0}> back </button>            
-                    </div>               
             </div>
             
         <!-- +++++++++++++++++++ SIGNUP +++++++++++++++++++++++++ -->
@@ -154,7 +162,6 @@
                             </div>
                         {/if}
                     </div>
-                {/if}
                     <div class="input-container">
                         <input autofocus placeholder="Username" bind:value={username} on:keypress={(e) => changeFocus({e: e, name: "B"})} type="text">
                         <input placeholder="Password" id="B" type="password" bind:value={password}  on:keypress={(e) => onEnter({e: e, action: "signup"})}>            
@@ -163,6 +170,7 @@
                         <button on:click={() => signup()}> sign up </button>
                         <button on:click={() => activeMenu = 0}> back </button>            
                     </div>
+                {/if}
             </div>
         {/if}    
     </div>
@@ -250,8 +258,8 @@
     height: 100%;
   }
   .spinner-container {
-    margin: 1rem auto;
-    height: 3rem;
+    margin: 0rem auto;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;

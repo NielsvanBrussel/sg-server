@@ -7,6 +7,7 @@
 	<div class="sliding-background1"></div>
 	<div class="sliding-background2"></div>
 	<div class="sliding-background3"></div>
+	<div class="sliding-background4"></div>
 </div>
 
 
@@ -23,7 +24,7 @@
 		position: relative;
 	}
 
-	.sliding-background1, .sliding-background2, .sliding-background3 {
+	.sliding-background1, .sliding-background2, .sliding-background3, .sliding-background4  {
 		position: absolute;
 		background-repeat: repeat-x;
 		background-size: 900vh 90vh;
@@ -35,20 +36,26 @@
 	.sliding-background1 {
 		background-image: url("../assets/img/layer1.png");
 		animation: slide-left 60s linear infinite;
-		z-index: -1;
+		z-index: -2;
 	}
 
 	.sliding-background2 {
 		background-image: url("../assets/img/layer2.png");
 		animation: slide-left 120s linear infinite;
-		z-index: -3;
+		z-index: -4;
 	}
 
 
 	.sliding-background3 {
 		background-image: url("../assets/img/layer3.png");
 		animation: slide-right 20s linear infinite;
-		z-index: -2;
+		z-index: -3;
+	}
+
+	.sliding-background4 {
+		background-image: url("../assets/img/layer4.png");
+		animation: slide-left 10s linear infinite;
+		z-index: -1;
 	}
 
 	@keyframes slide-left{

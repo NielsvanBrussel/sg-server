@@ -55,7 +55,7 @@
     }
 
     .fade {
-        z-index: 6;
+        z-index: 7;
         animation: fade-in 3s forwards;
     }
 

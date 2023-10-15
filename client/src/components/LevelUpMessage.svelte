@@ -91,10 +91,6 @@
         font-size: 6rem;
     }
 
-    button {
-        font-family: 'Bungee-Spice';
-    }
-
     .button-container {
         margin: 1rem 0rem;
     }
@@ -118,7 +114,6 @@
     .reward-container {
         opacity: 0;
         animation: fade-in forwards 2s;
-        animation-delay: 5s;
     }
 
     img {

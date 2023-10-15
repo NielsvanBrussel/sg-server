@@ -1,11 +1,26 @@
 <script>
     import { avatar } from "../../stores";
+    import { onMount } from "svelte";
     import ScenarioOption from "../core/ScenarioOption.svelte";
     import inventoryItems from "../../utility/inventoryItems";
 
-    export let setCombatMode
     export let changeIntroText
+    export let combatMode
+    export let setCombatMode
+   
     let showOptions = true
+
+    onMount(async () => {
+        // runs after the player has gone through the full combat cycle
+        if(combatMode === 2) {
+            postCombatHandler()
+        }
+    });
+
+    const postCombatHandler = () => {
+        showOptions = false
+        changeIntroText("A few animal species are now nearly extinct thanks to you. Better wait for the forest to repopulate.")
+    }
 
     const forageHandler = () => {
         let max = $avatar.stats.intellect * 2
