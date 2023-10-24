@@ -3,7 +3,7 @@
 	import { Circle } from 'svelte-loading-spinners';
 	import dwayne from '../assets/img/dwayne.gif'
 	import rupert from '../assets/img/rupert.gif'
-	import rodney from '../assets/img/rodney.gif'
+	import gareth from '../assets/img/gareth.gif'
   	import TextButton from './core/TextButton.svelte';
 
 	let loading = false
@@ -12,14 +12,14 @@
 	const characters = [
 		{
 			name: 'Greasy Gareth',
-			img: rodney,
+			img: gareth,
 			stats: {
 				strength: 10,
 				stamina: 3,
 				intellect: 2,
-				maxHitpoints: 40,
-				currentHitpoints: 40,
-				intimidation: 3,
+				maxHitpoints: 20,
+				currentHitpoints: 100,
+				luck: 3,
 			}
 		},
 		{
@@ -29,9 +29,9 @@
 				strength: 2,
 				stamina: 5,
 				intellect: 8, 
-				maxHitpoints: 25,
-				currentHitpoints: 25,
-				intimidation: 5,
+				maxHitpoints: 8,
+				currentHitpoints: 40,
+				luck: 5,
 			}
 		},
 		{
@@ -41,9 +41,9 @@
 				strength: 5,
 				stamina: 5,
 				intellect: 5,
-				maxHitpoints: 30,
-				currentHitpoints: 30,
-				intimidation: 8,
+				maxHitpoints: 10,
+				currentHitpoints: 50,
+				luck: 4,
 			}
 		},
 	]
@@ -74,9 +74,29 @@
 		avatar.set({ 
 			name: activeCharacter.name,
 			stats: activeCharacter.stats,
+			buffs: {
+                strengthBuff: 0,
+                intellectBuff: 0,
+                luckBuff: 0,
+            },
+			level: 1,
+            experience: 0,
 			day: 1,
-			money: 20,
+			money: 5000,
 			items: [],
+			unlocks: {
+				hospitalVisits: 0,
+				missingKidney: false,
+				billy: false,
+				growingWeed: 0,
+				methLab: 0,
+				cult: 0,
+				armsdealer: 0,
+				organTrade: false,
+				sewers: false,
+				transportRobbery: 0,
+				items: []
+			},
 			date_created: new Date()
 		})
 
@@ -122,8 +142,8 @@
 							<p class={activeCharacter.stats.intellect > 5 ? "stats-green" : activeCharacter.stats.intellect < 5 ? "stats-red" : "stats-default"}>{activeCharacter.stats.intellect}</p>
 						</div>
 						<div class="stats-flex">
-							<p class="stats-title">intimidation: </p>
-							<p class={activeCharacter.stats.intimidation > 5 ? "stats-green" : activeCharacter.stats.intimidation < 5 ? "stats-red" : "stats-default"}>{activeCharacter.stats.intimidation}</p>
+							<p class="stats-title">luck: </p>
+							<p class={activeCharacter.stats.luck > 5 ? "stats-green" : activeCharacter.stats.luck < 5 ? "stats-red" : "stats-default"}>{activeCharacter.stats.luck}</p>
 						</div>
 						<div class="stats-flex">
 							<p class="stats-title">hitpoints: </p>
@@ -148,13 +168,14 @@
 
 
 <style>
-	
 
 	.flex-column {
 		display: flex;
 		flex-direction: column;
 		width: 35%;
 		border-radius: 0.5rem;
+		max-width: 25rem;
+		min-width: 20rem;
 	}
 	.column-1 {
 		border: #F48C06 1rem solid;
@@ -175,7 +196,7 @@
 		display: flex;
 		flex-direction: row;
 		width: 100%;
-		justify-content: center;
+		justify-content: space-around;
 		gap: 3rem;
 		margin: 2rem 0rem;
 	}
@@ -189,14 +210,14 @@
 		height: auto;
 	}
 	.header-container {
-		height: 8rem;
 		display: flex;
+		margin: 3rem 0rem;
 		justify-content: center;
 		align-items: center;
 	}
 	h1 {
 		font-size: 3rem;
-		margin-top: 3rem;
+		margin: 0;
 	}
 	.stats-container {
 		margin: 0rem 1rem;
@@ -214,24 +235,25 @@
 	}
 	.content-box {
 		height: 100%;
-	}
-	.selection-container {
-		height: calc(100% - 10rem);
 		overflow-y: auto;
 	}
-	.selection-container::-webkit-scrollbar {
+	.selection-container {
+	
+		/* overflow-y: auto; */
+	}
+	.content-box::-webkit-scrollbar {
 		width: 0.6rem;
 		background: transparent;
 		border-radius: 2rem;
 		margin-bottom: 0.5rem;  
   	}
-	.selection-container::-webkit-scrollbar-track {
+	.content-box::-webkit-scrollbar-track {
 		background-color: #F48C06 ;
 		color: transparent;
 		margin: 2rem 0rem 6rem 0rem;
 		border-radius: 2rem;
 	}
-  	.selection-container::-webkit-scrollbar-thumb {
+  	.content-box::-webkit-scrollbar-thumb {
 		background: #F51743;
 		border-radius: 2rem;
   	}
@@ -286,4 +308,11 @@
 		background-image: url('../assets/img/arrow-prev.png');
 	}
 
+
+	@media screen and (max-width: 65em){
+		.flex-row {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
 </style>

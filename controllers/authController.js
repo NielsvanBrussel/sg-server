@@ -61,9 +61,6 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {                    // log the user out by resetting the refreshtoken and removing the accesstoken
 
-
-
-    console.log('logging out')
     const refreshToken = req.cookies.acp64
     try {
 
@@ -111,7 +108,6 @@ const refreshToken = async (req, res) => {              // endpoint called when 
                                                                                                    
             const user_id = payloadRefresh
             const user = await User.findOne({ _id: user_id }).exec()
-            console.log(user)
            
 
         // check if user exists    

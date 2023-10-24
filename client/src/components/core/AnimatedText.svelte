@@ -7,17 +7,20 @@
 
     onMount(async () => {
 		textElement = document.querySelector(".text")
-        console.log(textElement)
         animateText()
 	});
+
+    $: text && animateText()
 
     onDestroy(async () => {
         clearInterval(typerInterval);  
 	});
 
     const animateText = () => {
-        console.log("animating text")
+        
         let i = 0;
+        const interval = 2500 / text.length
+        clearInterval(typerInterval)
 
         typerInterval = setInterval(function () {
             if (i != text.length) {
@@ -26,16 +29,23 @@
             } else {
                 clearInterval(typerInterval);   
             }
-        }, 70);
+        }, interval);
     }
 
 </script>
 
-<div>
+<div class="container">
     <p class="text"></p>
 </div>
 <style>
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
     .text {
         font-family: 'PS2P';
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
     }
 </style>

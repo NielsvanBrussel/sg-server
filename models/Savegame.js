@@ -23,10 +23,73 @@ const StatsSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    intimidation: {
+    luck: {
         type: Number,
         required: true
     },
+})
+
+const BuffsSchema = new mongoose.Schema({
+    strengthBuff: {
+        type: Number, 
+        default: 0
+    },
+    intellectBuff: {
+        type: Number,
+        default: 0
+    },
+    luckBuff: {
+        type: Number,
+        default: 0
+    },
+})
+
+
+const UnlocksSchema = new mongoose.Schema({
+    hospitalVisits: {
+        type: Number, 
+        default: 0
+    },
+    missingKidney: {
+        type: Boolean,
+        default: false
+    },
+    billy: {
+        type: Number,
+        default: 0
+    },
+    transportRobbery: {
+        type: Number,
+        default: 0
+    },
+    growingWeed: {
+        type: Number,
+        default: 0
+    },
+    methLab: {
+        type: Number,
+        default: 0
+    },
+    cult: {
+        type: Number,
+        default: 0
+    },
+    armsdealer: {
+        type: Number,
+        default: 0
+    },
+    organTrade: {
+        type: Boolean,
+        default: false
+    },
+    sewers: {
+        type: Boolean,
+        default: false
+    },
+    items: {
+        type: [String],
+        default: []
+    }
 })
 
 const SavegameSchema = new mongoose.Schema({
@@ -37,6 +100,14 @@ const SavegameSchema = new mongoose.Schema({
     name: {
         type: String,
         default: null,
+    },
+    level: {
+        type: Number,
+        default: 1
+    },
+    experience: {
+        type: Number,
+        default: 0
     },
     money: {
         type: Number,
@@ -49,8 +120,16 @@ const SavegameSchema = new mongoose.Schema({
     items: { 
         type: [String]
     },
+    unlocks: {
+        type: UnlocksSchema,
+        required: true,
+    },
     stats: {
         type: StatsSchema,
+        required: true,
+    },
+    buffs: {
+        type: BuffsSchema,
         required: true,
     },
     date_created: { 

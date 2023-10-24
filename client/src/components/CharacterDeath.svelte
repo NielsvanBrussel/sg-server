@@ -1,10 +1,10 @@
 <script>
-    import { avatar, menuActive } from '../stores.js';
+    import { avatar, menuActive, activeScenario } from '../stores.js';
     import TextButton from './core/TextButton.svelte';
 
     const backToMenu = () => {
-        avatar.set(null)
-        menuActive.set(true)
+        avatar.reset()
+        activeScenario.reset()
     }
 
 </script>

@@ -1,17 +1,29 @@
 <script>
 	import { avatar, activeScenario } from '../stores.js';
   	import CharacterCreation from './CharacterCreation.svelte';
-  	import TextButton from './core/TextButton.svelte';
   	import CharacterDeath from './CharacterDeath.svelte';
   	import SideScroller from './SideScroller.svelte';
   	import Overlay from './Overlay.svelte';
+  	import Scenario from './Scenario.svelte';
+	import LevelUpMessage from './LevelUpMessage.svelte';
+ 	import AchievementPopup from './AchievementPopup.svelte';
 
-	const leaveScenario = () => {
-		activeScenario.set({
-			name: "",
-			component: null,
-        })
+	let levelupMessage = false
+	let level = $avatar.level
+
+
+	const check = () => {
+		if (level !== $avatar.level && level) {
+			toggleMessage()
+		}
+		level = $avatar.level
 	}
+
+	const toggleMessage = () => {
+		levelupMessage = !levelupMessage
+	}
+
+	$: $avatar.level, check()
 </script>
 
 
@@ -22,14 +34,13 @@
 		{#if $avatar.stats.currentHitpoints < 1}
 			<CharacterDeath />
 		{:else}
+			<AchievementPopup />
 			<Overlay />
+			{#if levelupMessage}
+				<LevelUpMessage toggleMessage={toggleMessage} />
+			{/if}
 			{#if $activeScenario.component}
-				<div class="scenario-container">
-					<svelte:component this={$activeScenario.component} />
-					<div class="button-container">
-						<TextButton text='back' eventHandler={() => leaveScenario()}/>
-					</div>
-				</div>
+				<Scenario />
 			{:else}
 				<SideScroller />
 			{/if}
@@ -50,12 +61,5 @@
 		position: relative;
 		background-color: #03071E;
 	}
-	.scenario-container {
-		position: relative;
-		z-index: 6;
-	}
-	.button-container {
 	
-		position: relative;
-	}
 </style>

@@ -1,15 +1,46 @@
 <script>
+    import inventoryItems from "../../utility/inventoryItems";
+    import ShopItem from "../core/ShopItem.svelte";
+
+    export let changeIntroText
+    let showOptions = true
 
 </script>
 
-
-<div class="container">
-    supermarket
-</div>
-
-
-
-<style>
-
-
-</style>
+{#if showOptions}
+    <ShopItem 
+        changeIntroText={changeIntroText} 
+        item={inventoryItems.nail} 
+        price={8} 
+        locked={false} 
+        description="Good for carpentry or used in the nailgun."
+    />
+    <ShopItem 
+        changeIntroText={changeIntroText} 
+        item={inventoryItems.hammer} 
+        price={60} 
+        locked={false} 
+        description="Good for carpentry or caving skulls in."
+    />
+    <ShopItem 
+        changeIntroText={changeIntroText} 
+        item={inventoryItems.axe} 
+        price={130} 
+        locked={true} 
+        description="Axe for woodcutting or chopping stuff up."
+    /> 
+    <ShopItem 
+        changeIntroText={changeIntroText} 
+        item={inventoryItems.nailgun} 
+        price={500} 
+        locked={false} 
+        description="Shoots nails. Requires nails to work."
+    />
+    <ShopItem 
+        changeIntroText={changeIntroText} 
+        item={inventoryItems.chainsaw} 
+        price={900} 
+        locked={true} 
+        description="Tears through anything. Requires gas to work."
+    />      
+{/if}        

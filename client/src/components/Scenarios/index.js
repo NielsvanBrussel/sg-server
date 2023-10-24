@@ -1,83 +1,190 @@
 import Supermarket from '../Scenarios/Supermarket.svelte';
 import Hospital from '../Scenarios/Hospital.svelte';
 import Gym from '../Scenarios/Gym.svelte';
-import Sect from '../Scenarios/Sect.svelte';
+import Cult from './Cult.svelte';
 import Bridge from '../Scenarios/Bridge.svelte';
 import GasStation from '../Scenarios/GasStation.svelte';
 import PoliceStation from '../Scenarios/PoliceStation.svelte';
-import StorageMain from '../Scenarios/StorageMain.svelte';
+import Warehouse from './Warehouse.svelte';
 import School from '../Scenarios/School.svelte';
 import Park from '../Scenarios/Park.svelte';
+import Sewers from './Sewers.svelte';
+import ArmyBase from './ArmyBase.svelte';
+import { enemies } from '../combat/enemies';
+import FastfoodRestaurant from './FastfoodRestaurant.svelte';
+import Forest from './Forest.svelte';
 import BotanicalGardens from './BotanicalGardens.svelte';
+import Caravan from './Caravan.svelte';
+import Motel from './Motel.svelte';
+import Arena from './Arena.svelte';
 
 
-const locationsArray = [
+export const locations_map1 = [
     {
-        min: 502,
-        max: 552,
-        name: 'Hospital',
-        component: Hospital
+        min: 430,
+        max: 480,
+        name: 'Ramshaven Countryside',
+        enemies: null,
+        component: null,
+        introText: ""
     },
     {
         min: 655,
         max: 705,
-        name: 'Supermarket',
-        component: Supermarket
-    },
-    {
-        min: 717,
-        max: 767,
-        name: 'Botanical Gardens',
-        component: BotanicalGardens
+        name: "Tools 'n Stuff",
+        enemies: null,
+        component: Supermarket,
+        introText: "Welcome to Tools 'n Stuff. How may we help you?"
     },
     {
         min: 780,
         max: 830,
         name: 'Gym',
-        component: Gym
+        enemies: null,
+        component: Gym,
+        introText: "",
+    },
+    {
+        min: 717,
+        max: 767,
+        name: 'Botanical Gardens',
+        component: BotanicalGardens,
+        enemies: null,
+        introText: "Ramshaven Botanical Gardens. Home of some of the rarest plants in the world. A gardener approaches you and welcomes you."
     },
     {
         min: 835,
         max: 885,
-        name: 'Children of the Golden Tree',
-        component: Sect
+        name: 'Children of the Golden Flower',
+        enemies: enemies.Cult,
+        component: Cult,
+        introText: 'You stand before a massive door with a golden plaque with the words "Children of the Golden Sun". You ring the doorbell and a woman in a white gown opens.',
     },
     {
         min: 590,
         max: 640,
         name: 'Bridge',
-        component: Bridge
+        enemies: enemies.bridge,
+        component: Bridge,
+        introText: "As you pass under the bridge you see large encampments of tents where hobos are strolling around. In the back there's a big circus tent, surrounded by a big fence and an even bigger gate."
     },
+    {
+        min: 502,
+        max: 552,
+        name: 'Hospital',
+        enemies: enemies.hospital,
+        component: Hospital,
+        introText: ""
+    },    
     {
         min: 370,
         max: 420,
         name: 'Gas station',
-        component: GasStation
+        enemies: enemies.armoredTransport,
+        component: GasStation,
+        introText: ""
     },
     {
         min: 290,
         max: 340,
         name: 'Police station',
-        component: PoliceStation
+        enemies: enemies.police,
+        component: PoliceStation,
+        introText: ""
     },
     {
         min: 100,
         max: 150,
-        name: 'Storage',
-        component: StorageMain
+        name: 'Warehouse',
+        enemies: enemies.warehouse,
+        component: Warehouse,
+        introText: ""
     },
     {
         min: 185,
         max: 235,
         name: 'School',
-        component: School
+        enemies: null,
+        component: School,
+        introText: ""
     },
     {
         min: 5,
         max: 55,
         name: 'Park',
-        component: Park
+        enemies: enemies.flasher,
+        component: Park,
+        introText: "You arrive at the park. The center of nature and recreation in town. Trees, rocks, a duck pond and a playground. What would you like to do?"
     },
 ]
 
-export default locationsArray
+export const locations_nomap = [
+    {
+        min: null,
+        max: null,
+        name: 'Hobo Arena',
+        enemies: enemies.hoboArena,
+        component: Arena,
+        introText: "The loud cheering and chanting of a huge crowd welcomes you as you enter the tent. Hundreds of peoples eyes are all fixated at the center, where bloodied men are busy fighting eachother in a cage. You notice the fat man who gave you the key near the entrance. Once again he approaches you and asks if you are ready."
+    },
+] 
+
+export const locations_map2 = [
+    {
+        min: 423,
+        max: 473,
+        name: 'Ramshaven Town',
+        enemies: null,
+        component: null,
+        introText: ""
+    },
+    {
+        min: 512,
+        max: 562,
+        name: "Wacky's",
+        enemies: enemies.armoredTransport,
+        component: FastfoodRestaurant,
+        introText: "Welcome to Wacky's. Can I take your order please?"
+    },
+    {
+        min: 707,
+        max: 757,
+        name: 'Fort Harper',
+        enemies: enemies.armyBase,
+        component: ArmyBase,
+        introText: ""
+    },
+    {
+        min: 38,
+        max: 88,
+        name: 'Trailer Park',
+        enemies: null,
+        component: Caravan,
+        introText: "You make your way to the fanciest looking caravan. A big dark bearded man is sitting in front."
+    },
+    {
+        min: 152,
+        max: 202,
+        name: 'Red Creek Forest',
+        enemies: enemies.forest,
+        component: Forest,
+        introText: "You enter the forest. The smell of pine trees and wet grass relaxes you. At the same time however you have a feeling that something is watching you from the shadows."
+    },
+    {
+        min: 300,
+        max: 350,
+        name: 'Sundown Motel',
+        enemies: null,
+        component: Motel,
+        introText: ""
+    },
+    // {
+    //     min: 620,
+    //     max: 670,
+    //     name: 'Sewers',
+    //     component: Sewers,
+    //     introText: ""
+    // },
+
+]
+

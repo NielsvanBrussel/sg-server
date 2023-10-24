@@ -1,5 +1,5 @@
 <script>
-    import { authenticated, avatar, menuActive, activeScenario, playerPosition, achievements } from '../../stores.js';
+    import { authenticated, avatar, menuActive, activeScenario, playerPosition, achievements, achievementPopup } from '../../stores.js';
     import axios from 'axios'
     import SaveGame from './SaveGame.svelte';
     import LoadGame from './LoadGame.svelte';
@@ -18,10 +18,7 @@
             date_created: new Date()
         })
 
-        activeScenario.set({
-            name: "",
-            component: null
-        })
+        activeScenario.reset()
 
         playerPosition.set(-135000)
     
@@ -42,12 +39,14 @@
 
             const res = await axios.post('/api/auth/logout', config)
             if (res) {
-                console.log('logout')
                 localStorage.setItem('token', '')
                 authenticated.set(false)
+                avatar.reset()
+                activeScenario.reset()
+                menuActive.set(true)
             }
         } catch (error) {
-            console.log(error)
+           throw error
         }
     }
 
@@ -61,7 +60,7 @@
                 {#if activeTab === 0}
                     <div class="flex-column">
                         <div class="flex-column2"> 
-                        {#if $avatar} 
+                        {#if $avatar.name} 
                             <button 
                                 id="newgame-button" 
                                 class="menu-button" 
@@ -84,7 +83,7 @@
                             >
                                 Load game 
                             </button>
-                        {#if $avatar} 
+                        {#if $avatar && !$activeScenario.name} 
                             <button
                                 id="savegame-button" 
                                 class="menu-button"  

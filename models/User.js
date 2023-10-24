@@ -1,5 +1,34 @@
 const mongoose = require('mongoose')
 
+
+const AchievementSchema = new mongoose.Schema({
+    firstTimePlaying: { 
+        type: Boolean,
+        default: false
+    },
+    billyTheKid: { 
+        type: Boolean,
+        default: false
+    },
+    gladiator: { 
+        type: Boolean,
+        default: false
+    },
+    cook: { 
+        type: Boolean,
+        default: false
+    },
+    maxLevel: { 
+        type: Boolean,
+        default: false
+    },
+    pigsTruffle: { 
+        type: Boolean,
+        default: false
+    },
+
+}, { _id : false })
+
 const UserSchema = new mongoose.Schema({
     name: { 
         type: String,
@@ -16,7 +45,8 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     achievements: {
-        type: [String]
+        type: AchievementSchema,
+        default: () => ({}),
     },
     date_created: { 
         type: Date,
@@ -28,6 +58,7 @@ const UserSchema = new mongoose.Schema({
         default: Date.now 
     },
 })
+
 
 
 module.exports = mongoose.model('User', UserSchema)
