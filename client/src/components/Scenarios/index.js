@@ -5,7 +5,7 @@ import Cult from './Cult.svelte';
 import Bridge from '../Scenarios/Bridge.svelte';
 import GasStation from '../Scenarios/GasStation.svelte';
 import PoliceStation from '../Scenarios/PoliceStation.svelte';
-import StorageMain from '../Scenarios/StorageMain.svelte';
+import Warehouse from './Warehouse.svelte';
 import School from '../Scenarios/School.svelte';
 import Park from '../Scenarios/Park.svelte';
 import Sewers from './Sewers.svelte';
@@ -97,7 +97,7 @@ export const locations_map1 = [
         max: 150,
         name: 'Warehouse',
         enemies: enemies.warehouse,
-        component: StorageMain,
+        component: Warehouse,
         introText: ""
     },
     {

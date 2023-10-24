@@ -91,6 +91,7 @@
 				growingWeed: 0,
 				methLab: 0,
 				cult: 0,
+				armsdealer: 0,
 				organTrade: false,
 				sewers: false,
 				transportRobbery: 0,

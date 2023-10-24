@@ -24,7 +24,9 @@ import knife_png from '../assets/img/inv/knife.png'
 import knife_poisoned_png from '../assets/img/inv/knife-poisoned.png'
 import chainsaw_png from '../assets/img/inv/chainsaw.png'
 import hammer_png from '../assets/img/inv/hammer.png'
+import axe_png from '../assets/img/inv/axe.png'
 import molotov_png from '../assets/img/inv/molotov.png'
+import flashbang_png from '../assets/img/inv/flashbang.png'
 import nailgun_png from '../assets/img/inv/nailgun.png'
 import nail_png from '../assets/img/inv/nail.png'
 import frog_png from '../assets/img/inv/frog.png'
@@ -32,6 +34,7 @@ import meat3_png from '../assets/img/inv/meat-3.png'
 import meat2_png from '../assets/img/inv/meat-2.png'
 import meat_png from '../assets/img/inv/meat.png'
 import key_png from '../assets/img/inv/key.png'
+import crate_png from '../assets/img/inv/crate.png'
 import token_png from '../assets/img/inv/token.png'
 
 
@@ -105,6 +108,12 @@ const inventoryItems = {
         id: 'molotov',
         weapon: true,
     },
+    flashbang: {
+        name: 'Stun Grenade',
+        img: flashbang_png,
+        id: 'flashbang',
+        weapon: true,
+    },
     nailgun: {
         name: 'Nailgun',
         img: nailgun_png,
@@ -117,6 +126,12 @@ const inventoryItems = {
         id: 'hammer',
         weapon: true,
     },
+    axe: {
+        name: 'Axe',
+        img: axe_png,
+        id: 'axe',
+        weapon: true,
+    },
     chainsaw: {
         name: 'Chainsaw',
         img: chainsaw_png,
@@ -124,7 +139,7 @@ const inventoryItems = {
         weapon: true,
     },
     knife: {
-        name: 'Knife',
+        name: 'Combat Knife',
         img: knife_png,
         id: 'knife',
         weapon: true,
@@ -211,6 +226,12 @@ const inventoryItems = {
         name: 'Mysterious Key',
         img: key_png,
         id: 'key',
+        weapon: false,
+    },
+    crate: {
+        name: 'Weapons Crate',
+        img: crate_png,
+        id: 'crate',
         weapon: false,
     },
     token: {

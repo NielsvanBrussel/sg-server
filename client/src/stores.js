@@ -3,7 +3,7 @@ import { locations_map1, locations_map2 } from './components/Scenarios';
 import updateAchievement from './utility/updateAchievement';
 import achievementsData from './utility/achievements';
 
-export const authenticated = writable(false);
+export const authenticated = writable(true);
 export const menuActive = writable(true);
 export const newGame = writable(true);
 export const playerPosition = writable(-135000)
@@ -143,6 +143,7 @@ function createAvatar() {
 				growingWeed: 0,
 				methLab: 0,
                 cult: 0,
+                armsdealer: 0,
 				organTrade: false,
 				sewers: false,
                 items: [],
@@ -182,6 +183,7 @@ function createAvatar() {
 				growingWeed: 0,
 				methLab: 0,
                 cult: 0,
+                armsdealer: 0,
 				organTrade: false,
 				sewers: false,
                 items: [],

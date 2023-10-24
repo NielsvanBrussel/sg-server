@@ -22,6 +22,10 @@
 		height: 90vh;
 		width: 90vw;
 		position: relative;
+		background-color: #38aac7;
+		background-image: url("../assets/img/sun.png");
+		background-repeat: no-repeat;
+		z-index: -5;
 	}
 
 	.sliding-background1, .sliding-background2, .sliding-background3, .sliding-background4  {
@@ -42,14 +46,14 @@
 	.sliding-background2 {
 		background-image: url("../assets/img/layer2.png");
 		animation: slide-left 120s linear infinite;
-		z-index: -4;
+		z-index: -3;
 	}
 
 
 	.sliding-background3 {
 		background-image: url("../assets/img/layer3.png");
 		animation: slide-right 20s linear infinite;
-		z-index: -3;
+		z-index: -4;
 	}
 
 	.sliding-background4 {

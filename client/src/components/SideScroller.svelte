@@ -1,11 +1,15 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
+
 	import garethRunning from '../assets/img/gareth-running.gif'
 	import garethStand from '../assets/img/gareth-stand.png'
 	import rupertRunning from '../assets/img/rupert-running.gif'
 	import rupertStand from '../assets/img/rupert-stand.png'
 	import dwayneRunning from '../assets/img/dwayne-running.gif'
 	import dwayneStand from '../assets/img/dwayne-stand.png'
+	import birdFlyingImg from '../assets/img/bird-flying.gif'
+	import birdStaticImg from '../assets/img/bird-static.png'
+
 	import { map, playerPosition, avatar, armoredCar, achievements } from '../stores';
 
 	// floating message above locations
@@ -81,6 +85,10 @@
 	let planePosition = -270000
 	let car
 	let carPosition = 0
+	let bird
+	let birdPosition = 150
+	let closeToBird = false
+	let birdToRight = true
 	let vanBackground
 	let foreground
 	let entryMessage
@@ -104,8 +112,9 @@
     onMount(async () => {
 		checkAchievement()
 		entryMessage = document.querySelector(".entry-container")
-		plane = document.querySelector(".sliding-background3")
-		car = document.querySelector(".sliding-background4")
+		plane = document.querySelector(".sliding-background-plane")
+		car = document.querySelector(".sliding-background-car")
+		bird = document.querySelector(".sliding-background-bird")
 		mounted = true
 		showEntry = false
 	});
@@ -169,6 +178,24 @@
 	// when user releases left or right keys
 	addEventListener('keyup', keyUpEvent)
 
+	// randomise a new birdspawn
+
+	const resetBird = () => {
+		// randomise the time it takes to spawn another bird
+		const rng = Math.floor(Math.random() * (15000 - 4000) + 4000)
+		setTimeout(() => {
+			// spawn the bird on the left or the right depending on which way the avatar is facing
+			if (rightDirection) {
+				birdToRight = true
+				birdPosition = 150
+			} else {
+				birdToRight = false
+				birdPosition = -250
+			}
+			closeToBird = false
+		}, rng);
+	}
+
 
 
 	// check if the avatar is close to any buildings
@@ -220,6 +247,7 @@
 				// edge of map check
 				if (position > -265000) { 
 					position -= (1 * fps / 25)
+					birdPosition -= (1 * fps / 25)
 					messagePosition -= (1 * fps / 25)
 					planePosition += (0.6 * fps / 25)
 					carPosition -= (2.4 * fps / 25)
@@ -228,9 +256,11 @@
 				//edge of map check
 				if (position !== 0 && position < 0) {
 					position += (1 * fps / 25)
+					birdPosition += (1 * fps / 25)
 					messagePosition += (1 * fps / 25)
 					if (position > 0) {
 						position = 0
+						birdPosition = 0
 					}
 					planePosition += (2 * fps / 25)
 					carPosition -= (0.6 * fps / 25)              
@@ -248,10 +278,22 @@
 				showEntry2 = true
 			}
 
+			
 			// move background & entry messages
 			background.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
 			plane.style.transform = `translate3d(calc(${planePosition}vh + 45vw), 0, 0)`
 			car.style.transform = `translate3d(calc(${carPosition}vh + 45vw), 0, 0)`
+		
+
+			// trigger bird animation when avatar comes close to either the bird spawn on the left or on the right then spawn a new bird
+			// the animation is also triggered when the avatar moves too far from the bird (to create a new closer spawn)
+			if (!closeToBird) {
+				if ((birdPosition < -15 && rightDirection) || (birdPosition > 200 && !rightDirection) || (birdPosition > -150 && !rightDirection)) {
+					closeToBird = true
+					resetBird()
+				} 	
+			}
+			bird.style.transform = `translate3d(calc(${birdPosition}vh), 0, 0)`
 			
 
 			if (foreground) {
@@ -283,10 +325,37 @@
 		<Background1B showVan={showVan} changeBackground={changeBackground}/>
 	{:else}
 		<Background1A showVan={showVan} changeBackground={changeBackground}/>
-	{/if}		
-	<div class="sliding-background2"></div>
-	<div class="sliding-background3"></div>
-	<div class="sliding-background4"></div>
+	{/if}
+	<div class="sliding-background-bird" >
+		{#key closeToBird}
+			{#if closeToBird}
+				<img 
+					class={birdToRight ? "bird-flying bird-fade left" : "bird-flying bird-fade"}
+					src={birdFlyingImg} 
+					alt="bird"
+				>
+			{/if}
+			
+		{/key}
+		<img 
+			class={closeToBird ? 
+				birdToRight ? 
+					"bird-static bird-hidden left" 
+					: 
+					"bird-static bird-hidden" 
+				: 
+				birdToRight ? 
+					"bird-static bird-visible left"
+					:
+					"bird-static bird-visible"
+				} 
+			src={birdStaticImg} 
+			alt="bird"
+		>
+	</div>		
+	<div class="sliding-background-clouds"></div>
+	<div class="sliding-background-plane"></div>
+	<div class="sliding-background-car"></div>
 	<div class="avatar-container">
 			<!-- stack all 4 types of images on top of eachother and change zindex depending on condition -->
 			<img 
@@ -295,12 +364,12 @@
 				alt="avatar"
 			>
 			<img 
-				class={standStill && !rightDirection ? "avatar avatar-left visible" : "avatar avatar-left hidden"} 
+				class={standStill && !rightDirection ? "avatar left visible" : "avatar left hidden"} 
 				src={avatarImg.standing} 
 				alt="avatar"
 			>
 			<img 
-				class={!standStill && !rightDirection ? "avatar avatar-left visible" : "avatar avatar-left hidden"} 
+				class={!standStill && !rightDirection ? "avatar left visible" : "avatar left hidden"} 
 				src={avatarImg.running} 
 				alt="avatar"
 			>
@@ -328,10 +397,13 @@
 		height: 90vh;
 		width: 90vw;
 		position: relative;
-		background-color: black;
+		background-color: #38aac7;
+		background-image: url("../assets/img/sun.png");
+		background-repeat: no-repeat;
 	}
 
-	.sliding-background2, .sliding-background3, .sliding-background4 {
+
+	.sliding-background-clouds, .sliding-background-plane, .sliding-background-car {
 		position: absolute;
 		background-repeat: repeat-x;
 		height: 90vh;
@@ -340,23 +412,53 @@
 		margin: auto;
 	}
 
-	.sliding-background2 {
+	.sliding-background-clouds {
 		background-image: url("../assets/img/layer2.png");
 		animation: slide-left 240s linear infinite;
 		background-size: 900vh 90vh;
-		z-index: 0;
-	}
-
-
-	.sliding-background3 {
-		background-image: url("../assets/img/layer3.png");
 		z-index: 1;
 	}
 
-	.sliding-background4 {
-		background-image: url("../assets/img/layer4.png");
-		z-index: 6;
+
+	.sliding-background-plane {
+		background-image: url("../assets/img/layer3.png");
+		z-index: 0;
 	}
+
+	.sliding-background-car {
+		background-image: url("../assets/img/layer4.png");
+		z-index: 7;
+	}
+
+	.sliding-background-bird {
+		z-index: 4;
+		position: absolute;
+		background-repeat: no-repeat;
+		bottom: 12vh;
+		right: 0;
+		height: 30rem;
+		width: 30rem;
+	}
+
+	.bird-flying, .bird-static {
+		height: 100%;
+		width: auto;
+		position: absolute;
+		left: 50%;
+	}
+
+	.bird-hidden {
+		animation: fade-out linear forwards 0.5s;
+	}
+
+	.bird-visible {
+		z-index: 4;
+	}
+
+	.bird-fade {
+		animation: fade-out linear forwards 1.9s;
+	}
+
 
 	.avatar {
 		position: absolute;
@@ -377,14 +479,14 @@
 		z-index: -5;
 	}
 
-	.avatar-left {
+	.left {
 		-webkit-transform: scaleX(-1);
   		transform: scaleX(-1);
 	}
 
 	.entry-container {
 		position: absolute;
-		z-index: 8;
+		z-index: 9;
 		top: 2rem;
 		left: 50%;
 		-webkit-transform: translate(-50%);
@@ -393,21 +495,39 @@
 
 
     @keyframes slide-left{
-	0% {
-		transform: translate3d(0, 0, 0);
-	}
-	100% {
-		transform: translate3d(-900vh, 0, 0);
-	}
+		0% {
+			transform: translate3d(0, 0, 0);
+		}
+		100% {
+			transform: translate3d(-900vh, 0, 0);
+		}
 	}
 
 	@keyframes slide-right{
-	0% {
-		transform: translate3d(-900vh, 0, 0);
+		0% {
+			transform: translate3d(-900vh, 0, 0);
+		}
+		100% {
+			transform: translate3d(0, 0, 0);
+		}
 	}
-	100% {
-		transform: translate3d(0, 0, 0);
-	}
+
+	@keyframes fade-out{
+		0% {
+			opacity: 1;
+		}
+		25% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.95;
+		}
+		75% {
+			opacity: 0.85;
+		}
+		100% {
+			opacity: 0;
+		}
 	}
 
 </style>

@@ -19,6 +19,8 @@ import hippie_png from '../../assets/img/enemies/hippie.png'
 import fbi_png from '../../assets/img/enemies/fbi.png'
 import cult_1_png from '../../assets/img/enemies/cult-1.png'
 import flasher_png from '../../assets/img/enemies/flasher.png'
+import grandma_png from '../../assets/img/enemies/grandma.png'
+import monster_png from '../../assets/img/enemies/monster.png'
 
 export const enemies = {
     junkies: [
@@ -67,7 +69,7 @@ export const enemies = {
     ],
     flasher: [
         {
-            name: "Naked Old Guy",
+            name: "Weird Naked Pervert",
             currentStamina: 12,
             maxStamina: 12,
             attackStamina: 4,
@@ -79,6 +81,22 @@ export const enemies = {
                 item: inventoryItems.pistol.id
             },
             img: flasher_png,
+        }
+    ],
+    grandma: [
+        {
+            name: "Nice Old Lady",
+            currentStamina: 12,
+            maxStamina: 12,
+            attackStamina: 4,
+            attackDamage: [10, 25],
+            currentHitpoints: 999,
+            maxHitpoints: 999,
+            drop: {
+                chance: 1,
+                item: inventoryItems.pistol.id
+            },
+            img: grandma_png,
         }
     ],
     informant: [
@@ -315,7 +333,7 @@ export const enemies = {
             img: hippie_png,
         },
         {
-            name: "Yeti",
+            name: "????",
             currentStamina: 12,
             maxStamina: 12,
             attackStamina: 4,
@@ -326,7 +344,7 @@ export const enemies = {
                 chance: 1,
                 item: inventoryItems.pistol.id
             },
-            img: surgeon_png,
+            img: monster_png,
         },
     ],
     school: [

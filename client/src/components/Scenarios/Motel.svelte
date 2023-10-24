@@ -47,7 +47,7 @@
     const postCombatHandler = () => {
         showOptions = false
         switch ($activeScenario.enemies[0].name) {
-            case "Naked Old Guy":
+            case "Weird Naked Pervert":
                 changeIntroText("You clearly picked the wrong room. For some reason the guy didn't have anything valuable on him either.")
                 break;
 

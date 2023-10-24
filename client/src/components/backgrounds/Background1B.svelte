@@ -48,14 +48,14 @@
     }
 
     .fade {
-        z-index: 7;
+        z-index: 8;
         animation: fade-in 3s forwards;
     }
 
     .sliding-background-van {
 		background-image: url("../../assets/img/armoredcar.png");
         transform: translate3d(calc(20vh + 45vw), 0, 0);
-		z-index: 5;
+		z-index: 6;
 	}
 
 </style>

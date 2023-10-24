@@ -7,7 +7,6 @@
 
     import poisonImg from '../../assets/img/poison.png'
     import bleedImg from '../../assets/img/bleed.png'
-    import tempEnemy from '../../assets/img/enemies/hobo-1.png'
     import emptyEnemy from '../../assets/img/enemies/empty.png'
     import bloodImg from '../../assets/img/enemies/blood.png'
     import energyGif from '../../assets/img/energy.gif'
@@ -34,8 +33,8 @@
     }
     
 
-    // check if player owns oil
-    $: oil = $avatar.items.some(item => item.name === inventoryItems.oil.id)
+    // check if player owns gas
+    $: gas = $avatar.items.some(item => item.name === inventoryItems.gas.id)
 
     // check if player owns nail
     $: nail = $avatar.items.some(item => item.name === inventoryItems.nail.id)
@@ -129,11 +128,12 @@
             weapon === "rifle" || 
             weapon === "pistol" || 
             weapon === "syringe_poisoned" || 
-            weapon === "molotov"
+            weapon === "molotov" ||
+            weapon === "flashbang"
         ) {
             avatar.changeStats([{ type: 'remove item', value: `${weapon}`}])
         } else if (weapon === "chainsaw") {
-            avatar.changeStats([{ type: 'remove item', value: 'oil'}])
+            avatar.changeStats([{ type: 'remove item', value: 'gas'}])
         } else if (weapon === "nailgun") {
             avatar.changeStats([{ type: 'remove item', value: 'nail'}])
         }
@@ -178,6 +178,7 @@
             if (numberOfAttacks > 0) {
 
                 // calculate the damage on current hit
+                // if target is poisoned it deals 20% less damage
                 const damage = poison > 0 ? 
                     Math.floor((Math.random() * (enemy.attackDamage[1] - enemy.attackDamage[0]) + enemy.attackDamage[0]) * 0.8) 
                     :
@@ -246,7 +247,7 @@
                     <img src={bloodImg} alt="avatar" class="blood-img">
                 {/if}
                 {#key enemy.img}
-                  <img src={enemy.img? enemy.img : tempEnemy} alt="avatar" class="enemy-img">  
+                    <img src={enemy.img? enemy.img : emptyEnemy} alt="avatar" class="enemy-img">  
                 {/key}
             </div>
             <div class="effects-container">
@@ -324,7 +325,7 @@
                             {#if inventoryItems[item.name].weapon}
                                 {#if item.name === inventoryItems.chainsaw.id}
                                     <ScenarioOption 
-                                        unlocked={oil && currentStamina >= weapons[item.name].stamina} 
+                                        unlocked={gas && currentStamina >= weapons[item.name].stamina} 
                                         text="attack with Chainsaw" 
                                         eventHandler={() => playerAttack(inventoryItems.chainsaw.id)}
                                     /> 

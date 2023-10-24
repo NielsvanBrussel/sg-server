@@ -1,6 +1,6 @@
 <script>
     import { armoredCar, avatar, achievements } from "../../stores";
-  import achievementsData from "../../utility/achievements";
+    import achievementsData from "../../utility/achievements";
     import inventoryItems from "../../utility/inventoryItems";
     import ScenarioOption from "../core/ScenarioOption.svelte";
     import { onMount } from "svelte";
@@ -13,6 +13,7 @@
     let options = 0
 
     $: truffle = $avatar.items.some(item => item.name === inventoryItems.truffle.id)
+    $: crate = $avatar.items.some(item => item.name === inventoryItems.crate.id)
 
     onMount(async () => {
         if(combatMode === 2) {
@@ -22,8 +23,15 @@
 	});
 
     const postCombatHandler = () => {
-        changeIntroText("You free the prison after you made your way to him by killing half the police station. He immediatly makes a run for it. Better do the same before more cops show up.")
-        avatar.set({...$avatar, unlocks: {...$avatar.unlocks, transportRobbery: 1}})
+
+        // reward depending on chosen option
+        if ($armoredCar.type === "prisoner" && ($armoredCar.day + 1) === $avatar.day) {
+            changeIntroText("You free the prison after you made your way to him by killing half the police station. He immediatly makes a run for it. Better do the same before more cops show up.")
+            avatar.set({...$avatar, unlocks: {...$avatar.unlocks, transportRobbery: 1}})            
+        } else {
+            changeIntroText("You make your way to the armory and grab one of the weapon crates.")
+            avatar.changeStats([{type: "add item", value: inventoryItems.crate.id}])
+        }
     }
 
 
@@ -65,12 +73,6 @@
         avatar.changeStats([{type: 'day', value: 1}])
         setCombatMode(1)
     }
-
-
-
-
-
-
 </script>
 
 {#if showOptions}
@@ -89,6 +91,12 @@
                     text="Ambush the prisoner transport." 
                     eventHandler={() => combatHandler()} 
                 />
+            {:else if $avatar.unlocks.armsdealer === 1 && !crate}
+                <ScenarioOption 
+                    unlocked={true} 
+                    text="Retrieve a weapons cache from the armory." 
+                    eventHandler={() => combatHandler()} 
+                />            
             {/if}
         {/if}
         {#if options === 1}

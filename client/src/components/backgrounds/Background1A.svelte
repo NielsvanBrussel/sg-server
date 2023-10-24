@@ -46,7 +46,7 @@
 
     .sliding-background0 {
 		background-image: url("../../assets/img/layer1.0.png");
-		z-index: 4;
+		z-index: 5;
 	}
 
     .sliding-background1A {
@@ -55,14 +55,14 @@
     }
 
     .fade {
-        z-index: 7;
+        z-index: 8;
         animation: fade-in 3s forwards;
     }
 
     .sliding-background-van {
 		background-image: url("../../assets/img/armoredcar.png");
 		transform: translate3d(calc(260vh + 45vw), 0, 0);
-		z-index: 5;
+		z-index: 6;
 	}
 
 </style>

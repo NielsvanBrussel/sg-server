@@ -24,10 +24,10 @@
     />
     <ShopItem 
         changeIntroText={changeIntroText} 
-        item={inventoryItems.knife} 
+        item={inventoryItems.axe} 
         price={130} 
         locked={true} 
-        description="General purpose combat knife."
+        description="Axe for woodcutting or chopping stuff up."
     /> 
     <ShopItem 
         changeIntroText={changeIntroText} 
@@ -41,6 +41,6 @@
         item={inventoryItems.chainsaw} 
         price={900} 
         locked={true} 
-        description="Tears through anything. Requires motoroil to work."
+        description="Tears through anything. Requires gas to work."
     />      
 {/if}        

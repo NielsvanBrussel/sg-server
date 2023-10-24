@@ -9,10 +9,13 @@ drawings:
 
 
 - character death
+- different experience per enemy
 - scenarios
 - responsiveness
 - achievements
 - school: lab equipment handler
+- lab destruction
+- arms dealer
 - locked items shops
 - antifreeze bridge hobos
 - coca cola wacky's item + molotov cocktail crafting

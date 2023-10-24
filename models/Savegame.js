@@ -74,6 +74,10 @@ const UnlocksSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    armsdealer: {
+        type: Number,
+        default: 0
+    },
     organTrade: {
         type: Boolean,
         default: false

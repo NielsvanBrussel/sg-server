@@ -13,7 +13,7 @@
           max = 0.3
       }
 
-      const rng = Math.floor(Math.random()) + max
+      const rng = Math.random() + max
     
       showOptions = false
 
