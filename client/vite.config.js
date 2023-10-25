@@ -6,12 +6,12 @@ export default defineConfig({
     plugins: [svelte()],
     server: {
       // for dev comment server & port out & switch target
-      server: 'http://localhost',
-      port: 4001,
+      // server: 'http://localhost',
+      // port: 4001,
       proxy: {
         '/api': {
-          // target: 'https://svelte-game-server-4erv.onrender.com',
-          target: 'http://localhost:4000',
+          target: 'https://svelte-game-server-4erv.onrender.com',
+          // target: 'http://localhost:4000',
           changeOrigin: true,
           secure: true
         }
