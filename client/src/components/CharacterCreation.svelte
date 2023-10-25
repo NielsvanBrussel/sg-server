@@ -236,6 +236,9 @@
 	.content-box {
 		height: 100%;
 		overflow-y: auto;
+		scrollbar-color: #F51743 #F48C06;
+		scrollbar-width: thin;
+		scroll-padding: 2rem;
 	}
 	.selection-container {
 	
@@ -257,6 +260,7 @@
 		background: #F51743;
 		border-radius: 2rem;
   	}
+
 	.stats-green {
 		color: green;
 	}

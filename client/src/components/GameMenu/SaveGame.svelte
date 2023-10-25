@@ -166,6 +166,10 @@
     font-size: 1.5rem;
     width: 100%;
     animation: fade-in linear 1s forwards;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   .flex-column {
     display: flex;

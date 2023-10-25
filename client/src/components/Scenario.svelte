@@ -151,8 +151,6 @@
     .character-img {
         width: 100%;
         display: block;
-        border-left: solid #F51743 6px;
-        border-right: solid #F51743 6px;
     }
     .button-container {
         display: flex;

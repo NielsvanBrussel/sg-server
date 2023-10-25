@@ -449,7 +449,7 @@
 	}
 
 	.bird-hidden {
-		animation: fade-out linear forwards 0.5s;
+		animation: fade-out linear forwards 0.2s;
 	}
 
 	.bird-visible {
@@ -457,7 +457,7 @@
 	}
 
 	.bird-fade {
-		animation: fade-out linear forwards 1.9s;
+		animation: fade-out linear forwards 1.7s;
 	}
 
 

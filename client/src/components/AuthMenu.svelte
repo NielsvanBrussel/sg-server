@@ -137,7 +137,7 @@
                        <input autofocus placeholder="Username" bind:value={username} on:keypress={(e) => changeFocus({e: e, name: "A"})} type="text">
                        <input placeholder="Password" id="A" type="password" bind:value={password} on:keypress={(e) => onEnter({e: e, action: "login"})}>            
                    </div>
-                   <div>
+                   <div class="button-container">
                        <button on:click={() => login()}> log in </button>
                        <button on:click={() => activeMenu = 0}> back </button>            
                    </div>               
@@ -166,7 +166,7 @@
                         <input autofocus placeholder="Username" bind:value={username} on:keypress={(e) => changeFocus({e: e, name: "B"})} type="text">
                         <input placeholder="Password" id="B" type="password" bind:value={password}  on:keypress={(e) => onEnter({e: e, action: "signup"})}>            
                     </div>
-                    <div>
+                    <div class="button-container">
                         <button on:click={() => signup()}> sign up </button>
                         <button on:click={() => activeMenu = 0}> back </button>            
                     </div>
@@ -225,11 +225,15 @@
     }
   button {
     height: 3rem;
+    width: 100%;
     padding: 0.5rem 0.5rem;
     background-origin: content-box;
     font-family: 'Bungee-Spice';
     font-size: 1.5rem;
-  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   h2 {
     font-size: 3rem;

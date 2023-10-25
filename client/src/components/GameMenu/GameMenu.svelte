@@ -190,5 +190,9 @@
         font-family: 'Bungee-Spice';
         font-size: 1.5rem;
         animation: fade-in linear 1s forwards;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 </style>
