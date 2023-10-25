@@ -69,19 +69,19 @@
 			</div>
 			<div class="flexbox day-container">
 				{#if $avatar.day === 1}
-					<p>monday</p>
+					<p>Monday</p>
 				{:else if $avatar.day === 2}
-					<p>tuesday</p>
+					<p>Tuesday</p>
 				{:else if $avatar.day === 3}
-					<p>wednesday</p>
+					<p>Wednesday</p>
 				{:else if $avatar.day === 4}
-					<p>thursday</p>
+					<p>Thursday</p>
 				{:else if $avatar.day === 5}
-					<p>friday</p>
+					<p>Friday</p>
 				{:else if $avatar.day === 6}
-					<p>saturday</p>
+					<p>Saturday</p>
 				{:else if $avatar.day === 7}
-					<p>sunday</p>
+					<p>Sunday</p>
 				{/if}
 			</div>
 		</div>		

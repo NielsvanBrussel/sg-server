@@ -51,6 +51,7 @@
             }
         } catch (error) {
             createError(error.response.data)
+            console.log(error)
             setTimeout(() => {
                loading = false 
             }, 200);

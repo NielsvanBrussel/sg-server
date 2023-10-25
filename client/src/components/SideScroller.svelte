@@ -205,7 +205,7 @@
 
 		// get the position on the image, regardless of how many times it looped
 		const truePosition = position - (Math.floor(position / 900) * 900)
-		
+
 
 		for (let i = 0; i < $map.locationsArray.length; i++) {
 			if (truePosition > $map.locationsArray[i].min && truePosition < $map.locationsArray[i].max) {
@@ -408,8 +408,8 @@
 		position: absolute;
 		background-repeat: repeat-x;
 		height: 90vh;
-		width: 270000vh;
-		background-size: 900vh 90vh;
+		width: calc(270000vh + 900px);
+		background-size: calc(900vh + 1px) 90vh;
 		margin: auto;
 	}
 

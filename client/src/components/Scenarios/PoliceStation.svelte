@@ -25,9 +25,11 @@
     const postCombatHandler = () => {
 
         // reward depending on chosen option
-        if ($armoredCar.type === "prisoner" && ($armoredCar.day + 1) === $avatar.day) {
+        if ($armoredCar.type === "prisoner" &&  $avatar.day === ($armoredCar.day + 1)) {
             changeIntroText("You free the prison after you made your way to him by killing half the police station. He immediatly makes a run for it. Better do the same before more cops show up.")
-            avatar.set({...$avatar, unlocks: {...$avatar.unlocks, transportRobbery: 1}})            
+            avatar.set({...$avatar, unlocks: {...$avatar.unlocks, transportRobbery: 1}}) 
+            // remove the event
+            armoredCar.set({ day: null, location: "", type: "" })           
         } else {
             changeIntroText("You make your way to the armory and grab one of the weapon crates.")
             avatar.changeStats([{type: "add item", value: inventoryItems.crate.id}])

@@ -21,7 +21,7 @@
 
         // reset all values & close the menu
         activeScenario.reset()
-        playerPosition.set(-135000)
+        playerPosition.set(-13500)
         menuActive.set(false)
 
 	}

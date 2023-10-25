@@ -31,7 +31,6 @@
 
     const postCombatHandler = () => {
         changeIntroText("You handled the guards but in the distance you hear police sirens coming closer. You'll have to come back for the equipment another time.")
-        showOptions = false
     }
 
 
@@ -41,7 +40,7 @@
 
         if ($avatar.unlocks.billy === 2) {
             checkAchievement()
-            changeIntroText('You give Billy another lolly. He eagerly takes it out of your hands. Billy will now do anything for a lolly. Come back on mondays with some cocaine...') 
+            changeIntroText('You give Billy another lolly. He eagerly takes it out of your hands. Billy will now do anything for a lolly. Come back on Mondays with some cocaine...') 
         } else {
             changeIntroText('You give Billy a special treat. He seems to enjoy it a lot.')
         }
@@ -105,7 +104,7 @@
     <div class="options-container">
         <ScenarioOption 
             unlocked={$avatar.money >= 150 && avatar.day === 7} 
-            text="Go to sunday school. ($150)" 
+            text="Go to Sunday school. ($150)" 
             eventHandler={() => schoolHandler()}
         />
         {#if $avatar.day !== 6 && $avatar.day !== 7}

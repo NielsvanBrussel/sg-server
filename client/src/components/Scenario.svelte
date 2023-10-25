@@ -193,6 +193,12 @@
         text-align: left;
         width: calc(100% - 4vh);
     }
+
+    .content-box {
+        scrollbar-color: #F51743 #F48C06;
+		scrollbar-width: thin;
+		scroll-padding: 2rem;
+    }
     .content-box::-webkit-scrollbar {
 		width: 0.6rem;
 		background: transparent;

@@ -50,7 +50,7 @@
 
         showOptions = false
 
-        changeIntroText("A woman guides you to the a big empty backroom. A chubby bald man in his fifties is sitting in the middle of the room.He stands up and kisses you.")
+        changeIntroText("A woman guides you to the a big empty backroom. A chubby bald man in his fifties is sitting in the middle of the room. He stands up and kisses you.")
 
         setTimeout(() => {
             showOptions = true

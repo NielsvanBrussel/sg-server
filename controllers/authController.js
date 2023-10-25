@@ -10,6 +10,8 @@ const login = async (req, res) => {
                        
         const name = req.body.name
         const password = req.body.password 
+
+        console.log("ALLO")
     
         try{
 

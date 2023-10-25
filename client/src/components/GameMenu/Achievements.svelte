@@ -32,6 +32,10 @@
         /* 0.6rem scrolbar width, 1vw padding by lowering the childrens width by 1vw */
         width: calc(100% + 0.6rem + 1vw);
         overflow: auto;
+        scrollbar-color: #F51743 #F48C06;
+		scrollbar-width: thin;
+		scroll-padding: 2rem;
+ 
     }
     .achievements-container::-webkit-scrollbar {
 		width: 0.6rem;

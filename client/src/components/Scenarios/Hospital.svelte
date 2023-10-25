@@ -41,7 +41,7 @@
                 component: Motel,
                 introText: ""})
             map.select("map_2")
-            playerPosition.set(-135575)
+            playerPosition.set(-13557)
         } else {
             avatar.set({...$avatar, unlocks: {...$avatar.unlocks, hospitalVisits: $avatar.unlocks.hospitalVisits + 1}})
             avatar.changeStats([{type: 'currentHitpoints', value: 100}, {type: 'day', value: 1}])

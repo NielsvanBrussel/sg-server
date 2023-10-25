@@ -82,6 +82,9 @@
         width: 100%;
         margin: 0rem 0rem;
         overflow: auto;
+        scrollbar-color: #F51743 #F48C06;
+		scrollbar-width: thin;
+		scroll-padding: 2rem;
     }
     h1 {
         font-family: 'Bungee-Spice';

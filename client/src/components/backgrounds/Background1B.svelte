@@ -35,9 +35,9 @@
     .sliding-background1B, .sliding-background-van, .fade {
 		position: absolute;
 		background-repeat: repeat-x;
-		background-size: 900vh 90vh;
+		background-size: calc(900vh + 1px) 90vh;
 		height: 90vh;
-		width: 270000vh;
+		width: calc(270000vh + 900px);
 		margin: auto;
 
 	}

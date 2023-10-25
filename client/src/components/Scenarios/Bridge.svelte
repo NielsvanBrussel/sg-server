@@ -24,7 +24,7 @@
 	});
 
   const postCombatHandler = () => {
-      changeIntroText("A fat man in a suit who was watching the entire time approaches. He is a promoter for a big underground fighting arena and sees a lot of potential in you. He gives you a mysterious key and tells you to come find him at the circus on wednesdays.")
+      changeIntroText("A fat man in a suit who was watching the entire time approaches. He is a promoter for a big underground fighting arena and sees a lot of potential in you. He gives you a mysterious key and tells you to come find him at the circus on Wednesdays.")
       avatar.changeStats([{type: 'add item', value: inventoryItems.key.id}])
   }
 
@@ -89,7 +89,7 @@
     {:else if options === 1 && key}
         <ScenarioOption 
         unlocked={$avatar.day === 3} 
-        text="Use the mysterious key to open the gate. (wednesdays)" 
+        text="Use the mysterious key to open the gate. (Wednesdays)" 
         eventHandler={() => keyHandler()}
       />    
     {/if}

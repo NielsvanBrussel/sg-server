@@ -95,7 +95,7 @@
                 {/if}  
             {/if}
         {:else}
-            <div>Closed on mondays and tuesdays</div>
+            <div>Closed on Mondays and Tuesdays</div>
         {/if}
         
     </div>           
