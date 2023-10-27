@@ -3,7 +3,7 @@ import { locations_map1, locations_map2 } from './components/Scenarios';
 import updateAchievement from './utility/updateAchievement';
 import achievementsData from './utility/achievements';
 
-export const authenticated = writable(false);
+export const authenticated = writable(true);
 export const menuActive = writable(true);
 export const newGame = writable(true);
 export const playerPosition = writable(-13500)
@@ -138,12 +138,14 @@ function createAvatar() {
 			unlocks: {
 				hospitalVisits: 0,
                 transportRobbery: 0,
-				missingKidney: false,
+				missingKidney: 0,
 				billy: 0,
 				growingWeed: 0,
 				methLab: 0,
                 cult: 0,
                 armsdealer: 0,
+                insurance: 0,
+                bankRobbery: 0,
 				organTrade: false,
 				sewers: false,
                 items: [],
@@ -177,13 +179,15 @@ function createAvatar() {
 			items: [],
 			unlocks: {
 				hospitalVisits: 0,
-				missingKidney: false,
+				missingKidney: 0,
                 transportRobbery: 0,
 				billy: 0,
 				growingWeed: 0,
 				methLab: 0,
                 cult: 0,
                 armsdealer: 0,
+                insurance: 0,
+                bankRobbery: 0,
 				organTrade: false,
 				sewers: false,
                 items: [],

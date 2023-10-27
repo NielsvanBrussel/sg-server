@@ -52,7 +52,7 @@
 
 	.container {
 		min-width: 12rem;
-        max-width: 20rem;
+        max-width: 22rem;
         padding: 2rem;
         background-color: rgba(0, 0, 0, 0.7);
         border-radius: 5rem;
@@ -60,7 +60,7 @@
 	}
     p {
         font-family: 'Bungee-Spice';
-        font-size: 2.5rem;
+        font-size: 2.25rem;
         margin: 0 0 1rem 0;
     }
 

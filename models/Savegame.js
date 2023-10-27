@@ -51,8 +51,8 @@ const UnlocksSchema = new mongoose.Schema({
         default: 0
     },
     missingKidney: {
-        type: Boolean,
-        default: false
+        type: Number,
+        default: 0
     },
     billy: {
         type: Number,
@@ -85,6 +85,14 @@ const UnlocksSchema = new mongoose.Schema({
     sewers: {
         type: Boolean,
         default: false
+    },
+    insurance: {
+        type: Number,
+        default: 0
+    },
+    bankRobbery: {
+        type: Number,
+        default: 0
     },
     items: {
         type: [String],

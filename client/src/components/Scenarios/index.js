@@ -1,6 +1,5 @@
 import Supermarket from '../Scenarios/Supermarket.svelte';
 import Hospital from '../Scenarios/Hospital.svelte';
-import Gym from '../Scenarios/Gym.svelte';
 import Cult from './Cult.svelte';
 import Bridge from '../Scenarios/Bridge.svelte';
 import GasStation from '../Scenarios/GasStation.svelte';
@@ -17,6 +16,7 @@ import BotanicalGardens from './BotanicalGardens.svelte';
 import Caravan from './Caravan.svelte';
 import Motel from './Motel.svelte';
 import Arena from './Arena.svelte';
+import Bank from './Bank.svelte';
 
 
 export const locations_map1 = [
@@ -39,9 +39,9 @@ export const locations_map1 = [
     {
         min: 780,
         max: 830,
-        name: 'Gym',
+        name: 'JP & co Banking & Insurance',
         enemies: null,
-        component: Gym,
+        component: Bank,
         introText: "",
     },
     {
