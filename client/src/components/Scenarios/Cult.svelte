@@ -68,7 +68,7 @@
     }
 
     const questHandler = () => {
-
+        changeIntroText("")
     }
 
 

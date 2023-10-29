@@ -85,7 +85,6 @@
 			money: 5000,
 			items: [],
 			unlocks: {
-				hospitalVisits: 0,
 				missingKidney: 0,
 				billy: false,
 				growingWeed: 0,

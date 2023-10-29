@@ -7,14 +7,16 @@
 
         let vanBackground = null
 		const background = document.querySelector(".sliding-background1B")
+        const foreground = document.querySelector(".sliding-background0")
         if (showVan) {
             vanBackground = document.querySelector(".sliding-background-van")
         }
-        changeBackground({ backgroundValue: background, foregroundValue: null, vanBackgroundValue: vanBackground })
+        changeBackground({ backgroundValue: background, foregroundValue: foreground, vanBackgroundValue: vanBackground })
 	});
     
 </script>
 
+<div class="sliding-background0"></div>
 <div class="sliding-background1B"></div>
 {#if showVan}
     <div class="sliding-background-van"></div>
@@ -32,7 +34,7 @@
         }
     }
 
-    .sliding-background1B, .sliding-background-van, .fade {
+    .sliding-background1B, .sliding-background0, .sliding-background-van, .fade {
 		position: absolute;
 		background-repeat: repeat-x;
 		background-size: calc(900vh + 1px) 90vh;
@@ -40,6 +42,11 @@
 		width: calc(270000vh + 900px);
 		margin: auto;
 
+	}
+
+    .sliding-background0 {
+		background-image: url("../../assets/img/layer1.0_b.png");
+		z-index: 5;
 	}
 
     .sliding-background1B {

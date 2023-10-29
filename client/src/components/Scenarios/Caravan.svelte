@@ -30,8 +30,6 @@
             }
     }
 
-
-
     const questHandler = () => {
 
         // check if event isn't already active
@@ -68,7 +66,6 @@
             const location = Math.random()
             const type =  Math.random() > 0.5 ? "money" : "weapons"
             const day = Math.floor(Math.random() * (7 - 1) + 1)
-            
 
             if (location > 0.5) {
                 armoredCar.set({ day: day, location: "map_1", type: type })
@@ -77,16 +74,19 @@
                 armoredCar.set({ day: day, location: "map_2", type: type })
                 changeIntroText(`The next armored transport will be carrying ${type} and will be moving on ${getDayStringFormat()}. My intel says that they are planning to stop at Wacky's for lunch in Ramshaven Countryside. Good luck! `)  
             }
+
         }
         options = 0
         showOptions = false
     }
 
     const buyTrailerHandler = () => {
+
         avatar.changeStats([{type: 'money', value: -7000}])
         changeIntroText("You bought the trailer. Now you just need to set up the interior. The school in town probably has some nice science lab equipment you could borrow.")
         avatar.set({...$avatar, unlocks: {...$avatar.unlocks, methLab: 1}}) 
         showOptions = false  
+
     }
 
     const setupTrailerHandler = () => {
@@ -105,17 +105,12 @@
     }
 
     const enterTrailerHandler = () => {
+
         changeIntroText("You enter your trailer.")
         options = 2
+
     }
 
-
-    const skipday = () => {
-        avatar.changeStats([{type: 'day', value: 1}, {type: 'money', value: 5000}])
-        if ($avatar.unlocks.transportRobbery === 0) {
-           avatar.set({...$avatar, unlocks: {...$avatar.unlocks, transportRobbery: 1}}) 
-        }
-    }
 
 </script>
 
@@ -126,11 +121,6 @@
                     unlocked={true} 
                     text="Ask for work." 
                     eventHandler={() => questHandler()}
-                />
-                <ScenarioOption 
-                    unlocked={true} 
-                    text="skipday" 
-                    eventHandler={() => skipday()} 
                 />
                 {#if $avatar.unlocks.methLab === 0 && $avatar.unlocks.transportRobbery === 1}
                     <ScenarioOption 

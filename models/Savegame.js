@@ -46,10 +46,6 @@ const BuffsSchema = new mongoose.Schema({
 
 
 const UnlocksSchema = new mongoose.Schema({
-    hospitalVisits: {
-        type: Number, 
-        default: 0
-    },
     missingKidney: {
         type: Number,
         default: 0

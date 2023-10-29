@@ -41,8 +41,8 @@ export const activeScenario = selectActiveScenario()
 function selectMap() {
     const { subscribe, set, update } = writable(
         {
-            name: "map_1",
-            locationsArray: locations_map1
+            name: "map_2",
+            locationsArray: locations_map2
         }
     )
 
@@ -136,7 +136,6 @@ function createAvatar() {
 			money: 20,
 			items: [],
 			unlocks: {
-				hospitalVisits: 0,
                 transportRobbery: 0,
 				missingKidney: 0,
 				billy: 0,
@@ -178,7 +177,6 @@ function createAvatar() {
 			money: 20,
 			items: [],
 			unlocks: {
-				hospitalVisits: 0,
 				missingKidney: 0,
                 transportRobbery: 0,
 				billy: 0,

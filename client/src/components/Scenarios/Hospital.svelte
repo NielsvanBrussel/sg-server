@@ -31,10 +31,10 @@
 
     const healHandler = () => {
 
-        // on 4th heal remove kidney
-        if ($avatar.unlocks.hospitalVisits === 3) {
+        // remove kidney on free healthcare
+        if ($avatar.unlocks.insurance === 1 && !$avatar.unlocks.organTrade) {
             avatar.changeStats([{type: 'currentHitpoints', value: 100}, {type: 'day', value: 1}])
-            avatar.set({...$avatar, unlocks: {...$avatar.unlocks, missingKidney: true, hospitalVisits: 4}})
+            avatar.set({...$avatar, unlocks: {...$avatar.unlocks, missingKidney: 1}})
             changeIntroText("You wake up naked in a motel room's bathtub. Everything is covered in blood, especially you. There's a huge scar on your abdomen and an empty feeling where your kidney used to be. You will now lose 5 hitpoints per day (unless you somehow manage to get your kidney back).")
             activeScenario.set({ name: 'Sundown Motel',
                 enemies: null,
@@ -43,7 +43,6 @@
             map.select("map_2")
             playerPosition.set(-13557)
         } else {
-            avatar.set({...$avatar, unlocks: {...$avatar.unlocks, hospitalVisits: $avatar.unlocks.hospitalVisits + 1}})
             avatar.changeStats([{type: 'currentHitpoints', value: 100}, {type: 'day', value: 1}])
             changeIntroText("You wake up in a hospital bed feeling fully revitalised.")
         }
@@ -52,8 +51,8 @@
     }
 
     const kidneyHandler = () => {
-        avatar.set({...$avatar, unlocks: {...$avatar.unlocks, missingKidney: false, organTrade: true}})
-        changeIntroText("You find a doctor who patches you up again. He's also interested in the other box and says he will give you $50 for it and any other body parts you might find.")
+        avatar.set({...$avatar, unlocks: {...$avatar.unlocks, missingKidney: 0, organTrade: true}})
+        changeIntroText("You find a doctor who patches you up again. He's also interested in the other box and says he will give you $500 for it and any other body parts you might find.")
         avatar.changeStats([{type: 'currentHitpoints', value: 100}, {type: 'remove item', value: inventoryItems.organs.id}, {type: 'day', value: 1}])
     }
 
@@ -109,14 +108,12 @@
 {#if showOptions}
     <div class="options-container">
         {#if options === 0} 
-            {#if $avatar.unlocks.hospitalVisits < 4}
-                <ScenarioOption 
-                    unlocked={true} 
-                    text="Heal" 
-                    eventHandler={() => healHandler()}
-                />
-            {/if}
-            {#if $avatar.unlocks.missingKidney && organs}
+            <ScenarioOption 
+                unlocked={$avatar.unlocks.insurance > 0 && $avatar.unlocks.missingKidney === 0} 
+                text="Heal (requires health insurance)" 
+                eventHandler={() => healHandler()}
+            />
+            {#if $avatar.unlocks.missingKidney === 2 && organs}
                 <ScenarioOption 
                     unlocked={true} 
                     text='Find a doctor to put everything back.' 

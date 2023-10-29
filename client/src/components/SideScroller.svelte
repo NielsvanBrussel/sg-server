@@ -37,7 +37,7 @@
 
 
 	const imageSelect = () => {
-		console.log($avatar.name)
+		
 		switch ($avatar.name) {
 			case 'King Dwayne':
 				
@@ -463,7 +463,7 @@
 
 	.avatar {
 		position: absolute;
-		bottom: 11vh;
+		bottom: 13vh;
 		left: 50%;
 		-webkit-transform: translate(-50%);
 		transform: translate(-50%);

@@ -21,7 +21,7 @@
     });
 
     const postCombatHandler = () => {
-       
+      
         // reward
         if ($armoredCar.type === 'money') {
             avatar.changeStats([{type: 'money', value: 500}])

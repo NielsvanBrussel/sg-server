@@ -17,6 +17,8 @@ import Caravan from './Caravan.svelte';
 import Motel from './Motel.svelte';
 import Arena from './Arena.svelte';
 import Bank from './Bank.svelte';
+import Payphone from './Payphone.svelte';
+import Hole from './Hole.svelte';
 
 
 export const locations_map1 = [
@@ -104,7 +106,7 @@ export const locations_map1 = [
         min: 185,
         max: 235,
         name: 'School',
-        enemies: null,
+        enemies: enemies.school,
         component: School,
         introText: ""
     },
@@ -147,6 +149,22 @@ export const locations_map2 = [
         introText: "Welcome to Wacky's. Can I take your order please?"
     },
     {
+        min: 587,
+        max: 637,
+        name: "Phone Booth",
+        enemies: null,
+        component: Payphone,
+        introText: "Welcome to Wacky's. Can I take your order please?"
+    },
+    {
+        min: 842,
+        max: 892,
+        name: 'Hole',
+        enemies: null,
+        component: Hole,
+        introText: "xfgjxfgjfgj"
+    },
+    {
         min: 707,
         max: 757,
         name: 'Fort Harper',
@@ -176,15 +194,8 @@ export const locations_map2 = [
         name: 'Sundown Motel',
         enemies: null,
         component: Motel,
-        introText: ""
-    },
-    // {
-    //     min: 620,
-    //     max: 670,
-    //     name: 'Sewers',
-    //     component: Sewers,
-    //     introText: ""
-    // },
+        introText: "fxgjxgfj"
+    }
 
 ]
 
