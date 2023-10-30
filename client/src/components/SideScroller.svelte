@@ -212,7 +212,7 @@
 
 
 				// if the location is sewers and the avatar hasnt unlocked them yet skip location
-				if($map.locationsArray[i].name === 'Sewers' && !$avatar.unlocks.sewer) {
+				if($map.locationsArray[i].name === 'Party Van' && $avatar.unlocks.armsdealer !== 1) {
 					return false
 				}
 						

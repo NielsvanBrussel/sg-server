@@ -195,6 +195,14 @@ export const locations_map2 = [
         enemies: null,
         component: Motel,
         introText: "fxgjxgfj"
+    },
+    {
+        min: 225,
+        max: 275,
+        name: 'Party Van',
+        enemies: null,
+        component: Motel,
+        introText: "fxgjxgfj"
     }
 
 ]

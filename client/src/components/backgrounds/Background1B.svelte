@@ -45,7 +45,7 @@
 	}
 
     .sliding-background0 {
-		background-image: url("../../assets/img/layer1.0_b.png");
+		background-image: url("../../assets/img/layer1.0_b_van.png");
 		z-index: 5;
 	}
 

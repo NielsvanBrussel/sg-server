@@ -28,7 +28,7 @@
         // check if number equals any events
         if (number === "555-673-883") {
           // arms dealer
-          changeIntroText("Who is this?")
+          changeIntroText("Party Factory, how may I help you?")
           showOptions = false
           options = "1A"
           setTimeout(() => {
