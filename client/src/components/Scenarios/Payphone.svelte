@@ -11,13 +11,11 @@
   let showOptions = true
   let options = "0"
 
+  // reset all values when scenario options reset
 
   $: if (options === "0") {
-
-   
       number = ""
       changeIntroText("enter a number")
-
   }
 
   const enterNumber = () => {
@@ -113,8 +111,6 @@
     }, 3000);
   }
 
-
-
 </script>
 
 {#if showOptions}
@@ -196,12 +192,6 @@
           eventHandler={() => doctorHandler(false)}
           text="Offer him $5000 to get your kidney back."
         />
-    {:else if options === "3C"}
-        <ScenarioOption 
-          unlocked={true}
-          eventHandler={() => handler()}
-          text="hello"
-        />    
     {/if}
     <ScenarioOption 
       unlocked={true}

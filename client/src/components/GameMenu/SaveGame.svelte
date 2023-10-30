@@ -8,7 +8,7 @@
 
     let refreshCheck = true
     let avatarValue
-    let savegames = new Array(5)
+    let savegames = new Array(3)
     let loading = true
 
     avatar.subscribe((value) => {
@@ -22,6 +22,8 @@
 
 
 	const saveGame = async () => {
+
+        loading = true
 
         try {
 
@@ -52,6 +54,8 @@
 	}
 
     const updateSavegame = async (savegame) => {
+
+        loading = true
 
         try {
 
@@ -131,7 +135,24 @@
         {#each savegames as savegame, i}
             {#if savegame.user}
                 <div>
-                    <button on:click={() => updateSavegame(savegame)}>{i + 1}. &nbsp; {savegame.date_active.substring(0,10)} - {savegame.date_active.substring(11,16)} </button>
+                    <button on:click={() => updateSavegame(savegame)}>
+                        <div class="savegame-content">
+                            <div>
+                                {i + 1}. &nbsp;
+                            </div>
+                            <div>
+                                <div>
+                                    {savegame.date_active.substring(0,10)} - {savegame.date_active.substring(11,16)} 
+                                </div>
+                                <div>
+                                    {savegame.name} 
+                                </div>
+                                <div>
+                                    Lvl. {savegame.level}
+                                </div>
+                            </div>
+                        </div>
+                    </button>
                 </div>
             {:else}
                 <div>
@@ -159,7 +180,7 @@
     align-items: center;
   }
   button {
-    height: 3rem;
+    height: 6rem;
     padding: 0.5rem 0.5rem;
     background-origin: content-box;
     font-family: 'Bungee-Spice';
@@ -177,5 +198,12 @@
     justify-content: space-between;
     margin: 0;
     gap: 0.5rem;
+  }
+  .savegame-content {
+    text-align: left;
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
   }
 </style>

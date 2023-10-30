@@ -162,19 +162,17 @@
                 <!-- crafting options go here -->
                 <CraftingItem 
                     item={inventoryItems.pills}
-                    ingredients={[inventoryItems.antifreeze, inventoryItems.shroom, ]}
+                    ingredients={[inventoryItems.antifreeze, inventoryItems.shroom, inventoryItems.oil]}
                     changeIntroText={changeIntroText}
                     description="Amphetamines. For people who want to get cranked up."
                     locked={true}  
-
                 />
                 <CraftingItem 
                     item={inventoryItems.cocaine}
-                    ingredients={[inventoryItems.weed, inventoryItems.gas, ]}
+                    ingredients={[inventoryItems.weed, inventoryItems.gas]}
                     changeIntroText={changeIntroText}
                     description="Cocaine. One of the classic drugs. Very widely used."
-                    locked={true}  
-
+                    locked={false}  
                 />
                 <CraftingItem 
                     item={inventoryItems.syringe_poisoned}

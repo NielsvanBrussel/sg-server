@@ -3,7 +3,7 @@ import { locations_map1, locations_map2 } from './components/Scenarios';
 import updateAchievement from './utility/updateAchievement';
 import achievementsData from './utility/achievements';
 
-export const authenticated = writable(true);
+export const authenticated = writable(false);
 export const menuActive = writable(true);
 export const newGame = writable(true);
 export const playerPosition = writable(-13500)

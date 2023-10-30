@@ -44,6 +44,15 @@ const BuffsSchema = new mongoose.Schema({
     },
 })
 
+const ItemSchema = new mongoose.Schema({
+    name: {
+        type: String, 
+    },
+    amount: {
+        type: Number,
+    },
+})
+
 
 const UnlocksSchema = new mongoose.Schema({
     missingKidney: {
@@ -122,7 +131,7 @@ const SavegameSchema = new mongoose.Schema({
         default: 1
     },
     items: { 
-        type: [String]
+        type: [ItemSchema]
     },
     unlocks: {
         type: UnlocksSchema,

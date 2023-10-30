@@ -33,6 +33,9 @@
       showOptions = false
       options = 1
       changeIntroText("The bank insurance sales agent tells you that they offer 3 kinds of insurance: Free Health Plan, where you get basic hospital care, Premium Health Plan which gives extensive hospital care and Platinum Health Plan which gives both extensive hospital care and also life insurance (revival)")
+      setTimeout(() => {
+        showOptions = true
+      }, 3000);
     }
 
     const healthplanHandler = (value) => {

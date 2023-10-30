@@ -9,11 +9,13 @@ const createSavegame = async (req, res) => {
         const user_id = req.user
         const data = req.body.savegame
 
+        console.log(data)
+
         const checkSaveAmount = await Savegame.find({ user: user_id }).exec()
 
-        // only allow 5 saveslots per user
+        // only allow 3 saveslots per user
 
-        if (checkSaveAmount.length < 5) {
+        if (checkSaveAmount.length < 3) {
             const savegame = new Savegame({ user: user_id, name: data.name, experience: data.experience, level: data.level, money: data.money, unlocks: data.unlocks, day: data.day, stats: data.stats, buffs: data.buffs, items: data.items, date_created: data.date_created })
             await savegame.save()   
             return res.status(200).send("savegame created")         
@@ -23,6 +25,7 @@ const createSavegame = async (req, res) => {
 
 
     } catch (error) {
+        console.log(error)
         return res.status(400).send("Error")
     }
 
@@ -53,7 +56,9 @@ const updateSavegame = async (req, res) => {
 
 }
 
-const getSavegames = async (req, res) => {                   
+const getSavegames = async (req, res) => {   
+    
+    console.log("getting savegames")
 
     try {
 

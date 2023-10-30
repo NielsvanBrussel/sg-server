@@ -95,14 +95,14 @@
         display: flex;
         flex-direction: row;
         justify-content: start;
-        gap: 1rem;
-        margin-bottom: 1rem;
-        width: 15rem;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        width: 14rem;
     }
 
     .display-container {
         border: solid 3px white;
-        width: calc(17rem - 4px);
+        width: calc(16rem - 4px);
         height: 3rem;
         overflow: hidden;
         display: flex;
@@ -116,7 +116,7 @@
     }
 
     .display-text {
-        margin: 0 1.5rem;
+        margin: 0 1rem;
         font-size: 1.25rem;
         font-family: 'PS2P';
         width: auto;
