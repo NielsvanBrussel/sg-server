@@ -51,7 +51,7 @@
 	$: activeCharacter = characters[charIndex]
 
 
-	// change thorugh the array of characters
+	// change through the array of characters
 
 	const changeCharacter = (value) => {
 

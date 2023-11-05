@@ -281,7 +281,7 @@ export const enemies = {
             currentStamina: 12,
             maxStamina: 12,
             attackStamina: 4,
-            attackDamage: [1, 4],
+            attackDamage: [18, 30],
             currentHitpoints: 10,
             maxHitpoints: 10,
             drop: {

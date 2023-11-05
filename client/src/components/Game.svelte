@@ -12,6 +12,8 @@
 	let level = $avatar.level
 
 
+	// show level up message on level up
+
 	const check = () => {
 		if (level !== $avatar.level && level) {
 			toggleMessage()

@@ -19,6 +19,14 @@ import Arena from './Arena.svelte';
 import Bank from './Bank.svelte';
 import Payphone from './Payphone.svelte';
 import Hole from './Hole.svelte';
+import Partyvan from './Partyvan.svelte';
+
+
+// data file with all locations:
+// min & max = position
+// scenario component linked to the location
+// enemies linked to the scenario
+// introtext displayed at start of scenario
 
 
 export const locations_map1 = [
@@ -201,7 +209,7 @@ export const locations_map2 = [
         max: 275,
         name: 'Party Van',
         enemies: null,
-        component: Motel,
+        component: Partyvan,
         introText: "fxgjxgfj"
     }
 

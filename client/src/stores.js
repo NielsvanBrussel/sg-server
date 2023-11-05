@@ -3,11 +3,12 @@ import { locations_map1, locations_map2 } from './components/Scenarios';
 import updateAchievement from './utility/updateAchievement';
 import achievementsData from './utility/achievements';
 
-export const authenticated = writable(false);
+export const authenticated = writable(true);
 export const menuActive = writable(true);
 export const newGame = writable(true);
 export const playerPosition = writable(-13500)
 export const armoredCar = writable({ day: null, location: "", type: "" })
+export const partyVan = writable(false)
 export const achievementPopup = writable({ id: null, title: null, description: null })
 
 
@@ -41,8 +42,8 @@ export const activeScenario = selectActiveScenario()
 function selectMap() {
     const { subscribe, set, update } = writable(
         {
-            name: "map_2",
-            locationsArray: locations_map2
+            name: "map_1",
+            locationsArray: locations_map1
         }
     )
 
@@ -158,7 +159,7 @@ function createAvatar() {
         set: (value) => set(value),
         reset: () => set({
             name: null,
-            level: null,
+            level: 1,
             experience: null,
 			stats: {
 				strength: null,
@@ -271,9 +272,27 @@ function createAvatar() {
                          
                             let newAmount = prevValue.day + data[i].value
 
-                            // reset back to monday after sunday
+                            let money = prevValue.money
+                            let insurance = prevValue.unlocks.insurance
+
+                            const weeklyPayments = () => {
+
+                                const dues = insurance === 2 ? 50 : insurance === 3 ? 150 : 0
+                                const postMoney = money - dues
+                                // if user does not have enough money, remove the subscription
+                                if (postMoney < 0) {
+                                    insurance = 0
+                                    money = 0
+                                } else {
+                                    money = postMoney
+                                }
+                                
+                            }
+
+                            // reset back to monday after sunday and check if any weekly payments have to be made
                             if (newAmount > 7) {
                                 newAmount = 1
+                                weeklyPayments()
                             }
 
                             // decrease buffs by 1 if active
@@ -290,6 +309,12 @@ function createAvatar() {
                                 luckBuff --
                             }
 
+                            // remove party van if present
+
+                            if (partyVan) {
+                                partyVan.set(false)
+                            }
+
                             // increase values if this event is ongoing (billy dealing drugs @3+ and weed growing in gardens @1+)
                             let billy = prevValue.unlocks.billy 
                             if (prevValue.unlocks.billy > 3) {
@@ -302,8 +327,9 @@ function createAvatar() {
 
                             return { 
                                 ...prevValue, 
-                                day: newAmount, 
-                                unlocks: {...prevValue.unlocks, billy: billy, growingWeed: weed}, 
+                                day: newAmount,
+                                money: money, 
+                                unlocks: {...prevValue.unlocks, billy: billy, growingWeed: weed, insurance: insurance}, 
                                 buffs: {strengthBuff: strengthBuff, intellectBuff: intellectBuff, luckBuff: luckBuff} 
                             }
                         })
@@ -351,6 +377,10 @@ function createAvatar() {
                            let newAmount = prevValue.stats.currentHitpoints + data[i].value
                             if (newAmount > prevValue.stats.maxHitpoints * 5) {
                                 newAmount = prevValue.stats.maxHitpoints * 5
+                            }
+
+                            if (newAmount < 0) {
+                                newAmount = 0
                             }
 
                             return { ...prevValue, stats: {...prevValue.stats, currentHitpoints: newAmount } }

@@ -2,6 +2,7 @@
     export let changeBackground
     export let showVan
     import { onMount, onDestroy } from 'svelte';
+  import { avatar, partyVan } from '../../stores';
 
     onMount(async () => {
 
@@ -16,7 +17,11 @@
     
 </script>
 
-<div class="sliding-background0"></div>
+{#if $partyVan}
+    <div class="sliding-background0 van"></div>
+{:else}
+    <div class="sliding-background0 no-van"></div>
+{/if}
 <div class="sliding-background1B"></div>
 {#if showVan}
     <div class="sliding-background-van"></div>
@@ -45,9 +50,16 @@
 	}
 
     .sliding-background0 {
-		background-image: url("../../assets/img/layer1.0_b_van.png");
 		z-index: 5;
 	}
+
+    .van {
+        background-image: url("../../assets/img/layer1.0_b_van.png");
+    }
+
+    .no-van {
+        background-image: url("../../assets/img/layer1.0_b.png");
+    }
 
     .sliding-background1B {
         background-image: url("../../assets/img/layer1.1_b.png");

@@ -25,9 +25,10 @@
             })               
         }
 
-    
     }
     
+
+    // possibility to enter scenaria by pressing space button, instead of clicking enter
 
     const spaceButtonEvenListener = ({ code }) => {
         if (code === 'Space') {

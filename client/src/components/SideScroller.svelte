@@ -10,12 +10,11 @@
 	import birdFlyingImg from '../assets/img/bird-flying.gif'
 	import birdStaticImg from '../assets/img/bird-static.png'
 
-	import { map, playerPosition, avatar, armoredCar, achievements } from '../stores';
+	import { map, playerPosition, avatar, armoredCar, achievements, partyVan } from '../stores';
 
 	// floating message above locations
   	import EntryMessage from './EntryMessage.svelte';
 
-	// list of all location positions, names and components
 	import Background1A from './backgrounds/Background1A.svelte';
 	import Background1B from './backgrounds/Background1B.svelte';
 	
@@ -108,6 +107,7 @@
 			achievements.unlockAchievement(achievementsData.firstTimePlaying)
 		}
 	}
+	
 
 
     onMount(async () => {
@@ -125,7 +125,7 @@
 		background = backgroundValue
 		foreground = foregroundValue
 		vanBackground = vanBackgroundValue
-		scenario= $map.locationsArray[0]
+		scenario = $map.locationsArray[0]
 		if (!animating) {
 			animate()
 			animating = true
@@ -208,29 +208,26 @@
 
 
 		for (let i = 0; i < $map.locationsArray.length; i++) {
+
+			// return true if entry message has to be displayed; false otherwise
 			if (truePosition > $map.locationsArray[i].min && truePosition < $map.locationsArray[i].max) {
 
-
 				// if the location is sewers and the avatar hasnt unlocked them yet skip location
-				if($map.locationsArray[i].name === 'Party Van' && $avatar.unlocks.armsdealer !== 1) {
+				if($map.locationsArray[i].name === 'Party Van' && !$partyVan) {
 					return false
 				}
 						
-					const value =  ($map.locationsArray[i].min + $map.locationsArray[i].max) / 2
-					if (!showEntry) {
-
-
-
-						// position the message in the middle of the building (depending on which way he enters from)
-						if (truePosition > value) {
-							messagePosition = 25
-						} else {
-							messagePosition = -25
-						}
-						scenario= $map.locationsArray[i]
+				const value =  ($map.locationsArray[i].min + $map.locationsArray[i].max) / 2
+				if (!showEntry) {
+					// position the message in the middle of the building (depending on which way he enters from)
+					if (truePosition > value) {
+						messagePosition = 25
+					} else {
+						messagePosition = -25
 					}
-					
-					return true
+					scenario= $map.locationsArray[i]
+				}
+				return true
 			}
 		}
 		return false
@@ -240,10 +237,11 @@
 	const animate = (timestamp) => {
 
 		if (mounted) {
-			// fps (not true fps but time between frames) used to mainteam same speed between different Hz monitors
+			// fps (not true fps but time between frames) used to mainteam same speed between monitors with different refreshrate
 			const fps = timestamp - previousTimestamp
 			previousTimestamp = timestamp
 			
+			// events on keypress
 			if(keyPress.right) {
 				// edge of map check
 				if (position > -265000) { 
@@ -296,7 +294,7 @@
 			}
 			bird.style.transform = `translate3d(calc(${birdPosition}vh), 0, 0)`
 			
-
+			// front layers (phonebooth, light poles, vans, etc)
 			if (foreground) {
 				foreground.style.transform = `translate3d(calc(${position}vh + 45vw), 0, 0)`
 			}
@@ -312,6 +310,7 @@
 			
 		}
 
+		// stop looping on destroy
 		if (loop) {
 			requestAnimationFrame(animate)
 		}
@@ -449,7 +448,7 @@
 	}
 
 	.bird-hidden {
-		animation: fade-out linear forwards 0.2s;
+		animation: fade-out linear forwards 0.3s;
 	}
 
 	.bird-visible {

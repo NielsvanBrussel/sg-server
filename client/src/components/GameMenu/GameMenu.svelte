@@ -1,5 +1,5 @@
 <script>
-    import { authenticated, avatar, menuActive, activeScenario, playerPosition, achievements, achievementPopup } from '../../stores.js';
+    import { authenticated, avatar, menuActive, activeScenario, playerPosition, map } from '../../stores.js';
     import axios from 'axios'
     import SaveGame from './SaveGame.svelte';
     import LoadGame from './LoadGame.svelte';
@@ -21,7 +21,7 @@
         activeScenario.reset()
 
         playerPosition.set(-13500)
-    
+        map.select("map_1")
         menuActive.set(false)
     }
 

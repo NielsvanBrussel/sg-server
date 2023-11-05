@@ -1,6 +1,7 @@
 <script>
-	import { avatar, menuActive } from '../stores.js';
 
+	// overlay of the game: menu, inventory & stats, hp, money & day display & buffs displays
+	import { avatar, menuActive } from '../stores.js';
 	import hitpoints from '../assets/img/hitpoints.gif'
 	import inventoryIcon from '../assets/img/inventory.png'
 	import inventoryOpenIcon from '../assets/img/inventory-open.png'
@@ -9,7 +10,6 @@
 	import buff_str_img from '../assets/img/buff-str.png'
 	import buff_luck_img from '../assets/img/buff-luck.png'
 	import buff_int_img from '../assets/img/buff-int.png'
-
   	import InventoryItem from './InventoryItem.svelte';
 
 
@@ -30,6 +30,8 @@
 		}
 	}
 
+	// calc the width of the experience bar
+
 	const calcExperience = () => {
 		if ($avatar.level === 1) {
 			experienceBottomBoundary = 0
@@ -41,6 +43,8 @@
 	}
 
 	calcExperience()
+
+	// recalculate every time the user gains experience
 
 	$: $avatar.level && $avatar.experience, calcExperience()
 
@@ -109,7 +113,6 @@
 					</div>				
 				</div>
 				
-
 				<div class="stats-container">
 					<div class="stats-flex">
 						<p class="stats-title">hitpoints: </p>
@@ -134,7 +137,6 @@
 						{:else}
 							<p class="stats-value">{$avatar.stats.intellect}</p>
 						{/if}
-						
 					</div>
 					<div class="stats-flex">
 						<p class="stats-title">luck: </p>
@@ -161,12 +163,7 @@
 			<img src={buff_luck_img} alt='strength buff' class="buff-img">
 		{/if}		
 	</div>
-
-
 </div>
-
-
-
 
 
 <style>

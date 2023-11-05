@@ -1,4 +1,6 @@
 <script>
+    // default scenario container: title, avatar gif, text container, leave button
+
 	import { activeScenario, avatar } from '../stores.js';
     import dwayne from '../assets/img/dwayne.gif'
 	import rupert from '../assets/img/rupert.gif'
@@ -25,7 +27,6 @@
                 return rupert
             case 'Greasy Gareth':
                 return gareth
-        
             default:
                 return dwayne
         }

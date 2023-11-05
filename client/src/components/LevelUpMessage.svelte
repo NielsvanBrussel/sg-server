@@ -11,6 +11,7 @@
     showLevel = true
     avatar.changeStats([{type: 'add item', value: inventoryItems.token.id}])
   }, 2200);
+  
 </script>
 
 

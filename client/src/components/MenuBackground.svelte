@@ -1,5 +1,4 @@
 <script>
-    import { Router, Link, Route } from "svelte-navigator";
 </script>
 
 
@@ -9,9 +8,6 @@
 	<div class="sliding-background3"></div>
 	<div class="sliding-background4"></div>
 </div>
-
-
-
 
 
 <style>

@@ -1,5 +1,5 @@
 <script>
-  import { avatar } from "../../stores";
+  import { avatar, partyVan } from "../../stores";
   import Keypad from "../core/Keypad.svelte";
   import ScenarioOption from "../core/ScenarioOption.svelte";
 
@@ -10,6 +10,8 @@
 
   let showOptions = true
   let options = "0"
+
+  let partyFactoryCall = false
 
   // reset all values when scenario options reset
 
@@ -28,25 +30,22 @@
         // check if number equals any events
         if (number === "555-673-883") {
           // arms dealer
-          changeIntroText("Party Factory, how may I help you?")
+          changeIntroText("Welcome to The Party Factory. Press 1 for Birthday Parties. Press 2 for Wedding Parties. Press 3 for Military Grade Weaponry.")
+          number = ""
+          partyFactoryCall = true
+        } else if (number === "555-762-115") {
+          // mister X
+          changeIntroText("...")
           showOptions = false
           options = "1A"
           setTimeout(() => {
             showOptions = true
           }, 3000);
-        } else if (number === "555-762-115") {
-          // mister X
-          changeIntroText("...")
-          showOptions = false
-          options = "2A"
-          setTimeout(() => {
-            showOptions = true
-          }, 3000);
-        } else if (number === "555-363-663") {
+        } else if (number === "555-362-155") {
           // organ traffickers
           changeIntroText("Kingsbride Private Hospital, how may I help you?")
           showOptions = false
-          options = "3A"
+          options = "2A"
           setTimeout(() => {
             showOptions = true
           }, 3000);    
@@ -64,19 +63,36 @@
 
 
   const changeNumber = (value) => {
+
     number = value
+
+    // code for party factory call follow up
+    if (partyFactoryCall) {
+      if (value === "3") {
+        changeIntroText("A Party Factory Van has been sent to your location. Have fun!")
+        partyVan.set(true)
+      } else if (value === "1" || value === "2"){
+        changeIntroText("Unfortunately all our associates are fully booked. Please try again later.")
+      }
+      partyFactoryCall = false
+      number = ""
+      setTimeout(() => {
+        changeIntroText("enter a number")
+      }, 4000);
+    }
   }
 
   const handler = () => {
-
+    
   }
+
 
   const hospitalHandler = (value) => {
     showOptions = false
   
     if (value) {
       changeIntroText("Sure thing, forwarding you to Dr. Stricklands office now.")
-      options = "3B"
+      options = "2B"
       setTimeout(() => {
         changeIntroText("Dr. Strickland speaking.")
       }, 3000);
@@ -141,24 +157,6 @@
           text="hello"
         />
     {:else if options === "2A"}
-        <ScenarioOption 
-          unlocked={true}
-          eventHandler={() => handler()}
-          text="hello"
-        />
-    {:else if options === "2B"}
-        <ScenarioOption 
-          unlocked={true}
-          eventHandler={() => handler()}
-          text="hello"
-        />
-    {:else if options === "2C"}
-        <ScenarioOption 
-          unlocked={true}
-          eventHandler={() => handler()}
-          text="hello"
-        />
-    {:else if options === "3A"}
     
         <ScenarioOption 
           unlocked={true}
@@ -176,7 +174,7 @@
           text="Ask to speak to Dr. Strickland."
         />
       
-    {:else if options === "3B"}
+    {:else if options === "2B"}
         <ScenarioOption 
           unlocked={true}
           eventHandler={() => doctorHandler(false)}

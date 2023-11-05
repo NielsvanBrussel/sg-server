@@ -53,6 +53,10 @@
       
     }
 
+    const skipdayHandler = () => {
+      avatar.changeStats([{type: 'day', value: 1}])
+    }
+
     const recoverKidneyHandler = () => {
       showOptions = false
       changeIntroText("The salesman swears he has nothing to do with your missing kidney and says he only talked to the doctor on the phone. He says his name is Dr. Strickland and gives you his number: 555-363-663.")
@@ -110,7 +114,7 @@
       <ScenarioOption 
         unlocked={true} 
         text="STRENGTH: Go for a workout ($20)" 
-        eventHandler={() => strengthBuffHandler()}
+        eventHandler={() => skipdayHandler()}
       />
     </div>           
   {/if}      

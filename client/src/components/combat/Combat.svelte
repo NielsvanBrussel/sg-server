@@ -187,8 +187,15 @@
                 // reduce enemy stamina for displaying its stamina bar
                 enemy.currentStamina -= enemy.attackStamina
 
-                // avatar.changeStats([{ type: 'currentHitpoints', value: damage}])
-                changeIntroText(`${enemy.name} deals ${damage} damage!`)
+                if ($avatar.stats.currentHitpoints <= damage) {
+                    changeIntroText(`${enemy.name} deals a critical ${damage} damage and kills you!`)
+                    avatar.changeStats([{ type: 'currentHitpoints', value: -damage}])
+                    return
+                } else {
+                    avatar.changeStats([{ type: 'currentHitpoints', value: -damage}])
+                    changeIntroText(`${enemy.name} deals ${damage} damage!`)
+                }
+                
                 numberOfAttacks -- 
 
                 // damage taken from bleeding (bleed hits on every enemy attack)
@@ -208,7 +215,9 @@
                                 changeIntroText("")
                             }
                             setTimeout(() => {
-                                enemyAttack()
+                                if ($avatar.stats.currentHitpoints > 0) {
+                                    enemyAttack()
+                                }
                             }, 1000)
                         }
                     }, 3500);
