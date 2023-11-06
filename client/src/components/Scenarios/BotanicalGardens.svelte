@@ -45,7 +45,11 @@
     const harvestHandler = () => {
         changeIntroText("Looks like the plant is fully grown. You harvest it entirely.")
         avatar.set({...$avatar, unlocks: {...$avatar.unlocks, growingWeed: 1}})
-        avatar.changeStats([{type: 'add item', value: inventoryItems.weed.id}, {type: 'day', value: 1}])
+        if (Math.random() > 0.5) {
+            avatar.changeStats([{type: 'add item', value: inventoryItems.weed.id}, {type: 'add item', value: inventoryItems.weed.id}, {type: 'day', value: 1}])
+        } else {
+            avatar.changeStats([{type: 'add item', value: inventoryItems.weed.id}, {type: 'add item', value: inventoryItems.weed.id}, {type: 'add item', value: inventoryItems.weed.id}, {type: 'day', value: 1}])
+        }
     }
 
 </script>

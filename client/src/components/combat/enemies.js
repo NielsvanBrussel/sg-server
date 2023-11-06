@@ -347,6 +347,78 @@ export const enemies = {
             img: monster_png,
         },
     ],
+    forest_alt: [
+        {
+            name: "Bambi",
+            currentStamina: 12,
+            maxStamina: 12,
+            attackStamina: 4,
+            attackDamage: [18, 30],
+            currentHitpoints: 10,
+            maxHitpoints: 10,
+            drop: {
+                chance: 0,
+                item: inventoryItems.deermeat.id
+            },
+            img: bambi_png,
+        },
+        {
+            name: "Wolf",
+            currentStamina: 12,
+            maxStamina: 12,
+            attackStamina: 4,
+            attackDamage: [1, 4],
+            currentHitpoints: 10,
+            maxHitpoints: 10,
+            drop: {
+                chance: 0,
+                item: inventoryItems.wolfmeat.id
+            },
+            img: wolf_png,
+        },
+        {
+            name: "Bear",
+            currentStamina: 12,
+            maxStamina: 12,
+            attackStamina: 4,
+            attackDamage: [1, 4],
+            currentHitpoints: 10,
+            maxHitpoints: 10,
+            drop: {
+                chance: 0,
+                item: inventoryItems.bearmeat.id
+            },
+            img: bear_png,
+        },
+        {
+            name: "Cult Member",
+            currentStamina: 1,
+            maxStamina: 1,
+            attackStamina: 10,
+            attackDamage: [0, 0],
+            currentHitpoints: 25,
+            maxHitpoints: 25,
+            drop: {
+                chance: 1,
+                item: inventoryItems.shroom.id
+            },
+            img: cult_1_png,
+        },
+        {
+            name: "????",
+            currentStamina: 12,
+            maxStamina: 12,
+            attackStamina: 4,
+            attackDamage: [1, 4],
+            currentHitpoints: 10,
+            maxHitpoints: 10,
+            drop: {
+                chance: 1,
+                item: inventoryItems.pistol.id
+            },
+            img: monster_png,
+        },
+    ],
     school: [
         {
             name: "Security Guard",

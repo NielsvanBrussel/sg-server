@@ -1,8 +1,9 @@
 <script>
-    import { avatar } from "../../stores";
+    import { avatar, activeScenario } from "../../stores";
     import { onMount } from "svelte";
     import ScenarioOption from "../core/ScenarioOption.svelte";
     import inventoryItems from "../../utility/inventoryItems";
+    import { enemies } from "../combat/enemies";
 
     export let changeIntroText
     export let combatMode
@@ -19,7 +20,12 @@
 
     const postCombatHandler = () => {
         showOptions = false
-        changeIntroText("A few animal species are now nearly extinct thanks to you. Better wait for the forest to repopulate.")
+        if ($activeScenario.enemies[3].name === "Cult Member") {
+            changeIntroText("You got rid of the cult member, Rudy will be pleased.")
+            avatar.set({...$avatar, unlocks: {...$avatar.unlocks, cult: 6}}) 
+        } else {
+            changeIntroText("A few animal species are now nearly extinct thanks to you. Better wait for the forest to repopulate.")
+        }
     }
 
     const forageHandler = () => {
@@ -47,9 +53,12 @@
         showOptions = false
     }
 
-    const combatHandler = () => {
+    const combatHandler = (value) => {
         avatar.changeStats([{type: 'day', value: 1}])
-        setCombatMode(1)
+        if (value) {
+            activeScenario.set({...$activeScenario, enemies: enemies.grandma})
+        } 
+        setCombatMode(1)  
     }
 
 </script>
@@ -64,8 +73,15 @@
         <ScenarioOption 
             unlocked={true} 
             text="COMBAT: Hunt. (MEDIUM - HARD)" 
-            eventHandler={() => combatHandler()}
+            eventHandler={() => combatHandler(0)}
         />
+        {#if $avatar.unlocks.cult === 5}
+            <ScenarioOption 
+                unlocked={true} 
+                text="Find the Follower Of Rudy and make him disappear" 
+                eventHandler={() => combatHandler(1)}
+            />
+        {/if}
     </div>           
 {/if}        
 

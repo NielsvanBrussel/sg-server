@@ -32,11 +32,18 @@
         showOptions = false
     }
 
-    const finishQuestHandler = () => {
+    const finishQuestHandler = (value) => {
 
         showOptions = false
 
-        changeIntroText("Great work, you may now request an audience with the Prophet Rudy.")
+        if (value) {
+            changeIntroText("Great work, you may now request an audience with the Prophet Rudy.")
+        } else {
+            changeIntroText("Well done my child, you are a true believer.")
+        }
+
+        avatar.changeStats([{type: 'experience', value: 1000}])
+
 
         avatar.set({...$avatar, unlocks: {...$avatar.unlocks, cult: 4}}) 
 
@@ -68,11 +75,25 @@
     }
 
     const questHandler = () => {
-        changeIntroText("")
+
+        showOptions = false
+        if ($avatar.unlocks.cult === 5) {
+            changeIntroText("A follower of mine has been eyeballing one of my wives. I have sent him on a wild goose chase to the forest. Make sure he never returns.")
+        } else {
+            const rng = Math.random()
+            if (rng > 0.8) {
+                changeIntroText("A follower of mine has been eyeballing one of my wives. I have sent him on a wild goose chase to the forest. Make sure he never returns.")
+                avatar.set({...$avatar, unlocks: {...$avatar.unlocks, cult: 5}}) 
+            } else {
+                changeIntroText("")
+                
+            }
+        }
+
+        setTimeout(() => {
+            showOptions = true
+        }, 3000);
     }
-
-
-
 
 
 </script>
@@ -91,10 +112,10 @@
                 <ScenarioOption 
                     unlocked={true} 
                     text="I dealt with the informant." 
-                    eventHandler={() => finishQuestHandler()} 
+                    eventHandler={() => finishQuestHandler(0)} 
                 />
             {/if}
-            {#if $avatar.unlocks.cult === 4}
+            {#if $avatar.unlocks.cult > 3}
                 <ScenarioOption 
                     unlocked={true} 
                     text="Ask for an audience with Rudy." 
@@ -120,15 +141,17 @@
             />
         {/if}
         {#if options === 2}
-            <ScenarioOption 
-                unlocked={true} text="Is there anything you need from me?" 
-                eventHandler={() => questHandler()} 
-            />
-            <ScenarioOption 
-                unlocked={weed} 
-                text="Sell Rudy some weed." 
-                eventHandler={() => sellHandler("weed")} 
-            />
+            {#if $avatar.unlocks.cult === 6}
+                <ScenarioOption 
+                    unlocked={true} text="Nobody will be looking at your wives anymore." 
+                    eventHandler={() => finishQuestHandler(1)} 
+                />
+            {:else}
+                <ScenarioOption 
+                    unlocked={true} text="Is there anything you need from me?" 
+                    eventHandler={() => questHandler()} 
+                />
+            {/if}
         {/if}
     </div>           
 {/if}        

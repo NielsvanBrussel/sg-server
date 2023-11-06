@@ -50,7 +50,6 @@
         }
                                     
         const rng = Math.random() + max
-        console.log(rng)
         avatar.changeStats([{type: 'day', value: 1}])
 
         changeIntroText("You wait in the bushes until an easy target walks by...")
