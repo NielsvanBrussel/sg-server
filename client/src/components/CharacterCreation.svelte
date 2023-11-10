@@ -14,11 +14,11 @@
 			name: 'Greasy Gareth',
 			img: gareth,
 			stats: {
-				strength: 10,
-				stamina: 3,
+				strength: 8,
+				stamina: 2,
 				intellect: 2,
-				maxHitpoints: 20,
-				currentHitpoints: 100,
+				maxHitpoints: 12,
+				currentHitpoints: 60,
 				luck: 3,
 			}
 		},
@@ -27,11 +27,11 @@
 			img: rupert,
 			stats: {
 				strength: 2,
-				stamina: 5,
-				intellect: 8, 
-				maxHitpoints: 8,
-				currentHitpoints: 40,
-				luck: 5,
+				stamina: 4,
+				intellect: 7, 
+				maxHitpoints: 5,
+				currentHitpoints: 25,
+				luck: 9,
 			}
 		},
 		{
@@ -39,11 +39,11 @@
 			img: dwayne,
 			stats: {
 				strength: 5,
-				stamina: 5,
+				stamina: 7,
 				intellect: 5,
-				maxHitpoints: 10,
-				currentHitpoints: 50,
-				luck: 4,
+				maxHitpoints: 7,
+				currentHitpoints: 35,
+				luck: 3,
 			}
 		},
 	]
@@ -148,7 +148,7 @@
 						</div>
 						<div class="stats-flex">
 							<p class="stats-title">hitpoints: </p>
-							<p class={activeCharacter.stats.maxHitpoints > 30 ? "stats-green" : activeCharacter.stats.maxHitpoints < 30 ? "stats-red" : "stats-default"}>{activeCharacter.stats.maxHitpoints}</p>
+							<p class={activeCharacter.stats.maxHitpoints > 25 ? "stats-green" : activeCharacter.stats.maxHitpoints < 25 ? "stats-red" : "stats-default"}>{activeCharacter.stats.maxHitpoints}</p>
 						</div>
 					</div>
 				</div>
