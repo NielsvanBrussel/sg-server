@@ -62,9 +62,9 @@
 
     const collectHandler = () => {
 
-        avatar.changeStats([{ type: 'money', value: 200}, {type: 'day', value: 1}])
+        avatar.changeStats([{ type: 'money', value: 550}, {type: 'day', value: 1}])
 
-        changeIntroText('Billy did good, he sold all the cocaine. You receive $200!') 
+        changeIntroText('Billy did good, he sold all the cocaine. You receive $550!') 
 
         avatar.set({...$avatar, unlocks: {...$avatar.unlocks, billy: 3}})
         showOptions = false

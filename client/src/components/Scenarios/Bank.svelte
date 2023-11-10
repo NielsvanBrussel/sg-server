@@ -1,32 +1,11 @@
 <script>
-    import { avatar, activeScenario, achievements } from "../../stores";
+    import { avatar } from "../../stores";
     import ScenarioOption from "../core/ScenarioOption.svelte";
     export let changeIntroText
 
     
     let showOptions = true
     let options = 0
-  
-    const strengthBuffHandler = () => {
-
-      let max = $avatar.stats.strength * 0.02
-      if (max > 0.3)  {
-          max = 0.3
-      }
-
-      const rng = Math.random() + max
-    
-      showOptions = false
-
-      avatar.changeStats([{type: 'day', value: 1}, {type: 'money', value: -20}])
-      if (rng < 0.5) {
-          changeIntroText("As you start your workout a stonger alpha male enters the gym and shoos you away. No workout for you today.")
-      } else {
-          changeIntroText("Got a nice pump from that. You will feel stronger for a week.")
-          avatar.set({...$avatar, buffs: {...$avatar.buffs, strengthBuff: 7}})          
-      }
-
-    }
 
 
     const insuranceInfoHandler = () => {
@@ -53,9 +32,6 @@
       
     }
 
-    const skipdayHandler = () => {
-      avatar.changeStats([{type: 'day', value: 1}])
-    }
 
     const recoverKidneyHandler = () => {
       showOptions = false
@@ -67,56 +43,49 @@
   
   
   {#if showOptions}
-  {#if options === 0}
-    <ScenarioOption 
-      unlocked={true} 
-      text="Inquire about an insurance plan." 
-      eventHandler={() => insuranceInfoHandler()}
-    />
-    {#if $avatar.unlocks.bankRobbery === 1}
+    {#if options === 0}
       <ScenarioOption 
         unlocked={true} 
-        text="Initiate bank robbery." 
-        eventHandler={() => bankRobberyHandler()}
+        text="Inquire about an insurance plan." 
+        eventHandler={() => insuranceInfoHandler()}
       />
-    {/if}
-    {#if $avatar.unlocks.missingKidney > 0}
+      {#if $avatar.unlocks.bankRobbery === 1}
+        <ScenarioOption 
+          unlocked={true} 
+          text="Initiate bank robbery." 
+          eventHandler={() => bankRobberyHandler()}
+        />
+      {/if}
+      {#if $avatar.unlocks.missingKidney > 0}
+        <ScenarioOption 
+          unlocked={true} 
+          text="Threaten the insurance agent to tell him who took your kidney." 
+          eventHandler={() => recoverKidneyHandler()}
+        /> 
+      {/if}
+    {:else if options === 1}
       <ScenarioOption 
         unlocked={true} 
-        text="Threaten the insurance agent to tell him who took your kidney." 
-        eventHandler={() => recoverKidneyHandler()}
-      /> 
-    {/if}
-  {:else if options === 1}
-    <ScenarioOption 
-      unlocked={true} 
-      text="Get the free Health Plan (0$/week)." 
-      eventHandler={() => healthplanHandler(1)}
-    />
-    <ScenarioOption 
-      unlocked={true} 
-      text="Get the Premium Health Plan (50$/week)." 
-      eventHandler={() => healthplanHandler(2)}
-    />
-    <ScenarioOption 
-      unlocked={true} 
-      text="Get the Platinum Health Plan (150$/week)." 
-      eventHandler={() => healthplanHandler(3)}
-    />
-    <ScenarioOption 
-      unlocked={true} 
-      text="Go back." 
-      eventHandler={() => options = 0}
-    />
-    
-  {/if}
-    <div class="options-container">
-      <ScenarioOption 
-        unlocked={true} 
-        text="STRENGTH: Go for a workout ($20)" 
-        eventHandler={() => skipdayHandler()}
+        text="Get the free Health Plan (0$/week)." 
+        eventHandler={() => healthplanHandler(1)}
       />
-    </div>           
+      <ScenarioOption 
+        unlocked={true} 
+        text="Get the Premium Health Plan (50$/week)." 
+        eventHandler={() => healthplanHandler(2)}
+      />
+      <ScenarioOption 
+        unlocked={true} 
+        text="Get the Platinum Health Plan (150$/week)." 
+        eventHandler={() => healthplanHandler(3)}
+      />
+      <ScenarioOption 
+        unlocked={true} 
+        text="Go back." 
+        eventHandler={() => options = 0}
+      />
+      
+    {/if}      
   {/if}      
   
   <style>

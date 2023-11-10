@@ -209,7 +209,7 @@
 	.content-box::-webkit-scrollbar-track {
 		background-color: #F48C06 ;
 		color: transparent;
-		margin: 2rem 0rem 6rem 0rem;
+		margin: 2rem 0rem 2rem 0rem;
 		border-radius: 2rem;
 	}
   	.content-box::-webkit-scrollbar-thumb {

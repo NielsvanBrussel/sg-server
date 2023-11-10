@@ -1,9 +1,12 @@
 <script>
-    import { avatar, menuActive, activeScenario, playerPosition, map } from '../stores.js';
+    import { avatar, menuActive, activeScenario, playerPosition, map, armoredCar, partyVan, cultDrugs } from '../stores.js';
     import TextButton from './core/TextButton.svelte';
 
     const backToMenu = () => {
         avatar.reset()
+        armoredCar.set({ day: null, location: "", type: "" })
+        partyVan.set(false)
+        cultDrugs.set({drugs: null, value: null, text: ""})
         activeScenario.reset()
         menuActive.set(true)
     }

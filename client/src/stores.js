@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 import { locations_map1, locations_map2 } from './components/Scenarios';
 import updateAchievement from './utility/updateAchievement';
 import achievementsData from './utility/achievements';
@@ -9,6 +9,8 @@ export const newGame = writable(true);
 export const playerPosition = writable(-13500)
 export const armoredCar = writable({ day: null, location: "", type: "" })
 export const partyVan = writable(false)
+export const cultDrugs = writable({drugs: null, value: null, text: ""})
+export const steroidTreatment = writable(0)
 export const achievementPopup = writable({ id: null, title: null, description: null })
 
 
@@ -313,6 +315,18 @@ function createAvatar() {
 
                             if (partyVan) {
                                 partyVan.set(false)
+                            }
+
+                            // steroid treatment increase if appointment is made, reset if appointment is missed
+
+                            const steroidTreatmentValue = get(steroidTreatment)
+
+                            console.log(steroidTreatmentValue)
+
+                            if (steroidTreatmentValue === 1) {
+                                steroidTreatment.set(2)
+                            } else if (steroidTreatmentValue === 2) {
+                                steroidTreatment.set(0) 
                             }
 
                             // increase values if this event is ongoing (billy dealing drugs @3+ and weed growing in gardens @1+)

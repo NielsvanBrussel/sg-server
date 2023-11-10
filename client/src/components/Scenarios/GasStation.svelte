@@ -69,14 +69,14 @@
         <ShopItem 
             changeIntroText={changeIntroText} 
             item={inventoryItems.oil} 
-            price={50} 
+            price={30} 
             locked={false} 
             description="Can of basic motoroil"
         />
         <ShopItem 
             changeIntroText={changeIntroText} 
             item={inventoryItems.antifreeze} 
-            price={50} 
+            price={35} 
             locked={false} 
             description="Jug of antifreeze"
         />         

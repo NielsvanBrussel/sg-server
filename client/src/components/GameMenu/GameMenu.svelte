@@ -1,5 +1,5 @@
 <script>
-    import { authenticated, avatar, menuActive, activeScenario, playerPosition, map } from '../../stores.js';
+    import { authenticated, avatar, menuActive, activeScenario, playerPosition, map, armoredCar, partyVan, cultDrugs } from '../../stores.js';
     import axios from 'axios'
     import SaveGame from './SaveGame.svelte';
     import LoadGame from './LoadGame.svelte';
@@ -42,6 +42,9 @@
                 localStorage.setItem('token', '')
                 authenticated.set(false)
                 avatar.reset()
+                armoredCar.set({ day: null, location: "", type: "" })
+                partyVan.set(false)
+                cultDrugs.set({drugs: null, value: null, text: ""})
                 activeScenario.reset()
                 menuActive.set(true)
             }

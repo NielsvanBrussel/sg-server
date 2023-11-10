@@ -1,5 +1,5 @@
 <script>
-    import { activeScenario, avatar, map, playerPosition } from "../../stores";
+    import { activeScenario, avatar, map, playerPosition, steroidTreatment } from "../../stores";
     import inventoryItems from "../../utility/inventoryItems";
     import ScenarioOption from "../core/ScenarioOption.svelte";
     import Motel from "./Motel.svelte";
@@ -64,7 +64,6 @@
     const stealHandler = () => {
 
         const rng = Math.random() + (0.02 * $avatar.stats.luck)
-        avatar.changeStats([{type: 'day', value: 1}])
         showOptions = false 
 
         // 2 possible outcomes (combat & success)
@@ -79,8 +78,6 @@
                 setCombatMode(1)
             }, 3000);
         }
-
-
     }
 
     const vendingMachineHandler = () => {
@@ -102,6 +99,26 @@
         }, 3000);
     }
 
+    const scheduleHandler = () => {
+        showOptions = false
+        changeIntroText("You now have an appointment for a steroid treatment tomorrow.")
+        steroidTreatment.set(1)
+        setTimeout(() => {
+            showOptions = true
+        }, 3000);
+    }
+
+    const steroidTreatmentHandler = () => {
+        showOptions = false
+        changeIntroText("A doctor injected you with grade A steroids. You will feel stronger for a week.")
+        avatar.set({...$avatar, buffs: {...$avatar.buffs, strengthBuff: 7}})
+        steroidTreatment.set(0)
+        avatar.changeStats([{type: 'day', value: 1}])
+        setTimeout(() => {
+            showOptions = true
+        }, 3000);
+    }
+
 
 </script>
 
@@ -110,9 +127,21 @@
         {#if options === 0} 
             <ScenarioOption 
                 unlocked={$avatar.unlocks.insurance > 0 && $avatar.unlocks.missingKidney === 0} 
-                text="Heal (requires health insurance)" 
+                text="Heal. (requires health insurance)" 
                 eventHandler={() => healHandler()}
             />
+            <ScenarioOption 
+                unlocked={$avatar.unlocks.insurance > 1 && $steroidTreatment === 0} 
+                text="Schedule a steroid treatment for the next day. (requires Premium or Platinum Health Plan)" 
+                eventHandler={() => scheduleHandler()}
+            />
+            {#if $steroidTreatment === 2}
+            <ScenarioOption 
+                unlocked={true} 
+                text="Go to your steroid treatment appointment." 
+                eventHandler={() => steroidTreatmentHandler()}
+            />
+            {/if}
             {#if $avatar.unlocks.missingKidney === 2 && organs}
                 <ScenarioOption 
                     unlocked={true} 

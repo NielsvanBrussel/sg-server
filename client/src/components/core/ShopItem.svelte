@@ -27,7 +27,7 @@
                 <div class="button-container">
                     <button class="inactive-button-nav">buy</button>
                 </div>
-                <h3 class="locked-text">locked</h3>    
+                <h3 class="locked-text">out of stock</h3>    
             </div>
             <h4>${price}</h4>
             <p>{description}</p>       
