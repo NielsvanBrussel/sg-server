@@ -148,7 +148,7 @@
 						</div>
 						<div class="stats-flex">
 							<p class="stats-title">hitpoints: </p>
-							<p class={activeCharacter.stats.maxHitpoints > 25 ? "stats-green" : activeCharacter.stats.maxHitpoints < 25 ? "stats-red" : "stats-default"}>{activeCharacter.stats.maxHitpoints}</p>
+							<p class={activeCharacter.stats.currentHitpoints > 25 ? "stats-green" : activeCharacter.stats.currentHitpoints < 25 ? "stats-red" : "stats-default"}>{activeCharacter.stats.currentHitpoints}</p>
 						</div>
 					</div>
 				</div>
