@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const User = require('./User')
 
 
+
 const StatsSchema = new mongoose.Schema({
     maxHitpoints: {
         type: Number, 
